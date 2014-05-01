@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ATSCEModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ATSCEEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="CodeTables" EntityType="ATSCEModel.CodeTable" />
+    <EntitySet Name="Companies" EntityType="ATSCEModel.Company" />
+  </EntityContainer>
+  <EntityType Name="CodeTable">
+    <Key>
+      <PropertyRef Name="CodeTableId" />
+    </Key>
+    <Property Name="CodeTableId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupCode" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="Code" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="CodeDesc" Type="String" MaxLength="257" Unicode="true" FixedLength="false" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="Remarks" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Status" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyDescription" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+  </EntityType>
+</Schema>

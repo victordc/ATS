@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ATSModelStoreContainer" CdmEntityContainer="ATSEntities">
+    <EntitySetMapping Name="CodeTables">
+      <EntityTypeMapping TypeName="ATSModel.CodeTable">
+        <MappingFragment StoreEntitySet="CodeTables">
+          <ScalarProperty Name="CodeTableId" ColumnName="CodeTableId" />
+          <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="CodeDesc" ColumnName="CodeDesc" />
+          <ScalarProperty Name="EffectiveStartDate" ColumnName="EffectiveStartDate" />
+          <ScalarProperty Name="EffectiveEndDate" ColumnName="EffectiveEndDate" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ObjectAccesses">
+      <EntityTypeMapping TypeName="ATSModel.ObjectAccess">
+        <MappingFragment StoreEntitySet="ObjectAccesses">
+          <ScalarProperty Name="ObjectAccessId" ColumnName="ObjectAccessId" />
+          <ScalarProperty Name="Controller" ColumnName="Controller" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="AccessTpe" ColumnName="AccessTpe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

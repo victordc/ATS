@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ATSModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ATSEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="CodeTables" EntityType="ATSModel.CodeTable" />
+    <EntitySet Name="ObjectAccesses" EntityType="ATSModel.ObjectAccess" />
+  </EntityContainer>
+  <EntityType Name="CodeTable">
+    <Key>
+      <PropertyRef Name="CodeTableId" />
+    </Key>
+    <Property Name="CodeTableId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupCode" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="Code" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="CodeDesc" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="EffectiveStartDate" Type="DateTime" Precision="3" />
+    <Property Name="EffectiveEndDate" Type="DateTime" Precision="3" />
+    <Property Name="Remarks" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ObjectAccess">
+    <Key>
+      <PropertyRef Name="ObjectAccessId" />
+    </Key>
+    <Property Name="ObjectAccessId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Controller" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Action" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Role" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="AccessTpe" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+  </EntityType>
+</Schema>

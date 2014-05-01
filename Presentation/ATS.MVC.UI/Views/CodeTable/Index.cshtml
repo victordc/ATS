@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ATS.Data.Model.CodeTable>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<hgroup class="title">
+    <h3>Maintain Code Table</h3>
+</hgroup>
+<hr/>
+<p>
+    @Html.ActionLink("Add New", "Create", "CodeTable",null,new { @class = "btn btn-primary" })
+</p>
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Group Code</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.GroupCode</td>
+            <td>@item.Code</td>
+            <td>@item.CodeDesc</td>
+            <td>@Html.ActionLink("Edit", "Edit", "CodeTable", new { id = item.CodeTableId }, new { @class = "btn btn-mini btn-primary" })
+                @Html.ActionLink("Delete", "Index", "CodeTable",new { id = item.CodeTableId },new { @class = "btn btn-mini btn-danger" })
+            </td>
+        </tr>
+        }
+        </tbody>
+</table>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ATSCEModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ATSCEModelStoreContainer">
+    <EntitySet Name="CodeTables" EntityType="ATSCEModel.Store.CodeTables" store:Type="Tables" />
+    <EntitySet Name="Companies" EntityType="ATSCEModel.Store.Companies" store:Type="Tables" />
+  </EntityContainer>
+  <EntityType Name="CodeTables">
+    <Key>
+      <PropertyRef Name="CodeTableId" />
+    </Key>
+    <Property Name="CodeTableId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="GroupCode" Type="nvarchar" MaxLength="128" />
+    <Property Name="Code" Type="nvarchar" MaxLength="128" />
+    <Property Name="CodeDesc" Type="nvarchar" MaxLength="257" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+    <Property Name="Status" Type="nchar" MaxLength="1" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Companies">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyDescription" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ATSModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ATSModelStoreContainer">
+    <EntitySet Name="CodeTables" EntityType="ATSModel.Store.CodeTables" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ObjectAccesses" EntityType="ATSModel.Store.ObjectAccesses" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="CodeTables">
+    <Key>
+      <PropertyRef Name="CodeTableId" />
+    </Key>
+    <Property Name="CodeTableId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="GroupCode" Type="nvarchar" MaxLength="128" />
+    <Property Name="Code" Type="nvarchar" MaxLength="128" />
+    <Property Name="CodeDesc" Type="nvarchar" MaxLength="256" />
+    <Property Name="EffectiveStartDate" Type="datetime" />
+    <Property Name="EffectiveEndDate" Type="datetime" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="ObjectAccesses">
+    <Key>
+      <PropertyRef Name="ObjectAccessId" />
+    </Key>
+    <Property Name="ObjectAccessId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Controller" Type="nvarchar" MaxLength="50" />
+    <Property Name="Action" Type="nvarchar" MaxLength="50" />
+    <Property Name="Role" Type="nvarchar" MaxLength="50" />
+    <Property Name="AccessTpe" Type="char" MaxLength="1" />
+  </EntityType>
+</Schema>
