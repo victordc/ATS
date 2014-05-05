@@ -4,9 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4adb2f711877418080ca4e1d6a0143b7" Name="Diagram1">
+      <Diagram DiagramId="4adb2f711877418080ca4e1d6a0143b7" Name="Diagram1" ZoomLevel="83">
         <EntityTypeShape EntityType="ATSCEModel.CodeTable" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ATSCEModel.Company" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ATSCEModel.LeaveCategory" Width="1.5" PointX="4.25" PointY="5" />
+        <EntityTypeShape EntityType="ATSCEModel.LeavePlan" Width="1.5" PointX="9" PointY="2" />
+        <AssociationConnector Association="ATSCEModel.LeaveCategory__LeavePlan" />
+        <EntityTypeShape EntityType="ATSCEModel.Person" Width="1.5" PointX="1.0745228552606529" PointY="10.208993618473873" />
+        <AssociationConnector Association="ATSCEModel.Leave__Person" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

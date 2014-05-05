@@ -28,5 +28,39 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="LeaveCategories">
+      <EntityTypeMapping TypeName="ATSCEModel.LeaveCategory">
+        <MappingFragment StoreEntitySet="LeaveCategories">
+          <ScalarProperty Name="LeaveCategoryDesc" ColumnName="LeaveCategoryDesc" />
+          <ScalarProperty Name="LeaveCategoryId" ColumnName="LeaveCategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LeavePlans">
+      <EntityTypeMapping TypeName="ATSCEModel.LeavePlan">
+        <MappingFragment StoreEntitySet="LeavePlan">
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="LeaveCategoryId" ColumnName="LeaveCategoryId" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="LeavePlanId" ColumnName="LeavePlanId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Persons">
+      <EntityTypeMapping TypeName="ATSCEModel.Person">
+        <MappingFragment StoreEntitySet="Persons">
+          <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="SupervisorId" ColumnName="SupervisorId" />
+          <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+          <ScalarProperty Name="PersonCategoryId" ColumnName="PersonCategoryId" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

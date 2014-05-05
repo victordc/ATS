@@ -27,5 +27,8 @@ namespace ATS.Data.Model
     
         public DbSet<CodeTable> CodeTables { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<LeaveCategory> LeaveCategories { get; set; }
+        public DbSet<LeavePlan> LeavePlans { get; set; }
+        public DbSet<Person> Persons { get; set; }
     }
 }

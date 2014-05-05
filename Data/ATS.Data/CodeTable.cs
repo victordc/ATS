@@ -34,7 +34,7 @@ namespace ATS.Data.Model
                         result = "Record is not saved";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Log Exception here.
                 throw new Exception("Record is not saved");

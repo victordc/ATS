@@ -165,6 +165,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CodeTableController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LeavePlanController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -241,6 +242,11 @@
     <Content Include="Views\CodeTable\Create.cshtml" />
     <Content Include="Views\CodeTable\Edit.cshtml" />
     <Content Include="Views\CodeTable\Delete.cshtml" />
+    <Content Include="Views\LeavePlan\Index.cshtml" />
+    <Content Include="Views\LeavePlan\Details.cshtml" />
+    <Content Include="Views\LeavePlan\Create.cshtml" />
+    <Content Include="Views\LeavePlan\Edit.cshtml" />
+    <Content Include="Views\LeavePlan\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

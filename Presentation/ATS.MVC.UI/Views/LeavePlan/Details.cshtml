@@ -1,0 +1,50 @@
+﻿@model ATS.Data.Model.LeavePlan
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>LeavePlan</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Person.PersonName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Person.PersonName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LeaveCategory.LeaveCategoryDesc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LeaveCategory.LeaveCategoryDesc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StartDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StartDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EndDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EndDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Duration)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Duration)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.LeavePlanId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

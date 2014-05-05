@@ -1,0 +1,66 @@
+﻿@model ATS.Data.Model.LeavePlan
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>LeavePlan</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PersonId, "Person", new { @class = "control-label" })
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PersonId", String.Empty)
+            @Html.ValidationMessageFor(model => model.PersonId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LeaveCategoryId, "LeaveCategory", new { @class = "control-label" })
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("LeaveCategoryId", String.Empty)
+            @Html.ValidationMessageFor(model => model.LeaveCategoryId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartDate, new { @class = "control-label" })
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartDate)
+            @Html.ValidationMessageFor(model => model.StartDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EndDate, new { @class = "control-label" })
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EndDate)
+            @Html.ValidationMessageFor(model => model.EndDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Duration, new { @class = "control-label" })
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Duration)
+            @Html.ValidationMessageFor(model => model.Duration)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" class="btn btn-primary" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

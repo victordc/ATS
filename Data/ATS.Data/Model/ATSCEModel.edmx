@@ -4,10 +4,21 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ATSCEModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ATSCEModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="ATSCEModelStoreContainer">
           <EntitySet Name="CodeTables" EntityType="ATSCEModel.Store.CodeTables" store:Type="Tables" />
           <EntitySet Name="Companies" EntityType="ATSCEModel.Store.Companies" store:Type="Tables" />
+          <EntitySet Name="LeaveCategories" EntityType="ATSCEModel.Store.LeaveCategories" store:Type="Tables" />
+          <EntitySet Name="LeavePlan" EntityType="ATSCEModel.Store.LeavePlan" store:Type="Tables" />
+          <EntitySet Name="Persons" EntityType="ATSCEModel.Store.Persons" store:Type="Tables" />
+          <AssociationSet Name="Leave__Person" Association="ATSCEModel.Store.Leave__Person">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="LeavePlan" EntitySet="LeavePlan" />
+          </AssociationSet>
+          <AssociationSet Name="LeaveCategory__LeavePlan" Association="ATSCEModel.Store.LeaveCategory__LeavePlan">
+            <End Role="LeaveCategories" EntitySet="LeaveCategories" />
+            <End Role="LeavePlan" EntitySet="LeavePlan" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CodeTables">
           <Key>
@@ -34,14 +45,79 @@
           <Property Name="CompanyDescription" Type="nvarchar" MaxLength="100" />
           <Property Name="Address" Type="nvarchar" MaxLength="100" />
         </EntityType>
-      </Schema>
-    </edmx:StorageModels>
+        <EntityType Name="LeaveCategories">
+          <Key>
+            <PropertyRef Name="LeaveCategoryId" />
+          </Key>
+          <Property Name="LeaveCategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LeaveCategoryDesc" Type="nvarchar" Nullable="false" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="LeavePlan">
+          <Key>
+            <PropertyRef Name="LeavePlanId" />
+          </Key>
+          <Property Name="LeavePlanId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="LeaveCategoryId" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="Duration" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Persons">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="PersonCategoryId" Type="int" Nullable="false" />
+          <Property Name="AgentId" Type="int" />
+          <Property Name="SupervisorId" Type="int" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="10" />
+          <Property Name="HomeAddress" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <Association Name="Leave__Person">
+          <End Role="Persons" Type="ATSCEModel.Store.Persons" Multiplicity="1" />
+          <End Role="LeavePlan" Type="ATSCEModel.Store.LeavePlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="LeavePlan">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LeaveCategory__LeavePlan">
+          <End Role="LeaveCategories" Type="ATSCEModel.Store.LeaveCategories" Multiplicity="1" />
+          <End Role="LeavePlan" Type="ATSCEModel.Store.LeavePlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveCategories">
+              <PropertyRef Name="LeaveCategoryId" />
+            </Principal>
+            <Dependent Role="LeavePlan">
+              <PropertyRef Name="LeaveCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ATSCEModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ATSCEEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="CodeTables" EntityType="ATSCEModel.CodeTable" />
           <EntitySet Name="Companies" EntityType="ATSCEModel.Company" />
+          <EntitySet Name="LeaveCategories" EntityType="ATSCEModel.LeaveCategory" />
+          <EntitySet Name="LeavePlans" EntityType="ATSCEModel.LeavePlan" />
+          <AssociationSet Name="LeaveCategory__LeavePlan" Association="ATSCEModel.LeaveCategory__LeavePlan">
+            <End Role="LeaveCategory" EntitySet="LeaveCategories" />
+            <End Role="LeavePlan" EntitySet="LeavePlans" />
+          </AssociationSet>
+          <EntitySet Name="Persons" EntityType="ATSCEModel.Person" />
+          <AssociationSet Name="Leave__Person" Association="ATSCEModel.Leave__Person">
+            <End Role="Person" EntitySet="Persons" />
+            <End Role="LeavePlan" EntitySet="LeavePlans" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CodeTable">
           <Key>
@@ -68,6 +144,65 @@
           <Property Name="CompanyDescription" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="Address" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
         </EntityType>
+        <EntityType Name="LeaveCategory">
+          <Key>
+            <PropertyRef Name="LeaveCategoryId" />
+          </Key>
+          <Property Type="Int32" Name="LeaveCategoryId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="LeaveCategoryDesc" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LeavePlans" Relationship="ATSCEModel.LeaveCategory__LeavePlan" FromRole="LeaveCategory" ToRole="LeavePlan" />
+        </EntityType>
+        <EntityType Name="LeavePlan">
+          <Key>
+            <PropertyRef Name="LeavePlanId" />
+          </Key>
+          <Property Type="Int32" Name="LeavePlanId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="PersonId" Nullable="false" />
+          <Property Type="Int32" Name="LeaveCategoryId" Nullable="false" />
+          <Property Type="DateTime" Name="StartDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="EndDate" Nullable="false" Precision="3" />
+          <Property Type="Double" Name="Duration" Nullable="false" />
+          <NavigationProperty Name="LeaveCategory" Relationship="ATSCEModel.LeaveCategory__LeavePlan" FromRole="LeavePlan" ToRole="LeaveCategory" />
+          <NavigationProperty Name="Person" Relationship="ATSCEModel.Leave__Person" FromRole="LeavePlan" ToRole="Person" />
+        </EntityType>
+        <Association Name="LeaveCategory__LeavePlan">
+          <End Type="ATSCEModel.LeaveCategory" Role="LeaveCategory" Multiplicity="1" />
+          <End Type="ATSCEModel.LeavePlan" Role="LeavePlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveCategory">
+              <PropertyRef Name="LeaveCategoryId" />
+            </Principal>
+            <Dependent Role="LeavePlan">
+              <PropertyRef Name="LeaveCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Type="Int32" Name="PersonId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="PersonName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyId" />
+          <Property Type="Int32" Name="PersonCategoryId" Nullable="false" />
+          <Property Type="Int32" Name="AgentId" />
+          <Property Type="Int32" Name="SupervisorId" />
+          <Property Type="String" Name="Phone" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HomeAddress" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LeavePlans" Relationship="ATSCEModel.Leave__Person" FromRole="Person" ToRole="LeavePlan" />
+        </EntityType>
+        <Association Name="Leave__Person">
+          <End Type="ATSCEModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="ATSCEModel.LeavePlan" Role="LeavePlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="LeavePlan">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -98,6 +233,40 @@
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="CompanyDescription" ColumnName="CompanyDescription" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveCategories">
+            <EntityTypeMapping TypeName="ATSCEModel.LeaveCategory">
+              <MappingFragment StoreEntitySet="LeaveCategories">
+                <ScalarProperty Name="LeaveCategoryDesc" ColumnName="LeaveCategoryDesc" />
+                <ScalarProperty Name="LeaveCategoryId" ColumnName="LeaveCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeavePlans">
+            <EntityTypeMapping TypeName="ATSCEModel.LeavePlan">
+              <MappingFragment StoreEntitySet="LeavePlan">
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="LeaveCategoryId" ColumnName="LeaveCategoryId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="LeavePlanId" ColumnName="LeavePlanId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Persons">
+            <EntityTypeMapping TypeName="ATSCEModel.Person">
+              <MappingFragment StoreEntitySet="Persons">
+                <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="SupervisorId" ColumnName="SupervisorId" />
+                <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+                <ScalarProperty Name="PersonCategoryId" ColumnName="PersonCategoryId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
