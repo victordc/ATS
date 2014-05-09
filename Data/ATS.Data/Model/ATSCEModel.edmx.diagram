@@ -4,14 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4adb2f711877418080ca4e1d6a0143b7" Name="Diagram1" ZoomLevel="83">
+      <Diagram DiagramId="4adb2f711877418080ca4e1d6a0143b7" Name="Diagram1" ZoomLevel="108">
         <EntityTypeShape EntityType="ATSCEModel.CodeTable" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ATSCEModel.Company" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ATSCEModel.LeaveCategory" Width="1.5" PointX="4.25" PointY="5" />
         <EntityTypeShape EntityType="ATSCEModel.LeavePlan" Width="1.5" PointX="9" PointY="2" />
         <AssociationConnector Association="ATSCEModel.LeaveCategory__LeavePlan" />
-        <EntityTypeShape EntityType="ATSCEModel.Person" Width="1.5" PointX="1.0745228552606529" PointY="10.208993618473873" />
+        <EntityTypeShape EntityType="ATSCEModel.Person" Width="1.5" PointX="1" PointY="10.25" />
         <AssociationConnector Association="ATSCEModel.Leave__Person" />
+        <EntityTypeShape EntityType="ATSCEModel.Staff" Width="1.5" PointX="5.875" PointY="10.5" />
+        <InheritanceConnector EntityType="ATSCEModel.Staff" />
+        <EntityTypeShape EntityType="ATSCEModel.Agent" Width="1.5" PointX="3.75" PointY="12.125" />
+        <InheritanceConnector EntityType="ATSCEModel.Agent" />
+        <EntityTypeShape EntityType="ATSCEModel.Supervisor" Width="1.5" PointX="1.125" PointY="13.625" />
+        <InheritanceConnector EntityType="ATSCEModel.Supervisor" />
+        <AssociationConnector Association="ATSCEModel.Staff__Agent" />
+        <AssociationConnector Association="ATSCEModel.Staff__Supervisor" />
+        <AssociationConnector Association="ATSCEModel.Supervisor__Company" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

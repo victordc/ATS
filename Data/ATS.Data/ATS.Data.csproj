@@ -62,9 +62,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agent.cs" />
     <Compile Include="CodeTable.cs" />
+    <Compile Include="Company.cs" />
+    <Compile Include="IPersonReporsitory.cs" />
     <Compile Include="LeaveCategoroy.cs" />
     <Compile Include="LeavePlan.cs" />
+    <Compile Include="Model\Agent.cs">
+      <DependentUpon>ATSCEModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\ATSCEModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,12 +101,21 @@
     <Compile Include="Model\Person.cs">
       <DependentUpon>ATSCEModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Staff.cs">
+      <DependentUpon>ATSCEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Supervisor.cs">
+      <DependentUpon>ATSCEModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Person.cs" />
+    <Compile Include="PersonRepository.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Staff.cs" />
+    <Compile Include="Supervisor.cs" />
     <Compile Include="TimesheetRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

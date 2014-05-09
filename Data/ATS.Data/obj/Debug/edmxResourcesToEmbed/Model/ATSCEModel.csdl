@@ -14,6 +14,18 @@
       <End Role="Person" EntitySet="Persons" />
       <End Role="LeavePlan" EntitySet="LeavePlans" />
     </AssociationSet>
+    <AssociationSet Name="Staff__Agent" Association="ATSCEModel.Staff__Agent">
+      <End Role="Agent" EntitySet="Persons" />
+      <End Role="Staff" EntitySet="Persons" />
+    </AssociationSet>
+    <AssociationSet Name="Staff__Supervisor" Association="ATSCEModel.Staff__Supervisor">
+      <End Role="Supervisor" EntitySet="Persons" />
+      <End Role="Staff" EntitySet="Persons" />
+    </AssociationSet>
+    <AssociationSet Name="Supervisor__Company" Association="ATSCEModel.Supervisor__Company">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Supervisor" EntitySet="Persons" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="CodeTable">
     <Key>
@@ -39,6 +51,7 @@
     <Property Name="CompanyId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
     <Property Name="CompanyDescription" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
     <Property Name="Address" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Supervisors" Relationship="ATSCEModel.Supervisor__Company" FromRole="Company" ToRole="Supervisor" />
   </EntityType>
   <EntityType Name="LeaveCategory">
     <Key>
@@ -73,16 +86,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="Person">
+  <EntityType Name="Person" Abstract="false">
     <Key>
       <PropertyRef Name="PersonId" />
     </Key>
     <Property Type="Int32" Name="PersonId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="PersonName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-    <Property Type="Int32" Name="CompanyId" />
-    <Property Type="Int32" Name="PersonCategoryId" Nullable="false" />
-    <Property Type="Int32" Name="AgentId" />
-    <Property Type="Int32" Name="SupervisorId" />
     <Property Type="String" Name="Phone" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="HomeAddress" MaxLength="256" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="LeavePlans" Relationship="ATSCEModel.Leave__Person" FromRole="Person" ToRole="LeavePlan" />
@@ -96,6 +105,58 @@
       </Principal>
       <Dependent Role="LeavePlan">
         <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Staff" BaseType="ATSCEModel.Person">
+    <Property Type="Int32" Name="AgentId" Nullable="true" />
+    <Property Type="Int32" Name="SupervisorId" Nullable="true" />
+    <NavigationProperty Name="Agent" Relationship="ATSCEModel.Staff__Agent" FromRole="Staff" ToRole="Agent" />
+    <NavigationProperty Name="Supervisor" Relationship="ATSCEModel.Staff__Supervisor" FromRole="Staff" ToRole="Supervisor" />
+  </EntityType>
+  <EntityType Name="Agent" BaseType="ATSCEModel.Person">
+    <Property Type="Int32" Name="SupervisorId" Nullable="true" />
+    <NavigationProperty Name="Staffs" Relationship="ATSCEModel.Staff__Agent" FromRole="Agent" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="Supervisor" BaseType="ATSCEModel.Person">
+    <Property Type="Int32" Name="CompanyId" />
+    <NavigationProperty Name="Staffs" Relationship="ATSCEModel.Staff__Supervisor" FromRole="Supervisor" ToRole="Staff" />
+    <NavigationProperty Name="Company" Relationship="ATSCEModel.Supervisor__Company" FromRole="Supervisor" ToRole="Company" />
+    <Property Type="Int32" Name="AgentId" Nullable="true" />
+  </EntityType>
+  <Association Name="Staff__Agent">
+    <End Type="ATSCEModel.Agent" Role="Agent" Multiplicity="0..1" />
+    <End Type="ATSCEModel.Staff" Role="Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agent">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Staff__Supervisor">
+    <End Type="ATSCEModel.Supervisor" Role="Supervisor" Multiplicity="0..1" />
+    <End Type="ATSCEModel.Staff" Role="Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supervisor">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="SupervisorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Supervisor__Company">
+    <End Type="ATSCEModel.Company" Role="Company" Multiplicity="0..1" />
+    <End Type="ATSCEModel.Supervisor" Role="Supervisor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Supervisor">
+        <PropertyRef Name="CompanyId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

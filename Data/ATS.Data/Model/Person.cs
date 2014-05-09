@@ -21,10 +21,6 @@ namespace ATS.Data.Model
     
         public int PersonId { get; set; }
         public string PersonName { get; set; }
-        public Nullable<int> CompanyId { get; set; }
-        public int PersonCategoryId { get; set; }
-        public Nullable<int> AgentId { get; set; }
-        public Nullable<int> SupervisorId { get; set; }
         public string Phone { get; set; }
         public string HomeAddress { get; set; }
     

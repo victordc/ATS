@@ -49,16 +49,45 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Persons">
-      <EntityTypeMapping TypeName="ATSCEModel.Person">
+      <EntityTypeMapping TypeName="IsTypeOf(ATSCEModel.Supervisor)">
         <MappingFragment StoreEntitySet="Persons">
-          <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
+          <ScalarProperty Name="PersonName" ColumnName="PersonName" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
+          <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <Condition ColumnName="PersonCategoryId" Value="1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ATSCEModel.Agent)">
+        <MappingFragment StoreEntitySet="Persons">
+          <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="SupervisorId" ColumnName="SupervisorId" />
+          <Condition ColumnName="PersonCategoryId" Value="2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ATSCEModel.Staff)">
+        <MappingFragment StoreEntitySet="Persons">
+          <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
           <ScalarProperty Name="SupervisorId" ColumnName="SupervisorId" />
           <ScalarProperty Name="AgentId" ColumnName="AgentId" />
-          <ScalarProperty Name="PersonCategoryId" ColumnName="PersonCategoryId" />
-          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-          <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+          <Condition ColumnName="PersonCategoryId" Value="3" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="ATSCEModel.Person">
+        <MappingFragment StoreEntitySet="Persons">
           <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
+          <Condition ColumnName="PersonCategoryId" Value="0" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

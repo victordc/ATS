@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ATS.Data.Model.Agent>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<hgroup class="title">
+    <h3>Maintain Agent</h3>
+</hgroup>
+<hr/>
+<p>
+    @Html.ActionLink("Add New", "Create", "Agent",null,new { @class = "btn btn-primary" })
+</p>
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.PersonId)</th>
+            <th>@Html.DisplayNameFor(model => model.PersonName)</th>
+            <th>@Html.DisplayNameFor(model => model.SupervisorId)</th>
+            <th>@Html.DisplayNameFor(model => model.Phone)</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.PersonId)</td>
+            <td>@Html.DisplayFor(modelItem => item.PersonName)</td>
+            <td>@Html.DisplayFor(modelItem => item.SupervisorId)</td>
+            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+            
+            <td>@Html.ActionLink("Edit", "Edit", new { id = item.PersonId }, new { @class = "btn btn-mini btn-primary" })
+                @Html.ActionLink("Details", "Details", new { id=item.PersonId },new { @class = "btn btn-mini btn-primary" }) 
+                @Html.ActionLink("Delete", "Delete",new { id = item.PersonId },new { @class = "btn btn-mini btn-danger" })
+            </td>
+        </tr>
+        }
+        </tbody>
+</table>

@@ -6,6 +6,18 @@
     <EntitySet Name="LeaveCategories" EntityType="ATSCEModel.Store.LeaveCategories" store:Type="Tables" />
     <EntitySet Name="LeavePlan" EntityType="ATSCEModel.Store.LeavePlan" store:Type="Tables" />
     <EntitySet Name="Persons" EntityType="ATSCEModel.Store.Persons" store:Type="Tables" />
+    <AssociationSet Name="FK_Staff_Agent" Association="ATSCEModel.Store.FK_Staff_Agent">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="Persons1" EntitySet="Persons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Staff_Supervisor" Association="ATSCEModel.Store.FK_Staff_Supervisor">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="Persons1" EntitySet="Persons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Supervisor_Company" Association="ATSCEModel.Store.FK_Supervisor_Company">
+      <End Role="Companies" EntitySet="Companies" />
+      <End Role="Persons" EntitySet="Persons" />
+    </AssociationSet>
     <AssociationSet Name="Leave__Person" Association="ATSCEModel.Store.Leave__Person">
       <End Role="Persons" EntitySet="Persons" />
       <End Role="LeavePlan" EntitySet="LeavePlan" />
@@ -71,6 +83,42 @@
     <Property Name="Phone" Type="nvarchar" MaxLength="10" />
     <Property Name="HomeAddress" Type="nvarchar" MaxLength="256" />
   </EntityType>
+  <Association Name="FK_Staff_Agent">
+    <End Role="Persons" Type="ATSCEModel.Store.Persons" Multiplicity="0..1" />
+    <End Role="Persons1" Type="ATSCEModel.Store.Persons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persons">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Persons1">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Staff_Supervisor">
+    <End Role="Persons" Type="ATSCEModel.Store.Persons" Multiplicity="0..1" />
+    <End Role="Persons1" Type="ATSCEModel.Store.Persons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persons">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Persons1">
+        <PropertyRef Name="SupervisorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Supervisor_Company">
+    <End Role="Companies" Type="ATSCEModel.Store.Companies" Multiplicity="0..1" />
+    <End Role="Persons" Type="ATSCEModel.Store.Persons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Companies">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Persons">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="Leave__Person">
     <End Role="Persons" Type="ATSCEModel.Store.Persons" Multiplicity="1" />
     <End Role="LeavePlan" Type="ATSCEModel.Store.LeavePlan" Multiplicity="*" />

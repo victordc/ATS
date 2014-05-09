@@ -14,8 +14,15 @@ namespace ATS.Data.Model
     
     public partial class Company
     {
+        public Company()
+        {
+            this.Supervisors = new HashSet<Supervisor>();
+        }
+    
         public int CompanyId { get; set; }
         public string CompanyDescription { get; set; }
         public string Address { get; set; }
+    
+        public virtual ICollection<Supervisor> Supervisors { get; set; }
     }
 }

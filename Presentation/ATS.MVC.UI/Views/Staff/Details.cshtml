@@ -1,0 +1,40 @@
+﻿@model ATS.Data.Model.Staff
+
+@{
+    ViewBag.Title = "Staff Details";
+}
+
+<h2>Staff Details</h2>
+<table class="table table-stripe table-condensed">
+    <tbody>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.PersonId)</th>
+        <td>@Html.DisplayFor(model => model.PersonId)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.PersonName)</th>
+        <td>@Html.DisplayFor(model => model.PersonName)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Phone)</th>
+        <td>@Html.DisplayFor(model => model.Phone)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.HomeAddress)</th>
+        <td>@Html.DisplayFor(model => model.HomeAddress)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.AgentId)</th>
+        <td>@Html.DisplayFor(model => model.Agent.PersonName)</td>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.SupervisorId)</th>
+        <td>@Html.DisplayFor(model => model.Supervisor.PersonName)</td>
+    </tr>
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.PersonId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

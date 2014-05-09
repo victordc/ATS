@@ -1,0 +1,60 @@
+﻿@model ATS.Data.Model.Agent
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Agent</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PersonName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PersonName)
+            @Html.ValidationMessageFor(model => model.PersonName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Phone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Phone)
+            @Html.ValidationMessageFor(model => model.Phone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HomeAddress)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HomeAddress)
+            @Html.ValidationMessageFor(model => model.HomeAddress)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SupervisorId)
+        </div>
+        <div class="editor-field">
+              @Html.DropDownList("SupervisorId", String.Empty)
+            @Html.ValidationMessageFor(model => model.SupervisorId)
+        </div>
+        
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
