@@ -30,6 +30,11 @@ namespace ATS.Data
             return LeavePlan.GetAll();
         }
 
+        public static IEnumerable<LeavePlan> GetLeavePlansByMonth(int month, int year)
+        {
+            return LeavePlan.GetByMonth(month, year);
+        }
+
         public static LeavePlan AddUpdateLeavePlan(LeavePlan leavePlan)
         {
             return LeavePlan.Save(leavePlan);
@@ -54,8 +59,6 @@ namespace ATS.Data
         {
             return Person.GetAll();
         }
-
-        
 
     }
 }

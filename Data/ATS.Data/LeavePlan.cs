@@ -55,6 +55,14 @@ namespace ATS.Data.Model
             return context.LeavePlans.Include(l => l.LeaveCategory).Include(l => l.Person);
         }
 
+        public static IEnumerable<LeavePlan> GetByMonth(int month, int year)
+        {
+            DateTime firstDay = new DateTime(year, month, 1);
+            DateTime lastDay = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+            ATSCEEntities context = new ATSCEEntities();
+            return context.LeavePlans.Where(l => (l.StartDate <= lastDay && l.EndDate >= firstDay));
+        }
+
         public static bool Delete(int leavePlanId)
         {
             try
