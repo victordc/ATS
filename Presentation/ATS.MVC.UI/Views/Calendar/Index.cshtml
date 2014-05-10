@@ -1,0 +1,82 @@
+﻿@model IEnumerable<ATS.Data.Model.LeavePlan>
+
+@{
+    ViewBag.Title = "Index";
+}
+<hgroup class="title">
+    <h3>Existing Leaves (from LeavePlan)</h3>
+</hgroup>
+
+<table class="table table-striped table-bordered table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.PersonName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaveCategory.LeaveCategoryDesc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Person.PersonName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveCategory.LeaveCategoryDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-success" })
+                @Html.ActionLink("Edit", "Edit", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-primary" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-danger" })
+            </td>
+        </tr>
+    }
+</table>
+
+<div id="datepicker">
+    <h3>Work in progress...</h3>
+    <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
+</div>
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var dates = ['05/01/2014', '05/05/2014', '05/23/2014'];
+        var types = ['Annual', 'MC', 'Business'];
+
+        $("#datepicker").datepicker({
+            beforeShowDay: highlightDays,
+            //onChangeMonthYear: getLeaves(month, year)
+        });
+
+        function highlightDays(date) {
+            for (var i = 0; i < dates.length; i++) {
+                if (new Date(dates[i]).toString() == date.toString()) {
+                    return [true, 'ui-state-active', types[i]];
+                }
+            }
+            return [false, ''];
+        }
+    });
+</script>
