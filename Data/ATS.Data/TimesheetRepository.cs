@@ -60,5 +60,15 @@ namespace ATS.Data
             return Person.GetAll();
         }
 
+        public static TimeSheetDetail GetTimeSheetDetailById(int TimeSheetDetailId)
+        {
+            return TimeSheetDetail.GetById(TimeSheetDetailId);
+        }
+
+        public static IEnumerable<TimeSheetDetail> GetAllTimeSheetDetails()
+        {
+            return TimeSheetDetail.GetAll();
+        }
+
     }
 }

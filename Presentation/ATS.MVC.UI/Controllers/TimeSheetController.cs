@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ATS.Data.Model;
+using ATS.Data;
 
 namespace ATS.MVC.UI.Controllers
 {
@@ -13,7 +15,8 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var timeSheetDetails = TimesheetRepository.GetAllTimeSheetDetails();
+            return View(timeSheetDetails.ToList());
         }
 
         //
