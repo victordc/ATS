@@ -26,6 +26,24 @@
       <End Role="Company" EntitySet="Companies" />
       <End Role="Supervisor" EntitySet="Persons" />
     </AssociationSet>
+    <EntitySet Name="TimeSheetDetails" EntityType="ATSCEModel.TimeSheetDetail" />
+    <EntitySet Name="TimeSheetMasters" EntityType="ATSCEModel.TimeSheetMaster" />
+    <AssociationSet Name="TimeSheetMasterTimeSheetDetail" Association="ATSCEModel.TimeSheetMasterTimeSheetDetail">
+      <End Role="TimeSheetMaster" EntitySet="TimeSheetMasters" />
+      <End Role="TimeSheetDetail" EntitySet="TimeSheetDetails" />
+    </AssociationSet>
+    <AssociationSet Name="TimeSheetMasterPerson" Association="ATSCEModel.TimeSheetMasterPerson">
+      <End Role="TimeSheetMaster" EntitySet="TimeSheetMasters" />
+      <End Role="Person" EntitySet="Persons" />
+    </AssociationSet>
+    <AssociationSet Name="TimeSheetMasterCompany" Association="ATSCEModel.TimeSheetMasterCompany">
+      <End Role="TimeSheetMaster" EntitySet="TimeSheetMasters" />
+      <End Role="Company" EntitySet="Companies" />
+    </AssociationSet>
+    <AssociationSet Name="TimeSheetMasterSupervisor" Association="ATSCEModel.TimeSheetMasterSupervisor">
+      <End Role="TimeSheetMaster" EntitySet="TimeSheetMasters" />
+      <End Role="Supervisor" EntitySet="Persons" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="CodeTable">
     <Key>
@@ -157,6 +175,87 @@
       </Principal>
       <Dependent Role="Supervisor">
         <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TimeSheetDetail">
+    <Key>
+      <PropertyRef Name="TimeSheetDetailId" />
+    </Key>
+    <Property Name="TimeSheetDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TimeSheetMasterId" Type="Int32" Nullable="false" />
+    <Property Name="CalendarYearId" Type="Int32" Nullable="false" />
+    <Property Name="LeaveCategoryId" Type="Int32" />
+    <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Hour" Type="Single" Nullable="false" />
+    <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="SupportDocument1" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="SupportDocument2" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="SupportDocument3" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TimeSheetMaster" Relationship="ATSCEModel.TimeSheetMasterTimeSheetDetail" FromRole="TimeSheetDetail" ToRole="TimeSheetMaster" />
+  </EntityType>
+  <EntityType Name="TimeSheetMaster">
+    <Key>
+      <PropertyRef Name="TimeSheetMasterId" />
+    </Key>
+    <Property Name="TimeSheetMasterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PersonId" Type="Int32" Nullable="false" />
+    <Property Name="ManagerId" Type="Int32" />
+    <Property Name="AgencyId" Type="Int32" />
+    <Property Name="Month" Type="Int32" Nullable="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Remarks" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Person" Relationship="ATSCEModel.TimeSheetMasterPerson" FromRole="TimeSheetMaster" ToRole="Person" />
+    <NavigationProperty Name="Company" Relationship="ATSCEModel.TimeSheetMasterCompany" FromRole="TimeSheetMaster" ToRole="Company" />
+    <NavigationProperty Name="Supervisor" Relationship="ATSCEModel.TimeSheetMasterSupervisor" FromRole="TimeSheetMaster" ToRole="Supervisor" />
+  </EntityType>
+  <Association Name="TimeSheetMasterTimeSheetDetail">
+    <End Type="ATSCEModel.TimeSheetMaster" Role="TimeSheetMaster" Multiplicity="1" />
+    <End Type="ATSCEModel.TimeSheetDetail" Role="TimeSheetDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TimeSheetMaster">
+        <PropertyRef Name="TimeSheetMasterId" />
+      </Principal>
+      <Dependent Role="TimeSheetDetail">
+        <PropertyRef Name="TimeSheetMasterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TimeSheetMasterPerson">
+    <End Type="ATSCEModel.TimeSheetMaster" Role="TimeSheetMaster" Multiplicity="*" />
+    <End Type="ATSCEModel.Person" Role="Person" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="TimeSheetMaster">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TimeSheetMasterCompany">
+    <End Type="ATSCEModel.TimeSheetMaster" Role="TimeSheetMaster" Multiplicity="*" />
+    <End Type="ATSCEModel.Company" Role="Company" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="TimeSheetMaster">
+        <PropertyRef Name="AgencyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TimeSheetMasterSupervisor">
+    <End Type="ATSCEModel.TimeSheetMaster" Role="TimeSheetMaster" Multiplicity="*" />
+    <End Type="ATSCEModel.Supervisor" Role="Supervisor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Supervisor">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="TimeSheetMaster">
+        <PropertyRef Name="ManagerId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

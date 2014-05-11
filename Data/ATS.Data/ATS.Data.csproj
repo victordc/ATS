@@ -107,6 +107,12 @@
     <Compile Include="Model\Supervisor.cs">
       <DependentUpon>ATSCEModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\TimeSheetDetail.cs">
+      <DependentUpon>ATSCEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TimeSheetMaster.cs">
+      <DependentUpon>ATSCEModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Person.cs" />
     <Compile Include="PersonRepository.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -116,6 +122,8 @@
     </Compile>
     <Compile Include="Staff.cs" />
     <Compile Include="Supervisor.cs" />
+    <Compile Include="TimeSheetDetail.cs" />
+    <Compile Include="TimeSheetMaster.cs" />
     <Compile Include="TimesheetRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

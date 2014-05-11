@@ -1,37 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="ATSCEModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="ATSCEModelStoreContainer">
-    <EntitySet Name="CodeTables" EntityType="ATSCEModel.Store.CodeTables" store:Type="Tables" />
-    <EntitySet Name="Companies" EntityType="ATSCEModel.Store.Companies" store:Type="Tables" />
-    <EntitySet Name="LeaveCategories" EntityType="ATSCEModel.Store.LeaveCategories" store:Type="Tables" />
-    <EntitySet Name="LeavePlan" EntityType="ATSCEModel.Store.LeavePlan" store:Type="Tables" />
-    <EntitySet Name="Persons" EntityType="ATSCEModel.Store.Persons" store:Type="Tables" />
-    <AssociationSet Name="FK_Staff_Agent" Association="ATSCEModel.Store.FK_Staff_Agent">
-      <End Role="Persons" EntitySet="Persons" />
-      <End Role="Persons1" EntitySet="Persons" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Staff_Supervisor" Association="ATSCEModel.Store.FK_Staff_Supervisor">
-      <End Role="Persons" EntitySet="Persons" />
-      <End Role="Persons1" EntitySet="Persons" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Supervisor_Company" Association="ATSCEModel.Store.FK_Supervisor_Company">
-      <End Role="Companies" EntitySet="Companies" />
-      <End Role="Persons" EntitySet="Persons" />
-    </AssociationSet>
-    <AssociationSet Name="Leave__Person" Association="ATSCEModel.Store.Leave__Person">
-      <End Role="Persons" EntitySet="Persons" />
-      <End Role="LeavePlan" EntitySet="LeavePlan" />
-    </AssociationSet>
-    <AssociationSet Name="LeaveCategory__LeavePlan" Association="ATSCEModel.Store.LeaveCategory__LeavePlan">
-      <End Role="LeaveCategories" EntitySet="LeaveCategories" />
-      <End Role="LeavePlan" EntitySet="LeavePlan" />
-    </AssociationSet>
-  </EntityContainer>
+<Schema Namespace="ATSCEModel.Store" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="CodeTables">
     <Key>
       <PropertyRef Name="CodeTableId" />
     </Key>
-    <Property Name="CodeTableId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CodeTableId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="GroupCode" Type="nvarchar" MaxLength="128" />
     <Property Name="Code" Type="nvarchar" MaxLength="128" />
     <Property Name="CodeDesc" Type="nvarchar" MaxLength="257" />
@@ -48,7 +21,7 @@
     <Key>
       <PropertyRef Name="CompanyId" />
     </Key>
-    <Property Name="CompanyId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CompanyDescription" Type="nvarchar" MaxLength="100" />
     <Property Name="Address" Type="nvarchar" MaxLength="100" />
   </EntityType>
@@ -56,14 +29,14 @@
     <Key>
       <PropertyRef Name="LeaveCategoryId" />
     </Key>
-    <Property Name="LeaveCategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="LeaveCategoryDesc" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="LeaveCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LeaveCategoryDesc" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
   <EntityType Name="LeavePlan">
     <Key>
       <PropertyRef Name="LeavePlanId" />
     </Key>
-    <Property Name="LeavePlanId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="LeavePlanId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PersonId" Type="int" Nullable="false" />
     <Property Name="LeaveCategoryId" Type="int" Nullable="false" />
     <Property Name="StartDate" Type="datetime" Nullable="false" />
@@ -74,8 +47,8 @@
     <Key>
       <PropertyRef Name="PersonId" />
     </Key>
-    <Property Name="PersonId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="PersonName" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonName" Type="nvarchar" MaxLength="256" Nullable="false" />
     <Property Name="CompanyId" Type="int" />
     <Property Name="PersonCategoryId" Type="int" Nullable="false" />
     <Property Name="AgentId" Type="int" />
@@ -83,9 +56,38 @@
     <Property Name="Phone" Type="nvarchar" MaxLength="10" />
     <Property Name="HomeAddress" Type="nvarchar" MaxLength="256" />
   </EntityType>
+  <EntityType Name="TM_TimeSheetDetails">
+    <Key>
+      <PropertyRef Name="TimeSheetDetailId" />
+    </Key>
+    <Property Name="TimeSheetDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TimeSheetMasterId" Type="int" Nullable="false" />
+    <Property Name="CalendarYearId " Type="int" Nullable="false" />
+    <Property Name="LeaveCategoryId" Type="int" />
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
+    <Property Name="EndTime" Type="datetime" Nullable="false" />
+    <Property Name="Hour" Type="real" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+    <Property Name="SupportDocument1" Type="nvarchar" MaxLength="256" />
+    <Property Name="SupportDocument2" Type="nvarchar" MaxLength="256" />
+    <Property Name="SupportDocument3" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="TM_TimeSheetMasters">
+    <Key>
+      <PropertyRef Name="TimeSheetMasterId" />
+    </Key>
+    <Property Name="TimeSheetMasterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
+    <Property Name="ManagerId" Type="int" />
+    <Property Name="AgencyId" Type="int" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="500" Nullable="false" />
+  </EntityType>
   <Association Name="FK_Staff_Agent">
-    <End Role="Persons" Type="ATSCEModel.Store.Persons" Multiplicity="0..1" />
-    <End Role="Persons1" Type="ATSCEModel.Store.Persons" Multiplicity="*" />
+    <End Role="Persons" Type="Self.Persons" Multiplicity="0..1" />
+    <End Role="Persons1" Type="Self.Persons" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Persons">
         <PropertyRef Name="PersonId" />
@@ -96,8 +98,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Staff_Supervisor">
-    <End Role="Persons" Type="ATSCEModel.Store.Persons" Multiplicity="0..1" />
-    <End Role="Persons1" Type="ATSCEModel.Store.Persons" Multiplicity="*" />
+    <End Role="Persons" Type="Self.Persons" Multiplicity="0..1" />
+    <End Role="Persons1" Type="Self.Persons" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Persons">
         <PropertyRef Name="PersonId" />
@@ -108,8 +110,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Supervisor_Company">
-    <End Role="Companies" Type="ATSCEModel.Store.Companies" Multiplicity="0..1" />
-    <End Role="Persons" Type="ATSCEModel.Store.Persons" Multiplicity="*" />
+    <End Role="Companies" Type="Self.Companies" Multiplicity="0..1" />
+    <End Role="Persons" Type="Self.Persons" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Companies">
         <PropertyRef Name="CompanyId" />
@@ -120,8 +122,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="Leave__Person">
-    <End Role="Persons" Type="ATSCEModel.Store.Persons" Multiplicity="1" />
-    <End Role="LeavePlan" Type="ATSCEModel.Store.LeavePlan" Multiplicity="*" />
+    <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
+    <End Role="LeavePlan" Type="Self.LeavePlan" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Persons">
         <PropertyRef Name="PersonId" />
@@ -132,8 +134,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="LeaveCategory__LeavePlan">
-    <End Role="LeaveCategories" Type="ATSCEModel.Store.LeaveCategories" Multiplicity="1" />
-    <End Role="LeavePlan" Type="ATSCEModel.Store.LeavePlan" Multiplicity="*" />
+    <End Role="LeaveCategories" Type="Self.LeaveCategories" Multiplicity="1" />
+    <End Role="LeavePlan" Type="Self.LeavePlan" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="LeaveCategories">
         <PropertyRef Name="LeaveCategoryId" />
@@ -143,4 +145,33 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityContainer Name="ATSCEModelStoreContainer">
+    <EntitySet Name="CodeTables" EntityType="Self.CodeTables" store:Type="Tables" />
+    <EntitySet Name="Companies" EntityType="Self.Companies" store:Type="Tables" />
+    <EntitySet Name="LeaveCategories" EntityType="Self.LeaveCategories" store:Type="Tables" />
+    <EntitySet Name="LeavePlan" EntityType="Self.LeavePlan" store:Type="Tables" />
+    <EntitySet Name="Persons" EntityType="Self.Persons" store:Type="Tables" />
+    <EntitySet Name="TM_TimeSheetDetails" EntityType="Self.TM_TimeSheetDetails" Table="TM.TimeSheetDetails" store:Type="Tables" />
+    <EntitySet Name="TM_TimeSheetMasters" EntityType="Self.TM_TimeSheetMasters" Table="TM.TimeSheetMasters" store:Type="Tables" />
+    <AssociationSet Name="FK_Staff_Agent" Association="Self.FK_Staff_Agent">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="Persons1" EntitySet="Persons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Staff_Supervisor" Association="Self.FK_Staff_Supervisor">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="Persons1" EntitySet="Persons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Supervisor_Company" Association="Self.FK_Supervisor_Company">
+      <End Role="Companies" EntitySet="Companies" />
+      <End Role="Persons" EntitySet="Persons" />
+    </AssociationSet>
+    <AssociationSet Name="Leave__Person" Association="Self.Leave__Person">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="LeavePlan" EntitySet="LeavePlan" />
+    </AssociationSet>
+    <AssociationSet Name="LeaveCategory__LeavePlan" Association="Self.LeaveCategory__LeavePlan">
+      <End Role="LeaveCategories" EntitySet="LeaveCategories" />
+      <End Role="LeavePlan" EntitySet="LeavePlan" />
+    </AssociationSet>
+  </EntityContainer>
 </Schema>

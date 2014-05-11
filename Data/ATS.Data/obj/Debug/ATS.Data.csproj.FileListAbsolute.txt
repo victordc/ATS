@@ -28,3 +28,4 @@ C:\NUS\Enterprise.Net1\ATS\Data\ATS.Data\bin\Debug\ATS.Data.dll
 C:\NUS\Enterprise.Net1\ATS\Data\ATS.Data\bin\Debug\ATS.Data.pdb
 C:\NUS\Enterprise.Net1\ATS\Data\ATS.Data\obj\Debug\ATS.Data.dll
 C:\NUS\Enterprise.Net1\ATS\Data\ATS.Data\obj\Debug\ATS.Data.pdb
+C:\NUS\Enterprise.Net1\ATS\Data\ATS.Data\obj\Debug\ATS.Data.csprojResolveAssemblyReference.cache

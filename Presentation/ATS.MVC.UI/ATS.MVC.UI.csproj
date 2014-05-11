@@ -170,6 +170,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LeavePlanController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Controllers\TimeSheetController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -331,6 +332,11 @@
     <Content Include="Views\Supervisor\Edit.cshtml" />
     <Content Include="Views\Supervisor\Index.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
+    <Content Include="Views\TimeSheet\Index.cshtml" />
+    <Content Include="Views\TimeSheet\Details.cshtml" />
+    <Content Include="Views\TimeSheet\Create.cshtml" />
+    <Content Include="Views\TimeSheet\Edit.cshtml" />
+    <Content Include="Views\TimeSheet\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

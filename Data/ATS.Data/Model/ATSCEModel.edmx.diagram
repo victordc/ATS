@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4adb2f711877418080ca4e1d6a0143b7" Name="Diagram1" ZoomLevel="108">
+      <Diagram DiagramId="4adb2f711877418080ca4e1d6a0143b7" Name="Diagram1" ZoomLevel="75">
         <EntityTypeShape EntityType="ATSCEModel.CodeTable" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ATSCEModel.Company" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ATSCEModel.LeaveCategory" Width="1.5" PointX="4.25" PointY="5" />
@@ -21,6 +21,12 @@
         <AssociationConnector Association="ATSCEModel.Staff__Agent" />
         <AssociationConnector Association="ATSCEModel.Staff__Supervisor" />
         <AssociationConnector Association="ATSCEModel.Supervisor__Company" />
+        <EntityTypeShape EntityType="ATSCEModel.TimeSheetDetail" Width="1.5" PointX="10.125" PointY="6" />
+        <EntityTypeShape EntityType="ATSCEModel.TimeSheetMaster" Width="1.5" PointX="7.125" PointY="6.625" />
+        <AssociationConnector Association="ATSCEModel.TimeSheetMasterTimeSheetDetail" />
+        <AssociationConnector Association="ATSCEModel.TimeSheetMasterPerson" />
+        <AssociationConnector Association="ATSCEModel.TimeSheetMasterCompany" />
+        <AssociationConnector Association="ATSCEModel.TimeSheetMasterSupervisor" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

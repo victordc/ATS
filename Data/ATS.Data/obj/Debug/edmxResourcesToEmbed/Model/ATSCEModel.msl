@@ -91,5 +91,36 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TimeSheetDetails">
+      <EntityTypeMapping TypeName="ATSCEModel.TimeSheetDetail">
+        <MappingFragment StoreEntitySet="TM_TimeSheetDetails">
+          <ScalarProperty Name="SupportDocument3" ColumnName="SupportDocument3" />
+          <ScalarProperty Name="SupportDocument2" ColumnName="SupportDocument2" />
+          <ScalarProperty Name="SupportDocument1" ColumnName="SupportDocument1" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="LeaveCategoryId" ColumnName="LeaveCategoryId" />
+          <ScalarProperty Name="CalendarYearId" ColumnName="CalendarYearId " />
+          <ScalarProperty Name="TimeSheetMasterId" ColumnName="TimeSheetMasterId" />
+          <ScalarProperty Name="TimeSheetDetailId" ColumnName="TimeSheetDetailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimeSheetMasters">
+      <EntityTypeMapping TypeName="ATSCEModel.TimeSheetMaster">
+        <MappingFragment StoreEntitySet="TM_TimeSheetMasters">
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="AgencyId" ColumnName="AgencyId" />
+          <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="TimeSheetMasterId" ColumnName="TimeSheetMasterId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

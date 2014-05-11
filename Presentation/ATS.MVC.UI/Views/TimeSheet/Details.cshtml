@@ -1,0 +1,85 @@
+﻿@model ATS.Data.Model.TimeSheetDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>TimeSheetDetail</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TimeSheetMasterId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TimeSheetMasterId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CalendarYearId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CalendarYearId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LeaveCategoryId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LeaveCategoryId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StartTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StartTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EndTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EndTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Hour)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Hour)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Remarks)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Remarks)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SupportDocument1)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SupportDocument1)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SupportDocument2)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SupportDocument2)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SupportDocument3)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SupportDocument3)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.TimeSheetDetailId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

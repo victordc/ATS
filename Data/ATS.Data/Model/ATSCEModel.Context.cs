@@ -30,5 +30,7 @@ namespace ATS.Data.Model
         public DbSet<LeaveCategory> LeaveCategories { get; set; }
         public DbSet<LeavePlan> LeavePlans { get; set; }
         public DbSet<Person> Persons { get; set; }
+        public DbSet<TimeSheetDetail> TimeSheetDetails { get; set; }
+        public DbSet<TimeSheetMaster> TimeSheetMasters { get; set; }
     }
 }

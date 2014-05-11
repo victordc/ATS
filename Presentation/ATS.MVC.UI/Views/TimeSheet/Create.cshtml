@@ -1,0 +1,108 @@
+﻿@model ATS.Data.Model.TimeSheetDetail
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>TimeSheetDetail</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TimeSheetMasterId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TimeSheetMasterId)
+            @Html.ValidationMessageFor(model => model.TimeSheetMasterId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CalendarYearId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CalendarYearId)
+            @Html.ValidationMessageFor(model => model.CalendarYearId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LeaveCategoryId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LeaveCategoryId)
+            @Html.ValidationMessageFor(model => model.LeaveCategoryId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartTime)
+            @Html.ValidationMessageFor(model => model.StartTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EndTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EndTime)
+            @Html.ValidationMessageFor(model => model.EndTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Hour)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Hour)
+            @Html.ValidationMessageFor(model => model.Hour)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Remarks)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SupportDocument1)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SupportDocument1)
+            @Html.ValidationMessageFor(model => model.SupportDocument1)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SupportDocument2)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SupportDocument2)
+            @Html.ValidationMessageFor(model => model.SupportDocument2)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SupportDocument3)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SupportDocument3)
+            @Html.ValidationMessageFor(model => model.SupportDocument3)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
