@@ -113,6 +113,20 @@ namespace ATS.MVC.UI.Controllers
         //
         // POST: /LeavePlan/Delete/5
 
+        public ActionResult Supervise()
+        {
+            int thisUserId = 1;
+            var leavePlans = TimesheetRepository.GetAllPersonsBySupervisoId(thisUserId);
+            return View(leavePlans.ToList());
+        }
+
+        public ActionResult AdmitOrReject(int LeavePlanId, bool AdmitReject)
+        {
+            int thisUserId = 1;
+            var leavePlans = TimesheetRepository.AdmitReject(LeavePlanId, AdmitReject);
+            return RedirectToAction("Supervise", leavePlans);
+        }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
