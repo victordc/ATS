@@ -19,7 +19,7 @@ namespace ATS.Data
             return CodeTable.GetAll();
         }
 
-
+        //--------------------------------------------------------------------------------
         public static LeavePlan GetLeavePlanById(int leavePlanId)
         {
             return LeavePlan.GetById(leavePlanId);
@@ -49,6 +49,17 @@ namespace ATS.Data
         {
             return LeaveCategory.getAll();
         }
+
+        public static IEnumerable<LeavePlan> GetAllPersonsBySupervisoId(int SupervisorId)
+        {
+            return LeavePlan.GetAllLeavePlansBySupervisoId(SupervisorId);
+        }
+
+        public static IEnumerable<LeavePlan> AdmitReject(int LeavePlanId, bool AdmitReject)
+        {
+            return LeavePlan.AdmitOrRejectLeaves(LeavePlanId, AdmitReject);
+        }
+        //--------------------------------------------------------------------------------
 
         public static Person GetPersonById(int PersonId)
         {
