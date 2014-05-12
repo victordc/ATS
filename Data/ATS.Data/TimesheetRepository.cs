@@ -25,6 +25,11 @@ namespace ATS.Data
             return LeavePlan.GetById(leavePlanId);
         }
 
+        public static IEnumerable<LeavePlan> GetLeavePlans(int userId)
+        {
+            return LeavePlan.GetAll(userId);
+        }
+
         public static IEnumerable<LeavePlan> GetLeavePlans()
         {
             return LeavePlan.GetAll();

@@ -49,6 +49,12 @@ namespace ATS.Data.Model
 
         }
 
+        public static IEnumerable<LeavePlan> GetAll(int userId)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            return context.LeavePlans.Include(l => l.LeaveCategory).Include(l => l.Person).Where(l=>l.PersonId == userId);
+        }
+
         public static IEnumerable<LeavePlan> GetAll()
         {
             ATSCEEntities context = new ATSCEEntities();
