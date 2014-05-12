@@ -15,7 +15,7 @@ namespace ATS.Data.Model
     [MetadataType(typeof(LeavePlanData))]
     public partial class LeavePlan
     {
-        
+
         public static LeavePlan Save(LeavePlan leavePlan)
         {
             string result = string.Empty;
@@ -78,6 +78,40 @@ namespace ATS.Data.Model
                 return false;
             }
 
+        }
+
+        public static IEnumerable<LeavePlan> GetAllLeavePlansBySupervisoId(int id)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            IEnumerable<LeavePlan> leavesToSupervise = from allLeavePlans in context.LeavePlans
+                                                       where (allLeavePlans.Person as Staff).SupervisorId == id
+                                                       where allLeavePlans.Admitted == null
+                                                       select allLeavePlans;
+            return leavesToSupervise;
+        }
+
+        public static IEnumerable<LeavePlan> AdmitOrRejectLeaves(int LeavePlanId, bool AdmitReject)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            LeavePlan leaveToUpdate = context.LeavePlans.Where(lp => lp.LeavePlanId == LeavePlanId).FirstOrDefault();
+            if (AdmitReject)
+            {
+                leaveToUpdate.Admitted = true;
+            }
+            else
+            {
+                leaveToUpdate.Admitted = false;
+            }
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Could not admit or reject [" + ex.Message + "]");
+            }
+
+            return GetAllLeavePlansBySupervisoId(int.Parse((leaveToUpdate.Person as Staff).SupervisorId.ToString()));
         }
 
     }
