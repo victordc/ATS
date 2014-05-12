@@ -26,35 +26,63 @@
         <th>
             @Html.DisplayNameFor(model => model.Duration)
         </th>
+        <th>
+            Status
+        </th>
         <th></th>
     </tr>
-
+    
     @foreach (var item in Model)
     {
+        string backgroundColor = "";
+        string textToShow = "";
+        string visible = "";
+        switch (item.Admitted)
+        {
+            case true: 
+                backgroundColor = "background-color:palegreen;";
+                textToShow = "Admitted";
+                visible = "hidden";
+                break;
+            case false: 
+                backgroundColor = "background-color:red;";
+                textToShow = "Rejected";
+                visible = "hidden";
+                break;
+            default: 
+                backgroundColor = "background-color:khaki;";
+                textToShow = "Not Checked Yet";
+                visible = "visible";
+                break;
+        }
         <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Person.PersonName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LeaveCategory.LeaveCategoryDesc)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Duration)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.LeavePlanId },new { @class = "btn btn-mini btn-success" })
-                    @Html.ActionLink("Edit", "Edit", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-primary" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-danger" })
-                </td>
-            
+            <td>
+                @Html.DisplayFor(modelItem => item.Person.PersonName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveCategory.LeaveCategoryDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td style="@backgroundColor">
+                @textToShow
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-success"})
+                @Html.ActionLink("Edit", "Edit", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-primary" , @style = "visibility:" + @visible + ";"})
+                @Html.ActionLink("Delete", "Delete", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-danger" , @style = "visibility:" + @visible + ";"})
+            </td>
+
         </tr>
 
     }
 
 </table>
+
