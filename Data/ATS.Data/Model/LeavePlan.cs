@@ -20,6 +20,7 @@ namespace ATS.Data.Model
         public System.DateTime StartDate { get; set; }
         public System.DateTime EndDate { get; set; }
         public double Duration { get; set; }
+        public Nullable<bool> Admitted { get; set; }
     
         public virtual LeaveCategory LeaveCategory { get; set; }
         public virtual Person Person { get; set; }

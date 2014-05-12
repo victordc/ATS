@@ -39,6 +39,7 @@
     <EntitySetMapping Name="LeavePlans">
       <EntityTypeMapping TypeName="ATSCEModel.LeavePlan">
         <MappingFragment StoreEntitySet="LeavePlan">
+          <ScalarProperty Name="Admitted" ColumnName="Admitted" />
           <ScalarProperty Name="Duration" ColumnName="Duration" />
           <ScalarProperty Name="EndDate" ColumnName="EndDate" />
           <ScalarProperty Name="StartDate" ColumnName="StartDate" />

@@ -337,6 +337,7 @@
     <Content Include="Views\TimeSheet\Create.cshtml" />
     <Content Include="Views\TimeSheet\Edit.cshtml" />
     <Content Include="Views\TimeSheet\Delete.cshtml" />
+    <Content Include="Views\LeavePlan\Supervise.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

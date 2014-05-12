@@ -14,8 +14,17 @@
         <AssociationConnector Association="ATSCEModel.Leave__Person" />
         <EntityTypeShape EntityType="ATSCEModel.Staff" Width="1.5" PointX="5.875" PointY="10.5" />
         <InheritanceConnector EntityType="ATSCEModel.Staff" />
-        <EntityTypeShape EntityType="ATSCEModel.Agent" Width="1.5" PointX="3.75" PointY="12.125" />
-        <InheritanceConnector EntityType="ATSCEModel.Agent" />
+        <EntityTypeShape EntityType="ATSCEModel.Agent" Width="1.5" PointX="4.375" PointY="12.875" />
+        <InheritanceConnector EntityType="ATSCEModel.Agent" ManuallyRouted="true" >
+          <ConnectorPoint PointX="1.75" PointY="12.230286458333332" />
+          <ConnectorPoint PointX="1.75" PointY="12.5" />
+          <ConnectorPoint PointX="3.1979166666666665" PointY="12.5" />
+          <ConnectorPoint PointX="3.3645833333333335" PointY="12.5" />
+          <ConnectorPoint PointX="4.7361111111111116" PointY="12.5" />
+          <ConnectorPoint PointX="4.7361111111111116" PointY="12.75125" />
+          <ConnectorPoint PointX="4.8213112352142282" PointY="12.75125" />
+          <ConnectorPoint PointX="4.8213112352142282" PointY="12.875" />
+        </InheritanceConnector>
         <EntityTypeShape EntityType="ATSCEModel.Supervisor" Width="1.5" PointX="1.125" PointY="13.625" />
         <InheritanceConnector EntityType="ATSCEModel.Supervisor" />
         <AssociationConnector Association="ATSCEModel.Staff__Agent" />

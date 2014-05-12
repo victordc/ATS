@@ -91,6 +91,7 @@
     <Property Type="Double" Name="Duration" Nullable="false" />
     <NavigationProperty Name="LeaveCategory" Relationship="ATSCEModel.LeaveCategory__LeavePlan" FromRole="LeavePlan" ToRole="LeaveCategory" />
     <NavigationProperty Name="Person" Relationship="ATSCEModel.Leave__Person" FromRole="LeavePlan" ToRole="Person" />
+    <Property Type="Boolean" Name="Admitted" />
   </EntityType>
   <Association Name="LeaveCategory__LeavePlan">
     <End Type="ATSCEModel.LeaveCategory" Role="LeaveCategory" Multiplicity="1" />
