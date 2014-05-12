@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ATS.Data.Model.LeavePlan>
+
+@{
+    ViewBag.Title = "Supervise";
+}
+
+<h2>Supervise</h2>
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table table-striped table-bordered table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.PersonName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaveCategory.LeaveCategoryDesc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Person.PersonName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeaveCategory.LeaveCategoryDesc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Details", "Details", new { id = item.LeavePlanId },new { @class = "btn btn-mini btn-success" })*@
+                    @Html.ActionLink("Admit", "AdmitOrReject", new { LeavePlanId = item.LeavePlanId, AdmitReject = true}, new { @class = "btn btn-mini btn-success" })
+                    @Html.ActionLink("Reject", "AdmitOrReject", new { LeavePlanId = item.LeavePlanId, AdmitReject = false}, new { @class = "btn btn-mini btn-danger" })
+                </td>
+            
+        </tr>
+
+    }
+
+</table>
