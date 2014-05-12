@@ -19,7 +19,8 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Index()
         {
-            var leavePlans = TimesheetRepository.GetLeavePlans();
+            int currentUserId = 1;
+            var leavePlans = TimesheetRepository.GetLeavePlans(currentUserId);
             return View(leavePlans.ToList());
         }
 
