@@ -24,7 +24,12 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            TimeSheetDetail detail = TimesheetRepository.GetTimeSheetDetailById(id);
+            if (detail == null)
+            {
+                return HttpNotFound();
+            }
+            return View(detail);
         }
 
         //
@@ -39,70 +44,67 @@ namespace ATS.MVC.UI.Controllers
         // POST: /TimeSheet/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(TimeSheetDetail detail)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                TimeSheetDetail newDetail = detail;
+                newDetail.Save();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(detail);
         }
 
         //
         // GET: /TimeSheet/Edit/5
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id = 0)
         {
-            return View();
+            TimeSheetDetail detail = TimesheetRepository.GetTimeSheetDetailById(id);
+            if (detail == null)
+            {
+                return HttpNotFound();
+            }
+            return View(detail);
         }
 
         //
         // POST: /TimeSheet/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(TimeSheetDetail detail)
         {
-            try
+            TimeSheetDetail newDetail = detail;
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                newDetail.Save();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(detail);
         }
 
         //
         // GET: /TimeSheet/Delete/5
 
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id = 0)
         {
-            return View();
+            TimeSheetDetail detail = TimesheetRepository.GetTimeSheetDetailById(id);
+            if (detail == null)
+            {
+                return HttpNotFound();
+            }
+            return View(detail);
         }
 
         //
         // POST: /TimeSheet/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            TimeSheetDetail.Delete(id);
+            return RedirectToAction("Index");
         }
     }
 }

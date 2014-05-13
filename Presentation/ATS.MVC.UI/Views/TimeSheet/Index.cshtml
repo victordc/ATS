@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table>
+<table class="table table-striped table-bordered table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.TimeSheetMasterId)
@@ -44,44 +44,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeSheetMasterId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CalendarYearId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LeaveCategoryId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hour)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Remarks)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SupportDocument1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SupportDocument2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SupportDocument3)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TimeSheetDetailId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TimeSheetDetailId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TimeSheetDetailId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeSheetMasterId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalendarYearId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveCategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hour)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remarks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportDocument1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportDocument2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportDocument3)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TimeSheetDetailId }, new { @class = "btn btn-mini btn-success" }) 
+                @Html.ActionLink("Details", "Details", new { id = item.TimeSheetDetailId }, new { @class = "btn btn-mini btn-primary" }) 
+                @Html.ActionLink("Delete", "Delete", new { id = item.TimeSheetDetailId }, new { @class = "btn btn-mini btn-danger" })
+            </td>
+        </tr>
+    }
 
 </table>
