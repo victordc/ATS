@@ -13,7 +13,8 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans();
+            int currentUserId = 1;
+            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(currentUserId);
             return View(leaves);
         }
 
