@@ -76,6 +76,8 @@ namespace ATS.Data
             return Person.GetAll();
         }
 
+        //----------------------------------------------------------------------------------
+
         public static TimeSheetDetail GetTimeSheetDetailById(int TimeSheetDetailId)
         {
             return TimeSheetDetail.GetById(TimeSheetDetailId);
@@ -84,6 +86,18 @@ namespace ATS.Data
         public static IEnumerable<TimeSheetDetail> GetAllTimeSheetDetails()
         {
             return TimeSheetDetail.GetAll();
+        }
+
+        //----------------------------------------------------------------------------------
+
+        public static TimeSheetMaster GetTimeSheetMasterById(int TimeSheetMasterId)
+        {
+            return TimeSheetMaster.GetById(TimeSheetMasterId);
+        }
+
+        public static IEnumerable<TimeSheetMaster> GetAllTimeSheetMasters()
+        {
+            return TimeSheetMaster.GetAll();
         }
 
     }

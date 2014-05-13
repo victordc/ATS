@@ -1,0 +1,64 @@
+﻿@model ATS.Data.Model.TimeSheetMaster
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>TimeSheetMaster</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PersonId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PersonId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ManagerId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ManagerId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AgencyId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AgencyId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Month)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Month)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Year)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Year)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Status)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Status)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Remarks)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Remarks)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.TimeSheetMasterId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
