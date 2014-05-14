@@ -17,7 +17,8 @@
             { String.Format("'{0:d}'", item.StartDate); }
         ];*@
         
-        var dates = ['04/01/2014', '06/05/2014', '05/23/2014'];
+        var beginDates = ['04/01/2014', '06/05/2014', '05/23/2014'];
+        var endDates = ['04/05/2014', '06/12/2014', '05/24/2014'];
         var types = ['Annual', 'MC', 'Business'];
 
         $("#datepicker").datepicker({
@@ -26,8 +27,9 @@
         });
 
         function highlightDays(date) {
-            for (var i = 0; i < dates.length; i++) {
-                if (new Date(dates[i]).toString() == date.toString()) {
+            for (var i = 0; i < beginDates.length; i++) {
+                if ((new Date(beginDates[i]) <= date) && 
+                    (new Date(endDates[i]) >= date) ) {
                     return [true, 'ui-state-active', types[i]];
                 }
             }
