@@ -12,18 +12,18 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        @*var dates = [
-            @foreach (var item in Model)
-            { String.Format("'{0:d}'", item.StartDate); }
-        ];*@
-        
-        var beginDates = ['04/01/2014', '06/05/2014', '05/23/2014'];
-        var endDates = ['04/05/2014', '06/12/2014', '05/24/2014'];
-        var types = ['Annual', 'MC', 'Business'];
+        var beginDates = [];
+        var endDates = [];
+        var types = [];
+        @foreach (var item in Model)
+        {
+            @:beginDates.push("'@String.Format("{0:MM/dd/yyyy}",item.StartDate)'");
+            @:endDates.push("'@String.Format("{0:MM/dd/yyyy}",item.EndDate)'");
+            @:types.push("@(item.LeaveCategory.LeaveCategoryDesc)");
+        }
 
         $("#datepicker").datepicker({
             beforeShowDay: highlightDays,
-            //onChangeMonthYear: getLeaves(month, year)
         });
 
         function highlightDays(date) {
