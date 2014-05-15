@@ -20,9 +20,9 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Team()
         {
-            int currentUserId = 1;
+            //int currentUserId = 1;
             //IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(currentUserId);
-            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(currentUserId); 
+            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(); 
             return View(leaves);
         }
 
