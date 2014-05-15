@@ -117,7 +117,7 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Supervise()
         {
             int thisUserId = 1;
-            var leavePlans = TimesheetRepository.GetAllPersonsBySupervisoId(thisUserId);
+            var leavePlans = TimesheetRepository.GetAllPersonsBySupervisorId(thisUserId);
             return View(leavePlans.ToList());
         }
 

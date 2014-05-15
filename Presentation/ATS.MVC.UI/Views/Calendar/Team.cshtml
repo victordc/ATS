@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<ATS.Data.Model.LeavePlan>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Team";
 }
 
 <div id="datepicker">
-    <h3>My Leaves...</h3>
+    <h3>Team Leaves...</h3>
     <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
 </div>
 <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
@@ -50,6 +50,6 @@
 <div>
     <br />
     <p>
-        @Html.ActionLink("View Team Leaves", "Team", null, new { @class = "btn btn btn-primary" })
+        @Html.ActionLink("View My Leaves", "Index", null, new { @class = "btn btn btn-primary" })
     </p>
 </div>

@@ -61,12 +61,13 @@ namespace ATS.Data.Model
             return context.LeavePlans.Include(l => l.LeaveCategory).Include(l => l.Person);
         }
 
-        public static IEnumerable<LeavePlan> GetByMonth(int month, int year)
+        public static IEnumerable<LeavePlan> GetAllLeavePlansForTeam(int userId)
         {
-            DateTime firstDay = new DateTime(year, month, 1);
-            DateTime lastDay = new DateTime(year, month, DateTime.DaysInMonth(year, month));
             ATSCEEntities context = new ATSCEEntities();
-            return context.LeavePlans.Where(l => (l.StartDate <= lastDay && l.EndDate >= firstDay));
+            IEnumerable<LeavePlan> leaves = from allLeavePlans in context.LeavePlans
+                                            where (allLeavePlans.Person as Staff).SupervisorId == userId
+                                            select allLeavePlans;
+            return leaves;
         }
 
         public static bool Delete(int leavePlanId)
@@ -86,7 +87,7 @@ namespace ATS.Data.Model
 
         }
 
-        public static IEnumerable<LeavePlan> GetAllLeavePlansBySupervisoId(int id)
+        public static IEnumerable<LeavePlan> GetAllLeavePlansBySupervisorId(int id)
         {
             ATSCEEntities context = new ATSCEEntities();
             IEnumerable<LeavePlan> leavesToSupervise = from allLeavePlans in context.LeavePlans
@@ -117,7 +118,7 @@ namespace ATS.Data.Model
                 throw new Exception("Could not admit or reject [" + ex.Message + "]");
             }
 
-            return GetAllLeavePlansBySupervisoId(int.Parse((leaveToUpdate.Person as Staff).SupervisorId.ToString()));
+            return GetAllLeavePlansBySupervisorId(int.Parse((leaveToUpdate.Person as Staff).SupervisorId.ToString()));
         }
 
     }

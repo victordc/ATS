@@ -18,10 +18,11 @@ namespace ATS.MVC.UI.Controllers
             return View(leaves);
         }
 
-        [HttpPost]
-        public ActionResult GetLeavesForMonth(int month, int year)
+        public ActionResult Team()
         {
-            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansByMonth(month, year);
+            int currentUserId = 1;
+            //IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(currentUserId);
+            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(currentUserId); 
             return View(leaves);
         }
 

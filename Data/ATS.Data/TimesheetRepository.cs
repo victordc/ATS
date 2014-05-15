@@ -35,9 +35,9 @@ namespace ATS.Data
             return LeavePlan.GetAll();
         }
 
-        public static IEnumerable<LeavePlan> GetLeavePlansByMonth(int month, int year)
+        public static IEnumerable<LeavePlan> GetLeavePlansForTeam(int userId)
         {
-            return LeavePlan.GetByMonth(month, year);
+            return LeavePlan.GetAllLeavePlansForTeam(userId);
         }
 
         public static LeavePlan AddUpdateLeavePlan(LeavePlan leavePlan)
@@ -55,9 +55,9 @@ namespace ATS.Data
             return LeaveCategory.getAll();
         }
 
-        public static IEnumerable<LeavePlan> GetAllPersonsBySupervisoId(int SupervisorId)
+        public static IEnumerable<LeavePlan> GetAllPersonsBySupervisorId(int SupervisorId)
         {
-            return LeavePlan.GetAllLeavePlansBySupervisoId(SupervisorId);
+            return LeavePlan.GetAllLeavePlansBySupervisorId(SupervisorId);
         }
 
         public static IEnumerable<LeavePlan> AdmitReject(int LeavePlanId, bool AdmitReject)
