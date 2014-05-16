@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ATS.Data.Model;
 using ATS.Data;
+using ATS.Data.Model;
+using ATS.Data.DAL;
 
 namespace ATS.MVC.UI.Controllers
 {
@@ -37,6 +38,9 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.PersonId = new SelectList(TimesheetRepository.GetAllPersons(), "PersonId", "PersonName");
+            ViewBag.SupervisorId = new SelectList(TimesheetRepository.GetAllSupervisors(), "PersonId", "PersonName");
+            ViewBag.CompanyId = new SelectList(TimesheetRepository.GetAllCompanies(), "CompanyId", "CompanyDescription");
             return View();
         }
 
@@ -52,7 +56,9 @@ namespace ATS.MVC.UI.Controllers
                 newMaster.Save();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.PersonId = new SelectList(TimesheetRepository.GetAllPersons(), "PersonId", "PersonName");
+            ViewBag.ManagerId = new SelectList(TimesheetRepository.GetAllSupervisors(), "PersonId", "PersonName");
+            ViewBag.CompanyId = new SelectList(TimesheetRepository.GetAllCompanies(), "CompanyId", "CompanyDescription");
             return View(master);
         }
 

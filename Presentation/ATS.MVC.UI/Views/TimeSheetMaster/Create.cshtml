@@ -14,26 +14,26 @@
         <legend>TimeSheetMaster</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.PersonId)
+            @Html.LabelFor(model => model.PersonId, "Person", new { @class = "control-label" })
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.PersonId)
+            @Html.DropDownList("PersonId", String.Empty)
             @Html.ValidationMessageFor(model => model.PersonId)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ManagerId)
+            @Html.LabelFor(model => model.ManagerId, "Supervisor", new { @class = "control-label" })
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ManagerId)
+            @Html.DropDownList("SupervisorId", String.Empty)
             @Html.ValidationMessageFor(model => model.ManagerId)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.AgencyId)
+            @Html.LabelFor(model => model.AgencyId, "Company", new { @class = "control-label" })
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.AgencyId)
+            @Html.DropDownList("CompanyId", String.Empty)
             @Html.ValidationMessageFor(model => model.AgencyId)
         </div>
 

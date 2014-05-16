@@ -100,5 +100,17 @@ namespace ATS.Data
             return TimeSheetMaster.GetAll();
         }
 
+        //----------------------------------------------------------------------------------
+
+        public static IEnumerable<Person> GetAllSupervisors()
+        {
+            return Supervisor.GetAll();
+        }
+
+        public static IEnumerable<Company> GetAllCompanies()
+        {
+            return Company.GetAll();
+        }
+
     }
 }
