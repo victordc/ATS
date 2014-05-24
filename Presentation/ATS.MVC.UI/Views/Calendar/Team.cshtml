@@ -19,7 +19,7 @@
         {
             @:beginDates.push("'@String.Format("{0:MM/dd/yyyy}",item.StartDate)'");
             @:endDates.push("'@String.Format("{0:MM/dd/yyyy}",item.EndDate)'");
-            @:types.push("@(item.LeaveCategory.LeaveCategoryDesc)");
+            @:types.push("@(item.Person.PersonName.ToString()), @(item.LeaveCategory.LeaveCategoryDesc)");
         }
 
         $("#datepicker").datepicker({
