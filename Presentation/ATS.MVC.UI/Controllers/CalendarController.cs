@@ -25,5 +25,19 @@ namespace ATS.MVC.UI.Controllers
             return View(leaves);
         }
 
+        public ActionResult MyDetail(int Year, int Month)
+        {
+            int currentUserId = 1;
+            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(currentUserId);
+            return View(leaves);
+        }
+
+        public ActionResult TeamDetail(int Year, int Month)
+        {
+            int supId = 4;
+            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(supId);
+            return View(leaves);
+        }
+
     }
 }

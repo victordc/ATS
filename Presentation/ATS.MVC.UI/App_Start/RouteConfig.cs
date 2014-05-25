@@ -14,6 +14,13 @@ namespace ATS.MVC.UI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "CalendarRoute",
+                url: "{controller}/{action}/{year}/{month}",
+                defaults: new { controller = "Calendar", action = "Index", year = "", month = "" },
+                constraints: new { month = @"^(0?[1-9]|1[012])$" }
+            ); 
+            
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

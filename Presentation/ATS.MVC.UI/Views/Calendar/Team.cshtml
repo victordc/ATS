@@ -38,11 +38,9 @@
             return [false, ''];
         }
 
-        function getDetails(date, instance) 
+        function getDetails(date, cal) 
         { 
-            //window.location.replace("/Calendar/Detail/"+date);
-            window.location.replace("/Calendar/Team");
-
+            window.location.replace("/Calendar/TeamDetail/" + cal.selectedYear + "/" + (cal.selectedMonth + 1));
         }
 
     });

@@ -345,6 +345,8 @@
     <Content Include="Views\TimeSheetMaster\Edit.cshtml" />
     <Content Include="Views\TimeSheetMaster\Delete.cshtml" />
     <Content Include="Views\Calendar\Team.cshtml" />
+    <Content Include="Views\Calendar\MyDetail.cshtml" />
+    <Content Include="Views\Calendar\TeamDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
