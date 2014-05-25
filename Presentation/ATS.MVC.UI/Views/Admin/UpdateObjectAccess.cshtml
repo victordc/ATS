@@ -1,0 +1,62 @@
+﻿@model ATS.Data.Model.ObjectAccess
+
+@{
+    ViewBag.Title = "UpdateObjectAccess";
+}
+
+<h3></h3>
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" })) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Manage Object Access</legend>
+        @if (Model != null)
+        {  
+            @Html.HiddenFor(m => m.ObjectAccessId)
+            @Html.HiddenFor(m => m.AccessType)
+            @Html.HiddenFor(m => m.Status)
+            @Html.HiddenFor(m => m.CreatedBy)
+            @Html.HiddenFor(m => m.CreatedOn)
+        }
+        <div class="control-group">
+            @Html.LabelFor(m => m.Controller, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(m => m.Controller)
+                @Html.ValidationMessageFor(m => m.Controller)
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.Action, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(m => m.Action)
+                @Html.ValidationMessageFor(m => m.Action)
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.RoleName, new { @class = "control-label" })
+            <div class="controls">
+                @Html.DropDownListFor(m=> m.RoleName, ViewBag.myList as SelectList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.RoleName)
+            </div>
+        </div>
+@*        <div class="editor-label">
+            @Html.LabelFor(model => model.AccessType)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AccessType)
+            @Html.ValidationMessageFor(model => model.AccessType)
+        </div>*@
+        <div class="control-group">
+            <div class="controls">
+              <input type="submit" value="Save" class="btn btn-primary" />
+             @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+            </div>
+        </div>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

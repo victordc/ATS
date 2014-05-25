@@ -1,0 +1,229 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Admin Management</h3>
+<hr />
+
+@Html.ActionLink("Setup new company", "AddCompany", "Admin", null, null)
+
+<h4>Role</h4>
+@*@Html.DropDownList("myList", ViewBag.myList as SelectList, new { @class = "form-control" })*@
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.Hidden("hidId");
+    @*<p>
+        @Html.TextBox("txtUserName",string.Empty, new { placeholder = "Enter user name"})
+        <input type="submit" value="Filter" class="btn btn-success" id="btnFilter" />
+    
+    </p>*@
+    <table class="table table-striped table-bordered table-hover">
+    <colgroup>
+        <col style="width:30%">
+        <col style="width:60%">
+        <col style="width:10%">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Role Id</th>
+            <th>Role name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.Roles)
+        {
+        <tr>
+            <td>@item.RoleId</td>
+            <td>@item.RoleName</td>
+            <td>@*@Html.ActionLink("Edit", "UpdateRole", "Admin", new { id = item.RoleId }, new { @class = "btn btn-mini btn-primary" })*@
+                @Html.ActionLink("Delete", "Index", "Admin",new { id = item.RoleId },new { @class = "btn btn-mini btn-danger" })
+            </td>
+        </tr>
+        }
+    </tbody>
+    </table>@*
+@Html.ActionLink("Add Role", "UpdateRole", "Admin", null, new { @class = "btn btn-primary" })*@
+}
+<hr />
+
+<h4>User</h4>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @*<p>
+        @Html.TextBox("txtUserName",string.Empty, new { placeholder = "Enter user name"})
+        <input type="submit" value="Filter" class="btn btn-success" id="btnFilter" />
+    
+    </p>*@
+    <table class="table table-striped table-bordered table-hover">
+    <colgroup>
+        <col style="width:10%">
+        <col style="width:40%">
+        <col style="width:40%">
+        <col style="width:10%">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>User Id</th>
+            <th>User name</th>
+            <th>Role</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.Users)
+        {
+        <tr>
+            
+            <td>@item.UserId</td>
+            <td>@item.UserName</td>
+            <td>@item.RoleName</td>
+            <td>@Html.ActionLink("Edit", "UpdateUser", "Admin", new { userId = item.UserId }, new { @class = "btn btn-mini btn-primary" })
+               <input type="button" id="btnDeleteUser" class="btn btn-mini btn-danger cssDeleteUser" value="Delete" data-id="@item.UserName"/>
+            </td>
+        </tr>
+        }
+    </tbody>
+    </table>
+}
+@Html.ActionLink("Add User", "UpdateUser", "Admin", null, new { @class = "btn btn-primary" })
+
+<hr />
+
+<h4>Object Access</h4>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @*<p>
+        @Html.TextBox("txtUserName",string.Empty, new { placeholder = "Enter user name"})
+        <input type="submit" value="Filter" class="btn btn-success" id="btnFilter" />
+    
+    </p>*@
+    <table class="table table-striped table-bordered table-hover">
+    <colgroup>
+        <col style="width:5%">
+        <col style="width:30%">
+        <col style="width:30%">
+        <col style="width:25%">
+        <col style="width:10%">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Controller</th>
+            <th>Action</th>
+            <th>Role</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.ObjectAccesses)
+        {
+        <tr>
+            <td>@item.ObjectAccessId</td>
+            <td>@item.Controller</td>
+            <td>@item.Action</td>
+            <td>@item.Role</td>
+            <td>@Html.ActionLink("Edit", "UpdateObjectAccess", "Admin", new { objectAccessId = item.ObjectAccessId }, new { @class = "btn btn-mini btn-primary" })
+                <input type="button" id="btnDeleteOA" class="btn btn-mini btn-danger cssDeleteOA" value="Delete" data-id="@item.ObjectAccessId"/>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Add Object Access", "UpdateObjectAccess", "Admin", null, new { @class = "btn btn-primary" })    
+}
+
+<div id="divDeleteModel" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Delete User</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this record?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button id="btnDeleteUserOk" type="button" class="btn btn-danger">Ok</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="divDeleteOAModel" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Delete Object Access</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this record?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button id="btnDeleteOAOk" type="button" class="btn btn-danger">Ok</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cssDeleteUser").click(function () {
+                $("#hidId").val($(this).attr("data-id"));
+                $("#divDeleteModel").modal("show");
+            });
+
+            $("#btnDeleteUserOk").click(function () {
+                $("#divDeleteModel").modal("hide");
+                $.post("Admin/DeleteUser", { userName: $("#hidId").val() }, function (data) {
+                    window.location.href = "Admin/Index";
+                });
+            });
+
+            $(".cssDeleteOA").click(function () {
+                //alert($(this).attr("data-id"));
+                $("#hidId").val($(this).attr("data-id"));
+                //alert($("#hidId").val());
+                $("#divDeleteOAModel").modal("show");
+            });
+
+            $("#btnDeleteOAOk").click(function () {
+                $("#divDeleteOAModel").modal("hide");
+                $.post("Admin/DeleteObjectAccess", { objectAccessId: $("#hidId").val() }, function (data) {
+                    window.location.href = "Admin/Index";
+                });
+            });
+
+            $("#btnFilter").click(function () {
+                alert("btnFilter is clicked");
+                //$.post("SearchUsers", { userName: $("#Title").val() }, function (data) {
+                //$.post("Admin/SearchUsers", { userName: "qttran" }, function (data) {
+                //    alert(userName);
+                //    if (data) {
+                //        alert("Data : " + data.UserId + " - " + data.UserName);
+                        //var fields = ["MovieId", "Title", "ReleaseYear", "FilmRating", "Language", "Poster", "Plot", "ImdbRating"];
+                        //$.each(fields, function (index, value) {
+                        //    eval("$(\"#" + value + "\").val(data." + value + ");");
+                        //});
+                        /*
+                        $("#MovieId").val(data.MovieId);
+                        */
+                 //   } else {
+                 //       alert("No result");
+                 //   }
+                //});
+            });
+
+
+            
+        });
+    </script>
+}
+

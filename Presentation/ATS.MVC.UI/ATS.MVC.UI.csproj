@@ -273,6 +273,13 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Views\Admin\AddAgent.cshtml" />
+    <Content Include="Views\Admin\AddCompany.cshtml" />
+    <Content Include="Views\Admin\AddSupervisor.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\SuccessSetupCompary.cshtml" />
+    <Content Include="Views\Admin\UpdateObjectAccess.cshtml" />
+    <Content Include="Views\Admin\UpdateUser.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -352,15 +359,6 @@
     <Content Include="Views\Calendar\MyDetail.cshtml" />
     <Content Include="Views\Calendar\TeamDetail.cshtml" />
     <Content Include="Views\Account\UnauthorizedAccess.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\UpdateUser.cshtml" />
-    <Content Include="Views\Admin\UpdateObjectAccess.cshtml" />
-    <Content Include="Views\Admin\AddCompany.cshtml" />
-    <Content Include="Views\Admin\AddSupervisor.cshtml" />
-    <Content Include="Views\Admin\AddAgent.cshtml" />
-    <Content Include="Views\Admin\SuccessSetupCompary.cshtml" />
-  
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
