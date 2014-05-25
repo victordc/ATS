@@ -349,6 +349,8 @@
     <Content Include="Views\TimeSheetMaster\Edit.cshtml" />
     <Content Include="Views\TimeSheetMaster\Delete.cshtml" />
     <Content Include="Views\Calendar\Team.cshtml" />
+    <Content Include="Views\Calendar\MyDetail.cshtml" />
+    <Content Include="Views\Calendar\TeamDetail.cshtml" />
     <Content Include="Views\Account\UnauthorizedAccess.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\UpdateUser.cshtml" />
@@ -357,6 +359,8 @@
     <Content Include="Views\Admin\AddSupervisor.cshtml" />
     <Content Include="Views\Admin\AddAgent.cshtml" />
     <Content Include="Views\Admin\SuccessSetupCompary.cshtml" />
+  
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
