@@ -7,9 +7,12 @@ using System.Web;
 using System.Web.Mvc;
 using ATS.Data.Model;
 using ATS.Data;
+using ATS.MVC.UI;
+using ATS.MVC.UI.Common;
 
 namespace ATS.MVC.UI.Controllers
 {
+    [ATSAuthorizeAttribute]
     public class CodeTableController : BaseController
     {
         //
@@ -18,7 +21,7 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "List Of CodeTable";
-            IEnumerable<CodeTable> model = TimesheetRepository.GetCodeTables();
+            IEnumerable<CodeTable> model = TimesheetRepository.Instance.GetCodeTables();
             return View(model);
         }
 
@@ -51,7 +54,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            CodeTable model = TimesheetRepository.GetCodeTableById(id);
+            CodeTable model = TimesheetRepository.Instance.GetCodeTableById(id);
             if (model == null)
             {
                 return HttpNotFound();

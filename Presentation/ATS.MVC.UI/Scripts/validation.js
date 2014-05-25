@@ -4,7 +4,8 @@
     });
 
     $('form').submit(function () {
-        if ($(this).valid()) {
+        //if ($(this).valid()) {
+        if (true) {
             $(this).find('div.control-group').each(function () {
                 if ($(this).find('span.field-validation-error').length == 0) {
                     $(this).removeClass('error');

@@ -10,9 +10,19 @@
           <EntitySet Name="Companies" EntityType="ATSCEModel.Store.Companies" store:Type="Tables" />
           <EntitySet Name="LeaveCategories" EntityType="ATSCEModel.Store.LeaveCategories" store:Type="Tables" />
           <EntitySet Name="LeavePlan" EntityType="ATSCEModel.Store.LeavePlan" store:Type="Tables" />
+          <EntitySet Name="ObjectAccesses" EntityType="ATSCEModel.Store.ObjectAccesses" store:Type="Tables" />
           <EntitySet Name="Persons" EntityType="ATSCEModel.Store.Persons" store:Type="Tables" />
           <EntitySet Name="TM_TimeSheetDetails" EntityType="ATSCEModel.Store.TM_TimeSheetDetails" store:Type="Tables" Table="TM.TimeSheetDetails" />
           <EntitySet Name="TM_TimeSheetMasters" EntityType="ATSCEModel.Store.TM_TimeSheetMasters" store:Type="Tables" Table="TM.TimeSheetMasters" />
+          <EntitySet Name="UserProfile" EntityType="ATSCEModel.Store.UserProfile" store:Type="Tables" />
+          <EntitySet Name="webpages_Membership" EntityType="ATSCEModel.Store.webpages_Membership" store:Type="Tables" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="ATSCEModel.Store.webpages_OAuthMembership" store:Type="Tables" />
+          <EntitySet Name="webpages_Roles" EntityType="ATSCEModel.Store.webpages_Roles" store:Type="Tables" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="ATSCEModel.Store.webpages_UsersInRoles" store:Type="Tables" />
+          <AssociationSet Name="fk_RoleId" Association="ATSCEModel.Store.fk_RoleId">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
           <AssociationSet Name="FK_Staff_Agent" Association="ATSCEModel.Store.FK_Staff_Agent">
             <End Role="Persons" EntitySet="Persons" />
             <End Role="Persons1" EntitySet="Persons" />
@@ -24,6 +34,10 @@
           <AssociationSet Name="FK_Supervisor_Company" Association="ATSCEModel.Store.FK_Supervisor_Company">
             <End Role="Companies" EntitySet="Companies" />
             <End Role="Persons" EntitySet="Persons" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserId" Association="ATSCEModel.Store.fk_UserId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
           <AssociationSet Name="Leave__Person" Association="ATSCEModel.Store.Leave__Person">
             <End Role="Persons" EntitySet="Persons" />
@@ -78,6 +92,21 @@
           <Property Name="Duration" Type="float" Nullable="false" />
           <Property Name="Admitted" Type="bit" />
         </EntityType>
+        <EntityType Name="ObjectAccesses">
+          <Key>
+            <PropertyRef Name="ObjectAccessId" />
+          </Key>
+          <Property Name="ObjectAccessId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Controller" Type="nvarchar" MaxLength="50" />
+          <Property Name="Action" Type="nvarchar" MaxLength="50" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccessType" Type="nchar" Nullable="false" MaxLength="1" />
+          <Property Name="Status" Type="nchar" Nullable="false" MaxLength="1" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+        </EntityType>
         <EntityType Name="Persons">
           <Key>
             <PropertyRef Name="PersonId" />
@@ -120,6 +149,65 @@
           <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" Nullable="false" MaxLength="500" />
         </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="56" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsConfirmed" Type="bit" />
+          <Property Name="LastPasswordFailureDate" Type="datetime" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="PasswordChangedDate" Type="datetime" />
+          <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Name="Provider" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="ProviderUserId" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="webpages_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_RoleId">
+          <End Role="webpages_Roles" Type="ATSCEModel.Store.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="ATSCEModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Staff_Agent">
           <End Role="Persons" Type="ATSCEModel.Store.Persons" Multiplicity="0..1" />
           <End Role="Persons1" Type="ATSCEModel.Store.Persons" Multiplicity="*" />
@@ -153,6 +241,18 @@
             </Principal>
             <Dependent Role="Persons">
               <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserId">
+          <End Role="UserProfile" Type="ATSCEModel.Store.UserProfile" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="ATSCEModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -227,6 +327,15 @@
           <AssociationSet Name="TimeSheetMasterSupervisor" Association="ATSCEModel.TimeSheetMasterSupervisor">
             <End Role="TimeSheetMaster" EntitySet="TimeSheetMasters" />
             <End Role="Supervisor" EntitySet="Persons" />
+          </AssociationSet>
+          <EntitySet Name="ObjectAccesses" EntityType="ATSCEModel.ObjectAccess" />
+          <EntitySet Name="UserProfiles" EntityType="ATSCEModel.UserProfile" />
+          <EntitySet Name="webpages_Membership" EntityType="ATSCEModel.webpages_Membership" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="ATSCEModel.webpages_OAuthMembership" />
+          <EntitySet Name="webpages_Roles" EntityType="ATSCEModel.webpages_Roles" />
+          <AssociationSet Name="webpages_UsersInRoles" Association="ATSCEModel.webpages_UsersInRoles">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="CodeTable">
@@ -444,6 +553,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ObjectAccess">
+          <Key>
+            <PropertyRef Name="ObjectAccessId" />
+          </Key>
+          <Property Type="Int32" Name="ObjectAccessId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Controller" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Action" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Role" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AccessType" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="false" />
+          <Property Type="DateTime" Name="UpdatedOn" Precision="3" />
+          <Property Type="Int32" Name="UpdatedBy" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="webpages_Roles" Relationship="ATSCEModel.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Precision="3" />
+          <Property Type="String" Name="ConfirmationToken" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsConfirmed" />
+          <Property Type="DateTime" Name="LastPasswordFailureDate" Precision="3" />
+          <Property Type="Int32" Name="PasswordFailuresSinceLastSuccess" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PasswordChangedDate" Precision="3" />
+          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordVerificationToken" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PasswordVerificationTokenExpirationDate" Precision="3" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Type="String" Name="Provider" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ProviderUserId" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Type="Int32" Name="RoleId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserProfiles" Relationship="ATSCEModel.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="webpages_UsersInRoles">
+          <End Type="ATSCEModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
+          <End Type="ATSCEModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -572,6 +741,72 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ObjectAccesses">
+            <EntityTypeMapping TypeName="ATSCEModel.ObjectAccess">
+              <MappingFragment StoreEntitySet="ObjectAccesses">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AccessType" ColumnName="AccessType" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="ObjectAccessId" ColumnName="ObjectAccessId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="ATSCEModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Membership">
+            <EntityTypeMapping TypeName="ATSCEModel.webpages_Membership">
+              <MappingFragment StoreEntitySet="webpages_Membership">
+                <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+                <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+                <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_OAuthMembership">
+            <EntityTypeMapping TypeName="ATSCEModel.webpages_OAuthMembership">
+              <MappingFragment StoreEntitySet="webpages_OAuthMembership">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Roles">
+            <EntityTypeMapping TypeName="ATSCEModel.webpages_Roles">
+              <MappingFragment StoreEntitySet="webpages_Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="ATSCEModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
+            <EndProperty Name="UserProfile">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="webpages_Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

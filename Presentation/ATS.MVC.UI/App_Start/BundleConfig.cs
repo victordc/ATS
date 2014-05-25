@@ -47,10 +47,11 @@ namespace ATS.MVC.UI
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-1.7.1.min.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-ui-1.10.4.min.js"));
+			
+			bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                        "~/Scripts/jquery.unobtrusive*",
+                        "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(
                         "~/Scripts/bootstrap.min.js"));

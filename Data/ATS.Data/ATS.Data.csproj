@@ -98,6 +98,9 @@
     <Compile Include="Model\LeavePlan.cs">
       <DependentUpon>ATSCEModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\ObjectAccess.cs">
+      <DependentUpon>ATSCEModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Person.cs">
       <DependentUpon>ATSCEModel.tt</DependentUpon>
     </Compile>
@@ -113,6 +116,19 @@
     <Compile Include="Model\TimeSheetMaster.cs">
       <DependentUpon>ATSCEModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\UserProfile.cs">
+      <DependentUpon>ATSCEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\webpages_Membership.cs">
+      <DependentUpon>ATSCEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\webpages_OAuthMembership.cs">
+      <DependentUpon>ATSCEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\webpages_Roles.cs">
+      <DependentUpon>ATSCEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ObjectAccess.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="PersonRepository.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -120,12 +136,17 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="RegisterModel.cs" />
+    <Compile Include="SetupCompany.cs" />
+    <Compile Include="SetupNewCompany.cs" />
     <Compile Include="Staff.cs" />
     <Compile Include="Supervisor.cs" />
     <Compile Include="TimeSheetDetail.cs" />
     <Compile Include="TimeSheetMaster.cs" />
     <Compile Include="TimesheetRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserProfile.cs" />
+    <Compile Include="webpages_Roles.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
@@ -181,6 +202,12 @@
       <ProductName>SQL Server Compact 4.0 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\ATS.Framework\ATS.Framework.csproj">
+      <Project>{a34242e6-b219-44ee-8c65-d0efe79ddd7d}</Project>
+      <Name>ATS.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

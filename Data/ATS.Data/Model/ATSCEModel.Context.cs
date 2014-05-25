@@ -32,5 +32,10 @@ namespace ATS.Data.Model
         public DbSet<Person> Persons { get; set; }
         public DbSet<TimeSheetDetail> TimeSheetDetails { get; set; }
         public DbSet<TimeSheetMaster> TimeSheetMasters { get; set; }
+        public DbSet<ObjectAccess> ObjectAccesses { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<webpages_Membership> webpages_Membership { get; set; }
+        public DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
+        public DbSet<webpages_Roles> webpages_Roles { get; set; }
     }
 }

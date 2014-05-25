@@ -10,6 +10,8 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using ATS.MVC.UI.Filters;
 using ATS.MVC.UI.Models;
+using ATS.MVC.UI.Common;
+using ATS.Data;
 
 namespace ATS.MVC.UI.Controllers
 {
@@ -37,7 +39,14 @@ namespace ATS.MVC.UI.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                return RedirectToLocal(returnUrl);
+                string roleName = Roles.GetRolesForUser(model.UserName).FirstOrDefault();
+                UserSetting.Current.Controllers = TimesheetRepository.Instance.GetControllers(roleName);
+                UserSetting.Current.RoleName = roleName;
+                //TODO: UserSetting.Current.UserId = 0;
+                UserSetting.Current.UserName = model.UserName;
+
+                //return RedirectToLocal(returnUrl);
+                return RedirectToAction("Index", "Home");
             }
 
             // If we got this far, something failed, redisplay form
@@ -403,5 +412,10 @@ namespace ATS.MVC.UI.Controllers
             }
         }
         #endregion
+
+        public ActionResult UnauthorizedAccess()
+        {
+            return View();
+        }
     }
 }
