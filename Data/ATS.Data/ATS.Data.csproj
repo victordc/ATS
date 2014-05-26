@@ -65,7 +65,7 @@
     <Compile Include="Agent.cs" />
     <Compile Include="CodeTable.cs" />
     <Compile Include="Company.cs" />
-    <Compile Include="IPersonReporsitory.cs" />
+    <Compile Include="IPersonRepository.cs" />
     <Compile Include="LeaveCategoroy.cs" />
     <Compile Include="LeavePlan.cs" />
     <Compile Include="Model\Agent.cs">

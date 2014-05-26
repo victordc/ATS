@@ -28,7 +28,7 @@ namespace ATS.Data.Model
         //}
     }
 
-    public class AgentMetadata
+    public class AgentMetadata : PersonData
     {
         //TODO, must supervisorId required??
         //[Required(ErrorMessage = "Supervisor is required")]

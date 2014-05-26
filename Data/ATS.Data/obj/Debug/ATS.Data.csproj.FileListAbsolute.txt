@@ -20,10 +20,3 @@ C:\Users\Siyavash\Documents\Visual Studio 2012\Projects\ATS\Data\ATS.Data\bin\De
 C:\Users\Siyavash\Documents\Visual Studio 2012\Projects\ATS\Data\ATS.Data\bin\Debug\ATS.Data.pdb
 C:\Users\Siyavash\Documents\Visual Studio 2012\Projects\ATS\Data\ATS.Data\obj\Debug\ATS.Data.dll
 C:\Users\Siyavash\Documents\Visual Studio 2012\Projects\ATS\Data\ATS.Data\obj\Debug\ATS.Data.pdb
-C:\NUS\Enterprise.Net1\ATS\Data\ATS.Data\bin\Debug\Database\ATSCE.sdf
-C:\NUS\Enterprise.Net1\ATS\Data\ATS.Data\bin\Debug\ATS.Data.dll.config
-C:\NUS\Enterprise.Net1\ATS\Data\ATS.Data\bin\Debug\ATS.Data.dll
-C:\NUS\Enterprise.Net1\ATS\Data\ATS.Data\bin\Debug\ATS.Data.pdb
-C:\NUS\Enterprise.Net1\ATS\Data\ATS.Data\obj\Debug\ATS.Data.dll
-C:\NUS\Enterprise.Net1\ATS\Data\ATS.Data\obj\Debug\ATS.Data.pdb
-C:\NUS\Enterprise.Net1\ATS\Data\ATS.Data\obj\Debug\ATS.Data.csprojResolveAssemblyReference.cache

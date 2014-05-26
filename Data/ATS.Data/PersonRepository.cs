@@ -12,6 +12,11 @@ namespace ATS.Data.DAL
     {
         private ATSCEEntities context;
 
+        public PersonRepository()
+        {
+            context = new ATSCEEntities();
+        }
+
         public PersonRepository(ATSCEEntities context)
         {
             this.context = context;
@@ -57,6 +62,42 @@ namespace ATS.Data.DAL
             context.SaveChanges();
         }
 
+        public IEnumerable<Staff> GetStaffsBySupervisor(int supervisorId)
+        {
+            IQueryable<Staff> query = from s in context.Persons.OfType<Staff>()
+                                           where s.SupervisorId == supervisorId
+                                           select s;
+            IEnumerable<Staff> staffs = query.ToList<Staff>();
+            return staffs;
+        }
+
+        public IEnumerable<Staff> GetUnsupervisedStaffs()
+        {
+            IQueryable<Staff> query = from s in context.Persons.OfType<Staff>()
+                                      where s.SupervisorId == null
+                                      select s;
+            IEnumerable<Staff> staffs = query.ToList<Staff>();
+            return staffs;
+        }
+
+        public IEnumerable<Staff> GetStaffsByAgent(int agentId)
+        {
+            IQueryable<Staff> query = from s in context.Persons.OfType<Staff>()
+                                      where s.AgentId == agentId 
+                                      select s;
+            IEnumerable<Staff> staffs = query.ToList<Staff>();
+            return staffs;
+        }
+
+        public IEnumerable<Staff> GetStaffWithoutAgent()
+        {
+            IQueryable<Staff> query = from s in context.Persons.OfType<Staff>()
+                                      where s.SupervisorId == null
+                                      select s;
+            IEnumerable<Staff> staffs = query.ToList<Staff>();
+            return staffs;
+        }
+
         public IEnumerable<Supervisor> GetSupervisors()
         {
             return context.Persons.OfType<Supervisor>().ToList();
@@ -69,6 +110,15 @@ namespace ATS.Data.DAL
                                       select s;
             Supervisor supervisor = query.FirstOrDefault<Supervisor>();
             return supervisor;
+        }
+
+        public IEnumerable<Supervisor> GetSupervisorsByCompany(Company company)
+        {
+            IQueryable<Supervisor> query = from s in context.Persons.OfType<Supervisor>()
+                                           where s.CompanyId == company.CompanyId
+                                           select s;
+            IEnumerable<Supervisor> supervisors = query.ToList<Supervisor>();
+            return supervisors;
         }
 
         public void InsertSupervisor(Supervisor supervisor)

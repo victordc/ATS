@@ -6,28 +6,26 @@ using System.Web;
 using System.Web.Mvc;
 using ATS.Data.DAL;
 using ATS.Data.Model;
+using ATS.BLL;
 
 namespace ATS.MVC.UI.Controllers
 {
-    public class SupervisorController : Controller
+    public class SupervisorController : BaseController
     {
-        private IPersonRepository personRepository;
+        private MaintainPersonBLL personBLL;
 
         public SupervisorController()
         {
-            this.personRepository = new PersonRepository(new ATSCEEntities());
+            this.personBLL = new MaintainPersonBLL();
         }
 
-        public SupervisorController(IPersonRepository personRepository)
-        {
-            this.personRepository = personRepository;
-        }
+        
         //
         // GET: /Supervisor/
 
         public ActionResult Index()
         {
-            return View(personRepository.GetSupervisors());
+            return View(personBLL.GetSupervisors());
         }
 
         //
@@ -35,7 +33,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Details(int id)
         {
-            var supervisor = personRepository.GetSupervisorByID(id);
+            var supervisor = personBLL.GetSupervisorById(id);
             return View(supervisor);
         }
 
@@ -46,7 +44,7 @@ namespace ATS.MVC.UI.Controllers
         {
             //TODO, Add CompanyID selection
             ViewBag.CompanyId = new SelectList(Company.GetAll(), "CompanyId", "CompanyDescription");
-            ViewBag.AgentId = new SelectList(personRepository.GetAgents(), "PersonId", "PersonName");
+            ViewBag.AgentId = new SelectList(personBLL.GetAgents(), "PersonId", "PersonName");
             return View();
         }
 
@@ -61,7 +59,7 @@ namespace ATS.MVC.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    personRepository.InsertSupervisor(supervisor);
+                    personBLL.InsertSupervisor(supervisor);
                     return RedirectToAction("Details", new { id = supervisor.PersonId });
                 }
             }
@@ -72,7 +70,7 @@ namespace ATS.MVC.UI.Controllers
             }
             //TODO, Add CompanyID selection
             ViewBag.CompanyId = new SelectList(Company.GetAll(), "CompanyId", "CompanyDescription");
-            ViewBag.AgentId = new SelectList(personRepository.GetAgents(), "PersonId", "PersonName");
+            ViewBag.AgentId = new SelectList(personBLL.GetAgents(), "PersonId", "PersonName");
 
             return View(supervisor);
         }
@@ -82,14 +80,14 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Edit(int id)
         {
-            Supervisor supervisor = personRepository.GetSupervisorByID(id);
+            Supervisor supervisor = personBLL.GetSupervisorById(id);
             if (supervisor == null)
             {
                 return HttpNotFound();
             }
             //TODO, Add CompanyID selection
             ViewBag.CompanyId = new SelectList(Company.GetAll(), "CompanyId", "CompanyDescription", supervisor.CompanyId);
-            ViewBag.AgentId = new SelectList(personRepository.GetAgents(), "PersonId", "PersonName", supervisor.AgentId);
+            ViewBag.AgentId = new SelectList(personBLL.GetAgents(), "PersonId", "PersonName", supervisor.AgentId);
             return View(supervisor);
         }
 
@@ -104,7 +102,7 @@ namespace ATS.MVC.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    personRepository.UpdateSupervisor(supervisor);
+                    personBLL.UpdateSupervisor(supervisor);
                     return RedirectToAction("Index");
                 }
             }
@@ -115,7 +113,7 @@ namespace ATS.MVC.UI.Controllers
             }
             //TODO, Add CompanyID selection
             ViewBag.CompanyId = new SelectList(Company.GetAll(), "CompanyId", "CompanyDescription", supervisor.CompanyId);
-            ViewBag.AgentId = new SelectList(personRepository.GetAgents(), "PersonId", "PersonName", supervisor.AgentId);
+            ViewBag.AgentId = new SelectList(personBLL.GetAgents(), "PersonId", "PersonName", supervisor.AgentId);
             return View(supervisor);
         }
 
@@ -124,7 +122,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Delete(int id)
         {
-            Supervisor supervisor = personRepository.GetSupervisorByID(id);
+            Supervisor supervisor = personBLL.GetSupervisorById(id);
             if (supervisor == null)
             {
                 return HttpNotFound();
@@ -141,7 +139,7 @@ namespace ATS.MVC.UI.Controllers
         {
             try
             {
-                personRepository.DeleteSupervisor(id);
+                personBLL.DeleteSupervisor(id);
                 return RedirectToAction("Index");
             }
             catch
@@ -149,5 +147,52 @@ namespace ATS.MVC.UI.Controllers
                 return View();
             }
         }
+
+        /// <summary>
+        /// GET : /Supervisor/AssignStaff/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult AssignStaff(int id)
+        {
+            Supervisor supervisor = personBLL.GetSupervisorById(id);
+            //find supervided Staffs
+            IEnumerable<Staff> supervisedStaffs = personBLL.GetSupervisedStaffs(supervisor);
+            IEnumerable<Staff> avaiableStaffs = personBLL.GetUnsupervisedStaffs();
+            IEnumerable<SelectListItem> assignedStaffs = Enumerable.Empty<SelectListItem>();
+            if (supervisedStaffs != null && supervisedStaffs.Count<Staff>() > 0)
+            {
+                assignedStaffs = from value in supervisedStaffs
+                    select new SelectListItem
+                    {
+                        Text = value.PersonName,
+                        Value = value.PersonId.ToString(),
+                        Selected = false,
+                    };
+            }
+            IEnumerable<SelectListItem> freeStaffs = Enumerable.Empty<SelectListItem>();
+            if(avaiableStaffs != null && avaiableStaffs.Count<Staff>() > 0)
+            {
+                freeStaffs = from value in avaiableStaffs
+                select new SelectListItem
+                {
+                    Text = value.PersonName,
+                    Value = value.PersonId.ToString(),
+                    Selected = false,
+                };
+            }
+            ViewBag.AssignedStaffs = assignedStaffs;
+            ViewBag.AvailableStaffs = freeStaffs;
+            return View(supervisor);
+        }
+
+        [HttpPost]
+        public ActionResult AssignStaffConfirm(int id)
+        {
+            //Ajax method to assign the staffs to Supervisor
+            return null;
+        }
+
+        
     }
 }

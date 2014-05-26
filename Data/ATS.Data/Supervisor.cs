@@ -28,7 +28,7 @@ namespace ATS.Data.Model
         //}
     }
 
-    public class SupervisorMetaData
+    public class SupervisorMetaData : PersonData
     {
         //TODO make sure whether supervisorId is required
         //[Required(ErrorMessage = "Client Company is Required")]

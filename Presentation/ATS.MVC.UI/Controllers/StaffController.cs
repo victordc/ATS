@@ -6,28 +6,25 @@ using System.Web;
 using System.Web.Mvc;
 using ATS.Data.DAL;
 using ATS.Data.Model;
+using ATS.BLL;
 
 namespace ATS.MVC.UI.Controllers
 {
-    public class StaffController : Controller
+    public class StaffController : BaseController
     {
-        private IPersonRepository personRepository;
+        private MaintainPersonBLL personBLL;
 
         public StaffController()
         {
-            this.personRepository = new PersonRepository(new ATSCEEntities());
+            this.personBLL = new MaintainPersonBLL();
         }
 
-        public StaffController(IPersonRepository personRepository)
-        {
-            this.personRepository = personRepository;
-        }
         //
         // GET: /Staff/
 
         public ActionResult Index()
         {
-            return View(personRepository.GetStaffs());
+            return View(personBLL.GetStaffs());
         }
 
         //
@@ -35,7 +32,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Details(int id)
         {
-            var staff = personRepository.GetStaffByID(id);
+            var staff = personBLL.GetStaffById(id);
             return View(staff);
         }
 
@@ -44,8 +41,8 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.SupervisorId = new SelectList(personRepository.GetSupervisors(), "PersonId", "PersonName");
-            ViewBag.AgentId = new SelectList(personRepository.GetAgents(), "PersonId", "PersonName");
+            ViewBag.SupervisorId = new SelectList(personBLL.GetSupervisors(), "PersonId", "PersonName");
+            ViewBag.AgentId = new SelectList(personBLL.GetAgents(), "PersonId", "PersonName");
             return View();
         }
 
@@ -60,7 +57,7 @@ namespace ATS.MVC.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    personRepository.InsertStaff(staff);
+                    personBLL.InsertStaff(staff);
                     return RedirectToAction("Details", new { id = staff.PersonId});
                 }
             }
@@ -69,8 +66,8 @@ namespace ATS.MVC.UI.Controllers
                 //Log error?
                 ModelState.AddModelError(string.Empty, "Unable to save changes.");
             }
-            ViewBag.SupervisorId = new SelectList(personRepository.GetSupervisors(), "PersonId", "PersonName");
-            ViewBag.AgentId = new SelectList(personRepository.GetAgents(), "PersonId", "PersonName");
+            ViewBag.SupervisorId = new SelectList(personBLL.GetSupervisors(), "PersonId", "PersonName");
+            ViewBag.AgentId = new SelectList(personBLL.GetAgents(), "PersonId", "PersonName");
 
             return View(staff);
         }
@@ -80,13 +77,13 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Edit(int id)
         {
-            Staff staff = personRepository.GetStaffByID(id);
+            Staff staff = personBLL.GetStaffById(id);
             if (staff == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SupervisorId = new SelectList(personRepository.GetSupervisors(), "PersonId", "PersonName",staff.SupervisorId);
-            ViewBag.AgentId = new SelectList(personRepository.GetAgents(), "PersonId", "PersonName", staff.AgentId);
+            ViewBag.SupervisorId = new SelectList(personBLL.GetSupervisors(), "PersonId", "PersonName", staff.SupervisorId);
+            ViewBag.AgentId = new SelectList(personBLL.GetAgents(), "PersonId", "PersonName", staff.AgentId);
             return View(staff);
         }
 
@@ -101,7 +98,7 @@ namespace ATS.MVC.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    personRepository.UpdateStaff(staff);
+                    personBLL.UpdateStaff(staff);
                     return RedirectToAction("Index");
                 }
             }
@@ -110,8 +107,8 @@ namespace ATS.MVC.UI.Controllers
                 //Log error?
                 ModelState.AddModelError(string.Empty, "Unable to save changes.");
             }
-            ViewBag.SupervisorId = new SelectList(personRepository.GetSupervisors(), "PersonId", "PersonName", staff.SupervisorId);
-            ViewBag.AgentId = new SelectList(personRepository.GetAgents(), "PersonId", "PersonName", staff.AgentId);
+            ViewBag.SupervisorId = new SelectList(personBLL.GetSupervisors(), "PersonId", "PersonName", staff.SupervisorId);
+            ViewBag.AgentId = new SelectList(personBLL.GetAgents(), "PersonId", "PersonName", staff.AgentId);
             return View(staff);
         }
 
@@ -120,7 +117,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Delete(int id)
         {
-            Staff staff = personRepository.GetStaffByID(id);
+            Staff staff = personBLL.GetStaffById(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -137,7 +134,7 @@ namespace ATS.MVC.UI.Controllers
         {
             try
             {
-                personRepository.DeleteStaff(id);
+                personBLL.DeleteStaff(id);
                 return RedirectToAction("Index");
             }
             catch

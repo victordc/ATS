@@ -6,28 +6,26 @@ using System.Web;
 using System.Web.Mvc;
 using ATS.Data.DAL;
 using ATS.Data.Model;
+using ATS.BLL;
 
 namespace ATS.MVC.UI.Controllers
 {
-    public class AgentController : Controller
+    public class AgentController : BaseController
     {
-        private IPersonRepository personRepository;
+        private MaintainPersonBLL personBLL;
 
         public AgentController()
         {
-            this.personRepository = new PersonRepository(new ATSCEEntities());
+            this.personBLL = new MaintainPersonBLL();
         }
 
-        public AgentController(IPersonRepository personRepository)
-        {
-            this.personRepository = personRepository;
-        }
+        
         //
         // GET: /Agent/
 
         public ActionResult Index()
         {
-            return View(personRepository.GetAgents());
+            return View(personBLL.GetAgents());
         }
 
         //
@@ -35,7 +33,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Details(int id)
         {
-            var agent = personRepository.GetAgentByID(id);
+            var agent = personBLL.GetAgentById(id);
             return View(agent);
         }
 
@@ -44,7 +42,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.SupervisorId = new SelectList(personRepository.GetSupervisors(), "PersonId", "PersonName");
+            ViewBag.SupervisorId = new SelectList(personBLL.GetSupervisors(), "PersonId", "PersonName");
             
             return View();
         }
@@ -60,7 +58,7 @@ namespace ATS.MVC.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    personRepository.InsertAgent(agent);
+                    personBLL.InsertAgent(agent);
                     return RedirectToAction("Details", new { id = agent.PersonId });
                 }
             }
@@ -69,7 +67,7 @@ namespace ATS.MVC.UI.Controllers
                 //Log error?
                 ModelState.AddModelError(string.Empty, "Unable to save changes.");
             }
-            ViewBag.SupervisorId = new SelectList(personRepository.GetSupervisors(), "PersonId", "PersonName");
+            ViewBag.SupervisorId = new SelectList(personBLL.GetSupervisors(), "PersonId", "PersonName");
             
 
             return View(agent);
@@ -80,12 +78,12 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Edit(int id)
         {
-            Agent agent = personRepository.GetAgentByID(id);
+            Agent agent = personBLL.GetAgentById(id);
             if (agent == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SupervisorId = new SelectList(personRepository.GetSupervisors(), "PersonId", "PersonName", agent.SupervisorId);
+            ViewBag.SupervisorId = new SelectList(personBLL.GetSupervisors(), "PersonId", "PersonName", agent.SupervisorId);
             return View(agent);
         }
 
@@ -100,7 +98,7 @@ namespace ATS.MVC.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    personRepository.UpdateAgent(agent);
+                    personBLL.UpdateAgent(agent);
                     return RedirectToAction("Index");
                 }
             }
@@ -109,7 +107,7 @@ namespace ATS.MVC.UI.Controllers
                 //Log error?
                 ModelState.AddModelError(string.Empty, "Unable to save changes.");
             }
-            ViewBag.SupervisorId = new SelectList(personRepository.GetSupervisors(), "PersonId", "PersonName", agent.SupervisorId);
+            ViewBag.SupervisorId = new SelectList(personBLL.GetSupervisors(), "PersonId", "PersonName", agent.SupervisorId);
             return View(agent);
         }
 
@@ -118,7 +116,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Delete(int id)
         {
-            Agent agent = personRepository.GetAgentByID(id);
+            Agent agent = personBLL.GetAgentById(id);
             if (agent == null)
             {
                 return HttpNotFound();
@@ -135,13 +133,62 @@ namespace ATS.MVC.UI.Controllers
         {
             try
             {
-                personRepository.DeleteAgent(id);
+                personBLL.DeleteAgent(id);
                 return RedirectToAction("Index");
             }
             catch
             {
                 return View();
             }
+        }
+
+        /// <summary>
+        /// GET : /Agent/AssignStaff/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult AssignStaff(int id)
+        {
+            Agent agent = personBLL.GetAgentById(id);
+            if (agent == null)
+            {
+                return HttpNotFound();
+            }
+            //find supervided Staffs
+            IEnumerable<Staff> agentedStaffs = personBLL.GetRepresentedStaffs(agent);
+            IEnumerable<Staff> avaiableStaffs = personBLL.GetStaffsWithoutAgency();
+            IEnumerable<SelectListItem> assignedStaffs = Enumerable.Empty<SelectListItem>();
+            if(agentedStaffs != null && agentedStaffs.Count<Staff>() > 0)
+            {
+                assignedStaffs = from value in agentedStaffs
+                select new SelectListItem
+                {
+                    Text = value.PersonName,
+                    Value = value.PersonId.ToString(),
+                    Selected = false,
+                };
+            }
+            IEnumerable<SelectListItem> freeStaffs = Enumerable.Empty<SelectListItem>();
+            if(avaiableStaffs != null && avaiableStaffs.Count<Staff>() > 0)
+            {
+                freeStaffs = from value in avaiableStaffs
+                select new SelectListItem
+                {
+                    Text = value.PersonName,
+                    Value = value.PersonId.ToString(),
+                    Selected = false,
+                };
+            }
+            ViewBag.AssignedStaffs = assignedStaffs;
+            ViewBag.AvailableStaffs = freeStaffs;
+            return View(agent);
+        }
+
+        [HttpPost]
+        public ActionResult AssignStaffConfirm(int id)
+        {
+            //Ajax method to assign the staffs to Supervisor
+            return null;
         }
     }
 }

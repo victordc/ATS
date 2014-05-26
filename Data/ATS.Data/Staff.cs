@@ -29,7 +29,7 @@ namespace ATS.Data.Model
 
     }
 
-    public class StaffMetadata
+    public class StaffMetadata : PersonData
     {
         //[Required(ErrorMessage = "Agent is required")]
         [DisplayName("Agent")]
