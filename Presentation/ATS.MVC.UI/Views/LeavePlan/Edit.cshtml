@@ -7,65 +7,70 @@
 <h2>Edit</h2>
 
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 
-        <fieldset>
-            <legend>LeavePlan</legend>
+    <fieldset>
+        <legend>LeavePlan</legend>
 
-            @Html.HiddenFor(model => model.LeavePlanId)
+        @Html.HiddenFor(model => model.LeavePlanId)
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.PersonId, "Person")
-            </div>
-            <div class="editor-field">
-                @Html.DropDownList("PersonId", String.Empty)
-                @Html.ValidationMessageFor(model => model.PersonId)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PersonId, "Person")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PersonId", String.Empty)
+            @Html.ValidationMessageFor(model => model.PersonId)
+        </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.LeaveCategoryId, "LeaveCategory")
-            </div>
-            <div class="editor-field">
-                @Html.DropDownList("LeaveCategoryId", String.Empty)
-                @Html.ValidationMessageFor(model => model.LeaveCategoryId)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LeaveCategoryId, "LeaveCategory")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("LeaveCategoryId", String.Empty)
+            @Html.ValidationMessageFor(model => model.LeaveCategoryId)
+        </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StartDate)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.StartDate)
-                @Html.ValidationMessageFor(model => model.StartDate)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartDate)
+            @Html.ValidationMessageFor(model => model.StartDate)
+        </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.EndDate)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.EndDate)
-                @Html.ValidationMessageFor(model => model.EndDate)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EndDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EndDate)
+            @Html.ValidationMessageFor(model => model.EndDate)
+        </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Duration)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Duration)
-                @Html.ValidationMessageFor(model => model.Duration)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Duration)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Duration)
+            @Html.ValidationMessageFor(model => model.Duration)
+        </div>
 
-            <p>
-                <div class="controls">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
-                </div>
-            </p>
-        </fieldset>
-    }
+        <p>
+            <div class="controls">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+            </div>
+        </p>
+    </fieldset>
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#PersonId").attr('disabled', 'disabled');
+        });
+    </script>
 }

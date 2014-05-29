@@ -18,7 +18,7 @@
             @Html.LabelFor(model => model.PersonId, "Person", new { @class = "control-label" })
         </div>
         <div class="editor-field">
-            @Html.DropDownList("PersonId", String.Empty)
+            @Html.DropDownList("PersonId")
             @Html.ValidationMessageFor(model => model.PersonId)
         </div>
 
@@ -63,4 +63,9 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#PersonId").attr('disabled', 'disabled');
+        });
+    </script>
 }
