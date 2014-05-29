@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using ATS.Data.Model;
 using ATS.Data;
+using ATS.MVC.UI.Common;
 
 namespace ATS.MVC.UI.Controllers
 {
@@ -16,10 +17,10 @@ namespace ATS.MVC.UI.Controllers
 
         //
         // GET: /LeavePlan/
-
         public ActionResult Index()
         {
-            int currentUserId = 1;
+            int currentUserId = UserSetting.Current.UserId;
+            //int currentUserId = 1;
             var leavePlans = TimesheetRepository.GetLeavePlans(currentUserId);
             return View(leavePlans.ToList());
         }
@@ -43,7 +44,8 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Create()
         {
             ViewBag.LeaveCategoryId = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc");
-            ViewBag.PersonId = new SelectList(TimesheetRepository.GetAllPersons(), "PersonId", "PersonName");
+            int currentUserId = UserSetting.Current.UserId;
+            ViewBag.PersonId = new SelectList(TimesheetRepository.GetAllPersons(), "PersonId", "PersonName", currentUserId);
             return View();
         }
 
@@ -116,16 +118,24 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Supervise()
         {
-            int thisUserId = 1;
+            int thisUserId = UserSetting.Current.UserId;
             var leavePlans = TimesheetRepository.GetAllPersonsBySupervisorId(thisUserId);
             return View(leavePlans.ToList());
         }
 
-        public ActionResult AdmitOrReject(int LeavePlanId, bool AdmitReject)
+        public bool AdmitOrReject(int LeavePlanId, bool AdmitReject)
         {
-            int thisUserId = 1;
-            var leavePlans = TimesheetRepository.AdmitReject(LeavePlanId, AdmitReject);
-            return RedirectToAction("Supervise", leavePlans);
+            try
+            {
+                var leavePlans = TimesheetRepository.AdmitReject(LeavePlanId, AdmitReject);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
+            
         }
 
         [HttpPost, ActionName("Delete")]
