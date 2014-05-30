@@ -127,13 +127,15 @@ namespace ATS.Data.Model
     {
         //[Required(ErrorMessage = "Leave Category is required")]
         //[DisplayName("Leave Category")]
-        //public int LeaveCategotyId { get; set; }
+        //public int LeaveCategoty { get; set; }
 
         [Required(ErrorMessage = "Start Date is required")]
+        [DataType(DataType.Date)]
         [DisplayName("From")]
         public DateTime StartDate { get; set; }
 
         [Required(ErrorMessage = "End Date is required")]
+        [DataType(DataType.Date)]
         [DisplayName("To")]
         public DateTime EndDate { get; set; }
 
