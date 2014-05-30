@@ -11,27 +11,79 @@
         <h4>Assigned Staffs</h4>
         <div class="editor-field"> 
             @Html.ListBox("AssignedStaffs", ViewBag.AssignedStaffs as MultiSelectList, 
-                   new { @class = "chzn-select", data_placeholder = "Choose  Staff...",style="min-height:300px;" }) 
+                   new { @class = "chzn-select", data_placeholder = "Choose  Staff...",style="min-height:360px;", id="assignedStaffs" }) 
         </div>
     </div>
     <div class="span3" style="vertical-align:middle;text-align:center;">
         <br /><br /><br /><br /><br /><br />
         <p>
-        <button class="btn btn-primary" style="width:150px;"> << Add </button><br /><br />
-        <button class="btn btn-primary" style="width:150px;"> << Add All </button><br /><br />
-        <button class="btn btn-primary" style="width:150px;"> Remove >> </button><br /><br />
-        <button class="btn btn-primary" style="width:150px;"> Remove All >> </button><br /><br />
+        <button id="btnAdd" class="btn btn-primary" style="width:150px;"> << Add </button><br /><br />
+        <button id="btnAddAll" class="btn btn-primary" style="width:150px;"> << Add All </button><br /><br />
+        <button id="btnRemove" class="btn btn-primary" style="width:150px;"> Remove >> </button><br /><br />
+        <button id="btnRemoveAll" class="btn btn-primary" style="width:150px;"> Remove All >> </button><br /><br />
          </p>
     </div>
     <div class="span3">
         <h4>Available Staffs</h4>
         <div class="editor-field"> 
             @Html.ListBox("AvailableStaffs", ViewBag.AvailableStaffs as MultiSelectList, 
-                   new { @class = "chzn-select", data_placeholder = "Choose  Staff..." ,style="min-height:300px;"}) 
+                   new { @class = "chzn-select", data_placeholder = "Choose  Staff..." ,style="min-height:360px;", id="availableStaffs"}) 
         </div>
     </div>
     
 </div>
 <div class="row">
-    <p><button class="btn btn-primary">Save</button></p>
+    <p><button id="btnSave" class="btn btn-primary">Save</button></p>
 </div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnAdd").click(function () {
+                $("#availableStaffs option:selected").remove().appendTo("#assignedStaffs");
+            });
+
+            $("#btnAddAll").click(function () {
+                $("#availableStaffs option").remove().appendTo("#assignedStaffs");
+            });
+
+            $("#btnRemove").click(function () {
+                $("#assignedStaffs option:selected").remove().appendTo("#availableStaffs");
+            });
+
+            $("#btnRemoveAll").click(function () {
+                $("#assignedStaffs option").remove().appendTo("#availableStaffs");
+            });
+
+            $("#btnSave").click(function () {
+                var assignedStaffIds = []
+                var availableStaffIds = []
+                $("#assignedStaffs option").each(function (index, option) {
+                    //append to the array
+                    assignedStaffIds.push($(option).val());
+                });
+                $("#availableStaffs option").each(function (index, option) {
+                    //append to the array
+                    availableStaffIds.push($(option).val());
+                });
+                
+                $.post("", { 'assignedStaffIds': assignedStaffIds.join(','), 'availableStaffIds': availableStaffIds.join(',') }, function (data) {
+                    if (data) {
+                        if (data.code == 1) {
+                            alert("Saved Successfully!");
+                        } else {
+                            alert("Error");
+                        }
+                    } else {
+                        alert("No Result");
+                    }
+                });
+
+            });
+
+        });
+
+    </script>
+}

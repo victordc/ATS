@@ -18,6 +18,7 @@ namespace ATS.Data.DAL
         IEnumerable<Staff> GetUnsupervisedStaffs();
         IEnumerable<Staff> GetStaffsByAgent(int agentId);
         IEnumerable<Staff> GetStaffWithoutAgent();
+        
 
         IEnumerable<Supervisor> GetSupervisors();
         Supervisor GetSupervisorByID(int personId);
