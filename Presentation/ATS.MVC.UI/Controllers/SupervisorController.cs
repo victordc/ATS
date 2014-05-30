@@ -186,11 +186,38 @@ namespace ATS.MVC.UI.Controllers
             return View(supervisor);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("AssignStaff")]
         public ActionResult AssignStaffConfirm(int id)
         {
+            Supervisor supervisor = personBLL.GetSupervisorById(id);
+            if (supervisor == null)
+            {
+                return HttpNotFound();
+            }
+
+            string assignedStaffIdStr = Request.Params.Get("assignedStaffIds");
+            string availableStaffIdStr = Request.Params.Get("availableStaffIds");
+            if (assignedStaffIdStr.Length > 0)
+            {
+                int[] assignedStaffIds = assignedStaffIdStr.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+                personBLL.AssignStaffsUnderSupervisor(supervisor, assignedStaffIds);
+            }
+
+            if (availableStaffIdStr.Length > 0)
+            {
+                int[] availableStaffIds = availableStaffIdStr.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+                personBLL.RemoveStaffsFromSupervisor(supervisor, availableStaffIds);
+            }
+
             //Ajax method to assign the staffs to Supervisor
-            return null;
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { code = 1 });
+            }
+            else
+            {
+                return View(supervisor);
+            }
         }
 
         

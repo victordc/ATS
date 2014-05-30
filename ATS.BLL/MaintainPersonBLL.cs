@@ -64,10 +64,9 @@ namespace ATS.BLL
 
         public IEnumerable<Staff> GetStaffsWithoutAgency()
         {
-            return null;
+            return repository.GetStaffWithoutAgent();
         }
 
-        
 
         #endregion
 
@@ -108,11 +107,28 @@ namespace ATS.BLL
 
         }
 
-
-        public void AssignStaffToSupervisor(Supervisor supervisor, IEnumerable<Staff> staffs)
+        public void AssignStaffsUnderSupervisor(Supervisor supervisor, int[] staffIds)
         {
-            //Biz Rule: Overrite the supervisor if has supervisor alryd?
+            //We should use bulk update, but for this CA, we use this non-efficient way
+            foreach (int staffId in staffIds)
+            {
+                Staff staff = repository.GetStaffByID(staffId);
+                staff.SupervisorId = supervisor.PersonId;
+                repository.UpdateStaff(staff);
+            }
         }
+
+        public void RemoveStaffsFromSupervisor(Supervisor supervisor, int[] staffIds)
+        {
+            //We should use bulk update, but for this CA, we use this non-efficient way
+            foreach (int staffId in staffIds)
+            {
+                Staff staff = repository.GetStaffByID(staffId);
+                staff.SupervisorId = null;
+                repository.UpdateStaff(staff);
+            }
+        }
+
 
         #endregion
 
@@ -138,18 +154,33 @@ namespace ATS.BLL
             repository.DeleteAgent(agentId);
         }
 
-        public void AssignStaffsToAgent(Agent agent, IEnumerable<Staff> staffs)
-        {
-            //TODO, check Biz Rule for Staff Assignement
-            //overwrite agentId or show warning
-        }
-
+        
         public IEnumerable<Agent> GetAgents()
         {
             return repository.GetAgents();
         }
 
-        
+        public void AssignStaffsUnderAgent(Agent agent, int[] staffIds)
+        {
+            //We should use bulk update, but for this CA, we use this non-efficient way
+            foreach (int staffId in staffIds)
+            {
+                Staff staff = repository.GetStaffByID(staffId);
+                staff.AgentId = agent.PersonId;
+                repository.UpdateStaff(staff);
+            }
+        }
+
+        public void RemoveStaffsFromAgent(Agent agent, int[] staffIds)
+        {
+            //We should use bulk update, but for this CA, we use this non-efficient way
+            foreach (int staffId in staffIds)
+            {
+                Staff staff = repository.GetStaffByID(staffId);
+                staff.AgentId = null;
+                repository.UpdateStaff(staff);
+            }
+        }
         
 
         #endregion

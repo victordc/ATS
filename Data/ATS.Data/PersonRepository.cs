@@ -92,11 +92,12 @@ namespace ATS.Data.DAL
         public IEnumerable<Staff> GetStaffWithoutAgent()
         {
             IQueryable<Staff> query = from s in context.Persons.OfType<Staff>()
-                                      where s.SupervisorId == null
+                                      where s.AgentId == null
                                       select s;
             IEnumerable<Staff> staffs = query.ToList<Staff>();
             return staffs;
         }
+
 
         public IEnumerable<Supervisor> GetSupervisors()
         {
