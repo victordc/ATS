@@ -71,7 +71,7 @@
                 $("#Progress-" + idx).show();
 
                 request = $.ajax({
-                    url: "/leaveplan/AdmitOrReject1?LeavePlanId=" + idx + "&AdmitReject=True",
+                    url: "/leaveplan/AdmitOrReject?LeavePlanId=" + idx + "&AdmitReject=True",
                     type: "post"
                 });
 
@@ -95,7 +95,7 @@
                 $("#Progress-" + idx).show();
 
                 request = $.ajax({
-                    url: "/leaveplan/AdmitOrReject1?LeavePlanId=" + idx + "&AdmitReject=False",
+                    url: "/leaveplan/AdmitOrReject?LeavePlanId=" + idx + "&AdmitReject=False",
                     type: "post"
                 });
 
