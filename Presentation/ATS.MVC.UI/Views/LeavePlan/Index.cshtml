@@ -24,12 +24,11 @@
         <th>
             @Html.DisplayNameFor(model => model.Duration)
         </th>
-        <th>
-            Status
+        <th>Status
         </th>
         <th></th>
     </tr>
-    
+
     @foreach (var item in Model)
     {
         string backgroundColor = "";
@@ -37,23 +36,23 @@
         string visible = "";
         switch (item.Admitted)
         {
-            case true: 
+            case true:
                 backgroundColor = "background-color:palegreen;";
                 textToShow = "Admitted";
                 visible = "hidden";
                 break;
-            case false: 
+            case false:
                 backgroundColor = "background-color:red;";
                 textToShow = "Rejected";
                 visible = "hidden";
                 break;
-            default: 
+            default:
                 backgroundColor = "background-color:khaki;";
                 textToShow = "Not Checked Yet";
                 visible = "visible";
                 break;
         }
-        <tr>
+        <tr id="tr-@item.LeavePlanId">
             <td>
                 @Html.DisplayFor(modelItem => item.Person.PersonName)
             </td>
@@ -73,14 +72,59 @@
                 @textToShow
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-success"})
-                @Html.ActionLink("Edit", "Edit", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-primary" , @style = "visibility:" + @visible + ";"})
-                @Html.ActionLink("Delete", "Delete", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-danger" , @style = "visibility:" + @visible + ";"})
+                @Html.ActionLink("Details", "Details", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-success" })
+                @Html.ActionLink("Edit", "Edit", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-primary", @style = "visibility:" + @visible + ";" })
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-danger", @style = "visibility:" + @visible + ";" })*@
+                <a class="btn btn-mini btn-danger delete" leaveId="@item.LeavePlanId">Delete</a>
+                <img src="~/Content/img/ajax-loader.gif" style="display:none" id="Progress-@item.LeavePlanId"/>
             </td>
-
         </tr>
-
     }
-
 </table>
+<div id="info" style="display:none"></div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.btn.delete').click(function () {
+
+                var idx = $(this).attr('leaveId');
+                $("#Progress-" + idx).show();
+                $('#info').slideUp(500);
+
+                var userResponse = confirm("Are you sure you want to delete this leave request?\nif yes press OK.");
+                if (userResponse == true) {
+                    
+                    request = $.ajax({
+                        url: "/leaveplan/Delete/" + idx,
+                        type: "post"
+                    });
+
+                    request.done(function (response, textStatus, jqXHR) {
+                        if (response) {
+                            $("#tr-" + idx).hide(1000);
+                            $('#info').html("Deleted.");
+                            $('#info').slideDown(500);
+                        }
+                    });
+
+                    request.fail(function (jqXHR, textStatus, errorThrown) {
+                        $('#info').html("could not be deleted due to some internal error. try again in a few minutes again please.");
+                        $('#info').slideDown(500);
+                    });
+
+                    request.always(function () {
+                        $("#Progress-" + idx).hide(1000);
+                    });
+
+
+                }
+                else {
+                    $("#Progress-" + idx).hide(1000);
+                }
+            });
+
+        });
+    </script>
+}
 
