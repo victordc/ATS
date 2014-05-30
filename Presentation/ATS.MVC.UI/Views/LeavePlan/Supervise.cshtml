@@ -60,6 +60,7 @@
         }
 
     </table>
+    <div id="info" style="display:none"></div>
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -69,6 +70,7 @@
 
                 var idx = $(this).attr('leaveId');
                 $("#Progress-" + idx).show();
+                $('#info').hide(500);
 
                 request = $.ajax({
                     url: "/leaveplan/AdmitOrReject?LeavePlanId=" + idx + "&AdmitReject=True",
@@ -78,11 +80,14 @@
                 request.done(function (response, textStatus, jqXHR) {
                     if (response) {
                         $("#tr-" + idx).hide(1000);
+                        $('#info').html("Successfully Done.");
+                        $('#info').show(500);
                     }
                 });
 
                 request.fail(function (jqXHR, textStatus, errorThrown) {
-                    alert("could not be done. try again in a few minutes please.");
+                    $('#info').html("could not be done. try again in a few minutes please.");
+                    $('#info').slideDown(500);
                 });
 
                 request.always(function () {
@@ -93,6 +98,8 @@
             $('.btn.reject').click(function () {
                 var idx = $(this).attr('leaveId');
                 $("#Progress-" + idx).show();
+                $("#Progress-" + idx).show();
+                $('#info').hide(500);
 
                 request = $.ajax({
                     url: "/leaveplan/AdmitOrReject?LeavePlanId=" + idx + "&AdmitReject=False",
@@ -102,11 +109,14 @@
                 request.done(function (response, textStatus, jqXHR) {
                     if (response) {
                         $("#tr-" + idx).hide(1000);
+                        $('#info').html("Successfully Done.");
+                        $('#info').show(500);
                     }
                 });
 
                 request.fail(function (jqXHR, textStatus, errorThrown) {
-                    alert("could not be done. try again in a few minutes please.");
+                    $('#info').html("could not be done. try again in a few minutes please.");
+                    $('#info').slideDown(500);
                 });
 
                 request.always(function () {
