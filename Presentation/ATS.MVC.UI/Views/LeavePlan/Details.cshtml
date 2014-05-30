@@ -10,41 +10,42 @@
     <legend>LeavePlan</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Person.PersonName)
+         <strong>@Html.DisplayNameFor(model => model.Person.PersonName)</strong>
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Person.PersonName)
     </div>
-
+    <br />
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.LeaveCategory.LeaveCategoryDesc)
+         <strong>@Html.DisplayNameFor(model => model.LeaveCategory.LeaveCategoryDesc)</strong>
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.LeaveCategory.LeaveCategoryDesc)
     </div>
-
+    <br />
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.StartDate)
+         <strong>@Html.DisplayNameFor(model => model.StartDate)</strong>
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.StartDate)
     </div>
-
+    <br />
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.EndDate)
+         <strong>@Html.DisplayNameFor(model => model.EndDate)</strong>
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.EndDate)
     </div>
-
+    <br />
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Duration)
+        <strong>@Html.DisplayNameFor(model => model.Duration)</strong>
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Duration)
     </div>
 </fieldset>
+<br />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.LeavePlanId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id=Model.LeavePlanId },new { @class = "btn btn-mini btn-success" }) |
+    @Html.ActionLink("Back to List", "Index",null,new { @class = "btn btn-mini" })
 </p>
