@@ -6,7 +6,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { name = "createForm", id = "createForm" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -57,6 +57,8 @@
         <p>
             <input type="submit" value="Save" class="btn btn-primary" />
             @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+            <img src="~/Content/img/ajax-loader.gif" style="display: none" id="Progress" />
+            <div id="info"></div>
         </p>
     </fieldset>
 }
@@ -65,7 +67,58 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
         $(document).ready(function () {
+
             $("#PersonId").attr('disabled', 'disabled');
+            $('#LeaveCategoryId').val('1');
+
+            $("#LeaveCategoryId").change(function () {
+                if ($('#LeaveCategoryId').val() == "") {
+                    $('#LeaveCategoryId').val('1');
+                }
+            });
+
+            $('#createForm').submit(function (e) {
+
+                e.preventDefault();
+                var form = $(this);
+
+                if (!form.valid()) return false;
+
+                $("#Progress").show();
+                $("#info").hide();
+
+                request =  $.ajax({
+                    type: 'POST',
+                    url: '/LeavePlan/Create',
+                    data: form.serialize(),
+                    success: function (response) {
+                        $("#info").html(response);
+                    }
+                });
+
+                request.done(function (response, textStatus, jqXHR) {
+                    if (response == true) {
+                        if (response) {
+                            $('#info').html("Successfully Done.");
+                            $('#info').show(500);
+                        }
+                        else {
+                            $('#info').html("could not be done. try again in a few minutes please.");
+                            $('#info').slideDown(500);
+                        }
+
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus, errorThrown) {
+                    $('#info').html("could not be done. try again in a few minutes please.");
+                    $('#info').slideDown(500);
+                });
+
+                request.always(function () {
+                    $("#Progress").hide();
+                });
+            });
         });
     </script>
 }
