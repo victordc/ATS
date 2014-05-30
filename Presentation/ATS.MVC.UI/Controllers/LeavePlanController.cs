@@ -53,18 +53,29 @@ namespace ATS.MVC.UI.Controllers
         // POST: /LeavePlan/Create
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(LeavePlan leaveplan)
+        //[ValidateAntiForgeryToken]
+        public bool Create(LeavePlan leaveplan)
         {
+            int currentUserId = UserSetting.Current.UserId;
+            leaveplan.PersonId = currentUserId;
+            //leaveplan.PersonId = 1;
             if (ModelState.IsValid)
             {
-                TimesheetRepository.AddUpdateLeavePlan(leaveplan);
-                return RedirectToAction("Index");
+                try
+                {
+                    TimesheetRepository.AddUpdateLeavePlan(leaveplan);
+                    //return RedirectToAction("Index");
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
-
-            ViewBag.LeaveCategoryId = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", leaveplan.LeaveCategoryId);
-            ViewBag.PersonId = new SelectList(TimesheetRepository.GetAllPersons(), "PersonId", "PersonName", leaveplan.PersonId);
-            return View(leaveplan);
+            return false;
+            //ViewBag.LeaveCategoryId = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", leaveplan.LeaveCategoryId);
+            //ViewBag.PersonId = new SelectList(TimesheetRepository.GetAllPersons(), "PersonId", "PersonName", leaveplan.PersonId);
+            //return View(leaveplan);
         }
 
         //
