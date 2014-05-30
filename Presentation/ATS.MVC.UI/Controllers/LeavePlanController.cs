@@ -19,8 +19,8 @@ namespace ATS.MVC.UI.Controllers
         // GET: /LeavePlan/
         public ActionResult Index()
         {
-            int currentUserId = UserSetting.Current.UserId;
-            //int currentUserId = 1;
+            //int currentUserId = UserSetting.Current.UserId;
+            int currentUserId = 1;
             var leavePlans = TimesheetRepository.GetLeavePlans(currentUserId);
             return View(leavePlans.ToList());
         }
@@ -134,16 +134,22 @@ namespace ATS.MVC.UI.Controllers
             {
                 return false;
             }
-            
-            
+
+
         }
 
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    TimesheetRepository.RemoveLeavePlan(id);
+        //    return RedirectToAction("Index");
+        //}
+
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public bool DeleteConfirmed(int id)
         {
-            TimesheetRepository.RemoveLeavePlan(id);
-            return RedirectToAction("Index");
+            return TimesheetRepository.RemoveLeavePlan(id);
         }
 
         protected override void Dispose(bool disposing)
