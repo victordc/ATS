@@ -15,11 +15,11 @@
         <legend>LeavePlan</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.PersonId, "Person", new { @class = "control-label" })
+            @*@Html.LabelFor(model => model.PersonId, "Person", new { @class = "control-label" })*@
         </div>
         <div class="editor-field">
-            @Html.DropDownList("PersonId")
-            @Html.ValidationMessageFor(model => model.PersonId)
+            @*@Html.DropDownList("PersonId")
+            @Html.ValidationMessageFor(model => model.PersonId)*@
         </div>
 
         <div class="editor-label">
@@ -68,8 +68,40 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $("#PersonId").attr('disabled', 'disabled');
+            //$("#PersonId").attr('disabled', 'disabled');
+            //$("#PersonId").hide();
             $('#LeaveCategoryId').val('1');
+            
+
+            $("#StartDate").change(function () {
+
+                var dateStart = Date.parse($('#StartDate').val());
+                var dateEnd = Date.parse($('#EndDate').val());
+                var duration = (dateEnd - dateStart) / 86400000;
+
+                $('#Duration').val(duration);
+
+            });
+
+            $("#EndDate").change(function () {
+
+                var dateStart = Date.parse($('#StartDate').val());
+                var dateEnd = Date.parse($('#EndDate').val());
+                var duration = (dateEnd - dateStart) / 86400000;
+
+                $('#Duration').val(duration);
+
+            });
+
+            $("#Duration").change(function () {
+
+                var dateStart = Date.parse($('#StartDate').val());
+                var dateEnd = Date.parse($('#EndDate').val());
+                var duration = (dateEnd - dateStart) / 86400000;
+
+                $('#Duration').val(duration);
+
+            });
 
             $("#LeaveCategoryId").change(function () {
                 if ($('#LeaveCategoryId').val() == "") {
@@ -87,7 +119,7 @@
                 $("#Progress").show();
                 $("#info").hide();
 
-                request =  $.ajax({
+                request = $.ajax({
                     type: 'POST',
                     url: '/LeavePlan/Create',
                     data: form.serialize(),
@@ -97,16 +129,13 @@
                 });
 
                 request.done(function (response, textStatus, jqXHR) {
-                    if (response == true) {
-                        if (response) {
-                            $('#info').html("Successfully Done.");
-                            $('#info').show(500);
-                        }
-                        else (response == false){
-                            $('#info').html("could not be done. try again in a few minutes please.");
-                            $('#info').slideDown(500);
-                        }
-
+                    if (response == "True") {
+                        $('#info').html("Successfully Done.");
+                        $('#info').show(500);
+                    }
+                    else if (response == "False") {
+                        $('#info').html("could not be done. try again in a few minutes please.");
+                        $('#info').slideDown(500);
                     }
                 });
 

@@ -60,15 +60,37 @@
         }
 
     </table>
-    <div id="info" style="display:none"></div>
+    <div id="info" style="display: none"></div>
+
+    <div id="divDeleteOAModel" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Delete Object Access</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this record?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="btnDeleteOAOk" type="button" class="btn btn-danger">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
         $(document).ready(function () {
+
+            var idx = 0;
             $('.btn.admit').click(function () {
 
-                var idx = $(this).attr('leaveId');
+                idx = $(this).attr('leaveId');
                 $("#Progress-" + idx).show();
                 $('#info').hide(500);
 
@@ -80,7 +102,7 @@
                 request.done(function (response, textStatus, jqXHR) {
                     if (response) {
                         $("#tr-" + idx).hide(1000);
-                        $('#info').html("Successfully Done.");
+                        $('#info').html("Successfully Admitted.");
                         $('#info').show(500);
                     }
                 });
@@ -96,7 +118,15 @@
             });
 
             $('.btn.reject').click(function () {
-                var idx = $(this).attr('leaveId');
+                idx = $(this).attr('leaveId');
+                $("#divDeleteOAModel").modal("show");
+            });
+
+
+            $("#btnDeleteOAOk").click(function () {
+
+                $("#divDeleteOAModel").modal("hide");
+
                 $("#Progress-" + idx).show();
                 $("#Progress-" + idx).show();
                 $('#info').hide(500);
@@ -109,7 +139,7 @@
                 request.done(function (response, textStatus, jqXHR) {
                     if (response) {
                         $("#tr-" + idx).hide(1000);
-                        $('#info').html("Successfully Done.");
+                        $('#info').html("Successfully Rejected.");
                         $('#info').show(500);
                     }
                 });
