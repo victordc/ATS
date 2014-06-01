@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATS.BLL", "ATS.BLL\ATS.BLL.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATS.Service", "ATS.Service\ATS.Service.csproj", "{15B3E0D2-6217-493A-A690-158C497F5318}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATS.Webforms.UI", "ATS.Webforms.UI\ATS.Webforms.UI.csproj", "{0C9E4FF6-CFCA-4B8D-BCD0-8C209F15C8F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATS.Webforms.UI", "Presentation\ATS.Webforms.UI\ATS.Webforms.UI.csproj", "{0C9E4FF6-CFCA-4B8D-BCD0-8C209F15C8F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
