@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { name = "createForm", id = "createForm" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -17,13 +17,13 @@
 
         @Html.HiddenFor(model => model.LeavePlanId)
 
-        <div class="editor-label">
+        @*        <div class="editor-label">
             @Html.LabelFor(model => model.PersonId, "Person")
         </div>
         <div class="editor-field">
             @Html.DropDownList("PersonId", String.Empty)
             @Html.ValidationMessageFor(model => model.PersonId)
-        </div>
+        </div>*@
 
         <div class="editor-label">
             @Html.LabelFor(model => model.LeaveCategoryId, "LeaveCategory")
@@ -61,6 +61,8 @@
             <div class="controls">
                 <input type="submit" value="Save" class="btn btn-primary" />
                 @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+                <img src="~/Content/img/ajax-loader.gif" style="display: none" id="Progress" />
+                <div id="info"></div>
             </div>
         </p>
     </fieldset>
@@ -70,7 +72,84 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#PersonId").attr('disabled', 'disabled');
+
+
+
+            $("#StartDate").change(function () {
+
+                var dateStart = Date.parse($('#StartDate').val());
+                var dateEnd = Date.parse($('#EndDate').val());
+                var duration = (dateEnd - dateStart) / 86400000;
+
+                $('#Duration').val(duration);
+
+            });
+
+            $("#EndDate").change(function () {
+
+                var dateStart = Date.parse($('#StartDate').val());
+                var dateEnd = Date.parse($('#EndDate').val());
+                var duration = (dateEnd - dateStart) / 86400000;
+
+                $('#Duration').val(duration);
+
+            });
+
+            $("#Duration").change(function () {
+
+                var dateStart = Date.parse($('#StartDate').val());
+                var dateEnd = Date.parse($('#EndDate').val());
+                var duration = (dateEnd - dateStart) / 86400000;
+
+                $('#Duration').val(duration);
+
+            });
+
+            $("#LeaveCategoryId").change(function () {
+                if ($('#LeaveCategoryId').val() == "") {
+                    $('#LeaveCategoryId').val('1');
+                }
+            });
+
+            $('#createForm').submit(function (e) {
+
+                e.preventDefault();
+                var form = $(this);
+
+                if (!form.valid()) return false;
+
+                $("#Progress").show();
+                $("#info").hide();
+
+                request = $.ajax({
+                    type: 'POST',
+                    url: '/LeavePlan/Edit',
+                    data: form.serialize(),
+                    success: function (response) {
+                        $("#info").html(response);
+                    }
+                });
+
+                request.done(function (response, textStatus, jqXHR) {
+                    if (response == "True") {
+                        $('#info').html("Successfully Saved.");
+                        $('#info').show(500);
+                    }
+                    else if (response == "False") {
+                        $('#info').html("could not be done. try again in a few minutes please.");
+                        $('#info').slideDown(500);
+                    }
+                });
+
+                request.fail(function (jqXHR, textStatus, errorThrown) {
+                    $('#info').html("could not be done. try again in a few minutes please.");
+                    $('#info').slideDown(500);
+                });
+
+                request.always(function () {
+                    $("#Progress").hide();
+                });
+            });
         });
     </script>
 }
