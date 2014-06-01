@@ -58,6 +58,8 @@ namespace ATS.MVC.UI.Controllers
         {
             int currentUserId = UserSetting.Current.UserId;
             leaveplan.PersonId = currentUserId;
+            //System.TimeSpan diff = leaveplan.EndDate.Subtract(leaveplan.StartDate);
+            //leaveplan.Duration = 
             //leaveplan.PersonId = 1;
             if (ModelState.IsValid)
             {
@@ -97,18 +99,37 @@ namespace ATS.MVC.UI.Controllers
         // POST: /LeavePlan/Edit/5
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(LeavePlan leaveplan)
+        //[ValidateAntiForgeryToken]
+        public bool Edit(LeavePlan leaveplan)
         {
+
+            int currentUserId = UserSetting.Current.UserId;
+            leaveplan.PersonId = currentUserId;
 
             if (ModelState.IsValid)
             {
-                TimesheetRepository.AddUpdateLeavePlan(leaveplan);
-                return RedirectToAction("Index");
+                try
+                {
+                    TimesheetRepository.AddUpdateLeavePlan(leaveplan);
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
-            ViewBag.LeaveCategoryId = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", leaveplan.LeaveCategoryId);
-            ViewBag.PersonId = new SelectList(TimesheetRepository.GetAllPersons(), "PersonId", "PersonName", leaveplan.PersonId);
-            return View(leaveplan);
+            return false;
+
+
+            //if (ModelState.IsValid)
+            //{
+            //    TimesheetRepository.AddUpdateLeavePlan(leaveplan);
+            //    return RedirectToAction("Index");
+            //}
+            //ViewBag.LeaveCategoryId = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", leaveplan.LeaveCategoryId);
+            //ViewBag.PersonId = new SelectList(TimesheetRepository.GetAllPersons(), "PersonId", "PersonName", leaveplan.PersonId);
+            //return View(leaveplan);
         }
 
         //
