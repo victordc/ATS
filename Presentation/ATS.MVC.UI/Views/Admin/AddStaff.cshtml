@@ -17,7 +17,7 @@
                 @if (Model == null)
                 {
                     @Html.EditorFor(m => m.UserName)
-                    @Html.ValidationMessageFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName, null, new {@class="badge badge-important"})
                 }
                 else
                 {
@@ -32,7 +32,7 @@
                 @if (Model == null)
                 {
                     @Html.EditorFor(m => m.FullName)
-                    @Html.ValidationMessageFor(m => m.FullName)
+                    @Html.ValidationMessageFor(m => m.FullName, null, new {@class="badge badge-important"})
                 }
                 else
                 {
@@ -45,21 +45,21 @@
             @Html.LabelFor(m => m.RoleName, new { @class = "control-label" })
             <div class="controls">
                 @Html.DropDownListFor(m => m.RoleName, ViewBag.myList as SelectList, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.RoleName)
+                @Html.ValidationMessageFor(m => m.RoleName, null, new {@class="badge badge-important"})
             </div>
         </div>
         <div class="control-group">
             @Html.LabelFor(m => m.SupervisorName, new { @class = "control-label" })
             <div class="controls">
                 @Html.DropDownListFor(m => m.SupervisorName, ViewBag.Supervisors as SelectList, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.SupervisorName)
+                @Html.ValidationMessageFor(m => m.SupervisorName, null, new {@class="badge badge-important"})
             </div>
         </div>
                 <div class="control-group">
             @Html.LabelFor(m => m.AgentName, new { @class = "control-label" })
             <div class="controls">
                 @Html.DropDownListFor(m => m.AgentName, ViewBag.Agents as SelectList, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.AgentName)
+                @Html.ValidationMessageFor(m => m.AgentName, null, new {@class="badge badge-important"})
             </div>
         </div>
         <div class="control-group">

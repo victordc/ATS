@@ -15,7 +15,7 @@
             @Html.LabelFor(model => model.CompanyDescription, new { @class = "control-label" })
             <div class="controls">
                 @Html.EditorFor(model => model.CompanyDescription)
-                @Html.ValidationMessageFor(model => model.CompanyDescription)
+                @Html.ValidationMessageFor(model => model.CompanyDescription, null, new {@class="badge badge-important"})
             </div>
         </div>
 
@@ -23,7 +23,7 @@
             @Html.LabelFor(model => model.Address, new { @class = "control-label" })
             <div class="controls">
                 @Html.EditorFor(model => model.Address)
-                @Html.ValidationMessageFor(model => model.Address)
+                @Html.ValidationMessageFor(model => model.Address, null, new {@class="badge badge-important"})
             </div>
         </div>
         <div class="control-group">

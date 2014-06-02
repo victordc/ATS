@@ -9,6 +9,7 @@
 @*@Html.AntiForgeryToken()*@
     <fieldset>
         <legend>Add Supervisor</legend>
+        
         @Html.ValidationSummary(true)
         <div class="control-group">
             @*@{ Html.EnableClientValidation(false); }*@
@@ -17,7 +18,7 @@
                 @if (Model == null)
                 {
                     @Html.EditorFor(m => m.UserName)
-                    @Html.ValidationMessageFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName, null, new {@class="badge badge-important"})
                 }
                 else
                 {
@@ -33,7 +34,7 @@
                 @if (Model == null)
                 {
                     @Html.EditorFor(m => m.FullName)
-                    @Html.ValidationMessageFor(m => m.FullName)
+                    @Html.ValidationMessageFor(m => m.FullName, null, new {@class="badge badge-important"})
                 }
                 else
                 {

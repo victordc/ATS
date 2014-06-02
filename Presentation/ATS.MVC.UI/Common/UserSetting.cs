@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ATS.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -35,6 +36,23 @@ namespace ATS.MVC.UI.Common
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string RoleName { get; set; }
+
+        private SetupCompany setupCompany;
+        public SetupCompany SetupCompany
+        {
+            get
+            {
+                if (setupCompany == null)
+                {
+                    setupCompany = new SetupCompany();
+                }
+                return (SetupCompany)setupCompany;
+            }
+            set
+            {
+                setupCompany = value;
+            }
+        }
 
         #endregion
     }

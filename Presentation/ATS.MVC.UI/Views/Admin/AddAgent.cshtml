@@ -17,7 +17,7 @@
                 @if (Model == null)
                 {
                     @Html.EditorFor(m => m.UserName)
-                    @Html.ValidationMessageFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName, null, new {@class="badge badge-important"})
                 }
                 else
                 {
@@ -32,7 +32,7 @@
                 @if (Model == null)
                 {
                     @Html.EditorFor(m => m.FullName)
-                    @Html.ValidationMessageFor(m => m.FullName)
+                    @Html.ValidationMessageFor(m => m.FullName, null, new {@class="badge badge-important"})
                 }
                 else
                 {

@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using WebMatrix.WebData;
+using Setting = ATS.MVC.UI.Common.UserSetting;
+
 
 namespace ATS.MVC.UI.Controllers
 {
@@ -236,22 +238,6 @@ namespace ATS.MVC.UI.Controllers
 
         #region Setup
 
-        private SetupCompany CurrentSetupCompany
-        {
-            get
-            {
-                if (Session["SetupCompany"] == null)
-                {
-                    Session["SetupCompany"] = new SetupCompany();
-                }
-                return (SetupCompany)Session["SetupCompany"];
-            }
-            set 
-            {
-                Session["SetupCompany"] = value;
-            }
-        }
-
         private IEnumerable<webpages_Roles> RoleList
         {
             get
@@ -266,8 +252,8 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult AddCompany()
         {
-            if (CurrentSetupCompany.Company != null)
-                return View(CurrentSetupCompany.Company);
+            if (Setting.Current.SetupCompany.Company != null)
+                return View(Setting.Current.SetupCompany.Company);
             return View();
         }
 
@@ -278,9 +264,9 @@ namespace ATS.MVC.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    CurrentSetupCompany.Company = data;
+                    Setting.Current.SetupCompany.Company = data;
                     BindSupervisorRole();
-                    ViewBag.Users = CurrentSetupCompany.Supervisors;
+                    ViewBag.Users = Setting.Current.SetupCompany.Supervisors;
                     return View("AddSupervisor");
                 }
             }
@@ -290,7 +276,7 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult AddSupervisor()
         {
             BindSupervisorRole();
-            ViewBag.Users = CurrentSetupCompany.Supervisors;
+            ViewBag.Users = Setting.Current.SetupCompany.Supervisors;
             return View();
         }
 
@@ -307,12 +293,12 @@ namespace ATS.MVC.UI.Controllers
                 
                 if (ModelState.IsValid)
                 {
-                    if (CurrentSetupCompany.Supervisors == null)
+                    if (Setting.Current.SetupCompany.Supervisors == null)
                     {
-                        CurrentSetupCompany.Supervisors = new List<RegisterModel>();
+                        Setting.Current.SetupCompany.Supervisors = new List<RegisterModel>();
                     }
-                    CurrentSetupCompany.Supervisors.Add(data);
-                    ViewBag.Users = CurrentSetupCompany.Supervisors;
+                    Setting.Current.SetupCompany.Supervisors.Add(data);
+                    ViewBag.Users = Setting.Current.SetupCompany.Supervisors;
                 }
                 return View();
             }
@@ -323,7 +309,7 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult AddAgent()
         {
             BindAgentRole();
-            ViewBag.Users = CurrentSetupCompany.Agents;
+            ViewBag.Users = Setting.Current.SetupCompany.Agents;
             return View();
         }
 
@@ -332,13 +318,13 @@ namespace ATS.MVC.UI.Controllers
         {
             if (btnAdd != null)
             {
-                if (CurrentSetupCompany.Agents == null)
+                if (Setting.Current.SetupCompany.Agents == null)
                 {
-                    CurrentSetupCompany.Agents = new List<RegisterModel>();
+                    Setting.Current.SetupCompany.Agents = new List<RegisterModel>();
                 }
-                CurrentSetupCompany.Agents.Add(data);
+                Setting.Current.SetupCompany.Agents.Add(data);
                 BindAgentRole();
-                ViewBag.Users = CurrentSetupCompany.Agents;
+                ViewBag.Users = Setting.Current.SetupCompany.Agents;
                 return View();
             }
             
@@ -347,7 +333,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult AddStaff()
         {
-            ViewBag.Users = CurrentSetupCompany.Staffs;
+            ViewBag.Users = Setting.Current.SetupCompany.Staffs;
             BindStaffRole();
             BindSupervisorList();
             BindAgentList(); 
@@ -359,12 +345,12 @@ namespace ATS.MVC.UI.Controllers
         {
             if (btnAdd != null)
             {
-                if (CurrentSetupCompany.Staffs == null)
+                if (Setting.Current.SetupCompany.Staffs == null)
                 {
-                    CurrentSetupCompany.Staffs = new List<RegisterModel>();
+                    Setting.Current.SetupCompany.Staffs = new List<RegisterModel>();
                 }
-                CurrentSetupCompany.Staffs.Add(data);
-                ViewBag.Users = CurrentSetupCompany.Staffs;
+                Setting.Current.SetupCompany.Staffs.Add(data);
+                ViewBag.Users = Setting.Current.SetupCompany.Staffs;
                 BindStaffRole();
                 BindSupervisorList();
                 BindAgentList();
@@ -373,24 +359,24 @@ namespace ATS.MVC.UI.Controllers
             else
             {
                 //1. Create user account for supervisor/agent/staff
-                for (int i = 0; i < CurrentSetupCompany.Supervisors.Count; i++)
+                for (int i = 0; i < Setting.Current.SetupCompany.Supervisors.Count; i++)
                 {
-                    CreateUserAccount(CurrentSetupCompany.Supervisors[i]);
+                    CreateUserAccount(Setting.Current.SetupCompany.Supervisors[i]);
                 }
-                for (int i = 0; i < CurrentSetupCompany.Agents.Count; i++)
+                for (int i = 0; i < Setting.Current.SetupCompany.Agents.Count; i++)
                 {
-                    CreateUserAccount(CurrentSetupCompany.Agents[i]);
+                    CreateUserAccount(Setting.Current.SetupCompany.Agents[i]);
                 }
-                for (int i = 0; i < CurrentSetupCompany.Staffs.Count; i++)
+                for (int i = 0; i < Setting.Current.SetupCompany.Staffs.Count; i++)
                 {
-                    CreateUserAccount(CurrentSetupCompany.Staffs[i]);
+                    CreateUserAccount(Setting.Current.SetupCompany.Staffs[i]);
                 }
 
                 //2. Setup company
-                TimesheetRepository.Instance.SetupCompany(CurrentSetupCompany);
+                TimesheetRepository.Instance.SetupCompany(Setting.Current.SetupCompany);
 
                 //3. Clear session
-                CurrentSetupCompany = null;
+                Setting.Current.SetupCompany = null;
 
                 //4. Redirect to successfull page
                 return RedirectToAction("SuccessSetupCompary");
@@ -407,15 +393,16 @@ namespace ATS.MVC.UI.Controllers
         /// </summary>
         /// <param name="UserName"></param>
         /// <returns></returns>
+        [InitializeSimpleMembership]
         public JsonResult DoesUserNameExist(string UserName)
         {
             var user = Membership.GetUser(UserName);
             if (user != null)
                 return Json(false);
 
-            if (CurrentSetupCompany.Supervisors != null)
+            if (Setting.Current.SetupCompany.Supervisors != null)
             {
-                var query = CurrentSetupCompany.Supervisors.Where(r => r.UserName == UserName).FirstOrDefault();
+                var query = Setting.Current.SetupCompany.Supervisors.Where(r => r.UserName == UserName).FirstOrDefault();
                 if (query != null)
                     return Json(false);
             }
@@ -450,13 +437,13 @@ namespace ATS.MVC.UI.Controllers
 
         private void BindSupervisorList()
         {
-            SelectList list = new SelectList(CurrentSetupCompany.Supervisors, "FullName", "FullName");
+            SelectList list = new SelectList(Setting.Current.SetupCompany.Supervisors, "FullName", "FullName");
             ViewBag.Supervisors = list;
         }
 
         private void BindAgentList()
         {
-            SelectList list = new SelectList(CurrentSetupCompany.Agents, "FullName", "FullName");
+            SelectList list = new SelectList(Setting.Current.SetupCompany.Agents, "FullName", "FullName");
             ViewBag.Agents = list;
         }
 
@@ -466,9 +453,9 @@ namespace ATS.MVC.UI.Controllers
             if (user != null)
                 return true;
 
-            if (CurrentSetupCompany.Supervisors != null)
+            if (Setting.Current.SetupCompany.Supervisors != null)
             {
-                var query = CurrentSetupCompany.Supervisors.Where(r => r.UserName == userName).FirstOrDefault();
+                var query = Setting.Current.SetupCompany.Supervisors.Where(r => r.UserName == userName).FirstOrDefault();
                 if (query != null)
                     return true;
             }
