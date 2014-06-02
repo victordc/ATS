@@ -246,10 +246,28 @@ namespace ATS.MVC.UI.Controllers
                 }
                 return (SetupCompany)Session["SetupCompany"];
             }
+            set 
+            {
+                Session["SetupCompany"] = value;
+            }
+        }
+
+        private IEnumerable<webpages_Roles> RoleList
+        {
+            get
+            {
+                if (Session["RoleList"] == null)
+                {
+                    Session["RoleList"] = TimesheetRepository.Instance.GetAllRoles();
+                }
+                return (IEnumerable<webpages_Roles>)Session["RoleList"];
+            }
         }
 
         public ActionResult AddCompany()
         {
+            if (CurrentSetupCompany.Company != null)
+                return View(CurrentSetupCompany.Company);
             return View();
         }
 
@@ -260,62 +278,123 @@ namespace ATS.MVC.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    SetupCompany obj = CurrentSetupCompany;
-                    obj.Company = data;
-                    ViewBag.Roles = TimesheetRepository.Instance.GetAllRoles();
-                    SelectList list = new SelectList(ViewBag.Roles, "RoleId", "RoleName");
-                    ViewBag.myList = list;
+                    CurrentSetupCompany.Company = data;
+                    BindSupervisorRole();
+                    ViewBag.Users = CurrentSetupCompany.Supervisors;
                     return View("AddSupervisor");
                 }
             }
             return View();
         }
 
-        [HttpPost]
-        public ActionResult AddSupervisor(RegisterModel data, string prevBtn, string nextBtn)
+        public ActionResult AddSupervisor()
         {
-            
-            if (prevBtn != null)
-            {
-                return View("AddCompany", CurrentSetupCompany.Company);
-            }
-
-            if (nextBtn != null)
-            {
-                if (ModelState.IsValid)
-                {
-                    CurrentSetupCompany.RegisterModels = new List<RegisterModel>();
-                    CurrentSetupCompany.RegisterModels.Add(data);
-                    ViewBag.Roles = TimesheetRepository.Instance.GetAllRoles();
-                    SelectList list = new SelectList(ViewBag.Roles, "RoleId", "RoleName");
-                    ViewBag.myList = list;
-                    return View("AddAgent");
-                }
-            }
+            BindSupervisorRole();
+            ViewBag.Users = CurrentSetupCompany.Supervisors;
             return View();
         }
 
         [HttpPost]
-        public ActionResult AddAgent(ATS.MVC.UI.Models.RegisterModel data, string prevBtn, string nextBtn)
+        public ActionResult AddSupervisor(RegisterModel data, string btnAdd, string prevBtn, string nextBtn)
         {
-            if (prevBtn != null)
+            if (btnAdd != null)
             {
-                ViewBag.Roles = TimesheetRepository.Instance.GetAllRoles();
-                SelectList list = new SelectList(ViewBag.Roles, "RoleId", "RoleName");
-                ViewBag.myList = list;
-                return View("AddSupervisor", CurrentSetupCompany.RegisterModels[0]);
-            }
-
-            if (nextBtn != null)
-            {
-                //if (ModelState.IsValid)
+                //if (IsDuplicatedName(data.UserName))
+                //{
+                //    ModelState.AddModelError(string.Empty, "Duplicated Name");
+                //}
+                BindSupervisorRole();
+                
+                if (ModelState.IsValid)
                 {
-                    //CurrentSetupCompany.UserProfiles = new List<UserProfile>();
-
-                    return RedirectToAction("SuccessSetupCompary");
+                    if (CurrentSetupCompany.Supervisors == null)
+                    {
+                        CurrentSetupCompany.Supervisors = new List<RegisterModel>();
+                    }
+                    CurrentSetupCompany.Supervisors.Add(data);
+                    ViewBag.Users = CurrentSetupCompany.Supervisors;
                 }
+                return View();
             }
+            
             return View();
+        }
+
+        public ActionResult AddAgent()
+        {
+            BindAgentRole();
+            ViewBag.Users = CurrentSetupCompany.Agents;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddAgent(RegisterModel data, string btnAdd, string prevBtn, string nextBtn)
+        {
+            if (btnAdd != null)
+            {
+                if (CurrentSetupCompany.Agents == null)
+                {
+                    CurrentSetupCompany.Agents = new List<RegisterModel>();
+                }
+                CurrentSetupCompany.Agents.Add(data);
+                BindAgentRole();
+                ViewBag.Users = CurrentSetupCompany.Agents;
+                return View();
+            }
+            
+            return View();
+        }
+
+        public ActionResult AddStaff()
+        {
+            ViewBag.Users = CurrentSetupCompany.Staffs;
+            BindStaffRole();
+            BindSupervisorList();
+            BindAgentList(); 
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddStaff(RegisterModel data, string btnAdd, string prevBtn, string finishBtn)
+        {
+            if (btnAdd != null)
+            {
+                if (CurrentSetupCompany.Staffs == null)
+                {
+                    CurrentSetupCompany.Staffs = new List<RegisterModel>();
+                }
+                CurrentSetupCompany.Staffs.Add(data);
+                ViewBag.Users = CurrentSetupCompany.Staffs;
+                BindStaffRole();
+                BindSupervisorList();
+                BindAgentList();
+                return View();
+            }
+            else
+            {
+                //1. Create user account for supervisor/agent/staff
+                for (int i = 0; i < CurrentSetupCompany.Supervisors.Count; i++)
+                {
+                    CreateUserAccount(CurrentSetupCompany.Supervisors[i]);
+                }
+                for (int i = 0; i < CurrentSetupCompany.Agents.Count; i++)
+                {
+                    CreateUserAccount(CurrentSetupCompany.Agents[i]);
+                }
+                for (int i = 0; i < CurrentSetupCompany.Staffs.Count; i++)
+                {
+                    CreateUserAccount(CurrentSetupCompany.Staffs[i]);
+                }
+
+                //2. Setup company
+                TimesheetRepository.Instance.SetupCompany(CurrentSetupCompany);
+
+                //3. Clear session
+                CurrentSetupCompany = null;
+
+                //4. Redirect to successfull page
+                return RedirectToAction("SuccessSetupCompary");
+            }
         }
 
         public ActionResult SuccessSetupCompary()
@@ -323,6 +402,87 @@ namespace ATS.MVC.UI.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Check whether username is existed.
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <returns></returns>
+        public JsonResult DoesUserNameExist(string UserName)
+        {
+            var user = Membership.GetUser(UserName);
+            if (user != null)
+                return Json(false);
+
+            if (CurrentSetupCompany.Supervisors != null)
+            {
+                var query = CurrentSetupCompany.Supervisors.Where(r => r.UserName == UserName).FirstOrDefault();
+                if (query != null)
+                    return Json(false);
+            }
+
+            return Json(true);
+        }
+
+        #endregion
+
+        #region Helper
+
+        private void BindSupervisorRole()
+        {
+            var role = RoleList.Where(r => r.RoleName == "Supervisor");
+            SelectList list = new SelectList(role.ToList(), "RoleName", "RoleName");
+            ViewBag.myList = list;
+        }
+
+        private void BindAgentRole()
+        {
+            var role = RoleList.Where(r => r.RoleName == "Agent");
+            SelectList list = new SelectList(role.ToList(), "RoleName", "RoleName");
+            ViewBag.myList = list;
+        }
+
+        private void BindStaffRole()
+        {
+            var role = RoleList.Where(r => r.RoleName == "Staff");
+            SelectList list = new SelectList(role.ToList(), "RoleName", "RoleName");
+            ViewBag.myList = list;
+        }
+
+        private void BindSupervisorList()
+        {
+            SelectList list = new SelectList(CurrentSetupCompany.Supervisors, "FullName", "FullName");
+            ViewBag.Supervisors = list;
+        }
+
+        private void BindAgentList()
+        {
+            SelectList list = new SelectList(CurrentSetupCompany.Agents, "FullName", "FullName");
+            ViewBag.Agents = list;
+        }
+
+        private bool IsDuplicatedName(string userName)
+        {
+            var user = Membership.GetUser(userName);
+            if (user != null)
+                return true;
+
+            if (CurrentSetupCompany.Supervisors != null)
+            {
+                var query = CurrentSetupCompany.Supervisors.Where(r => r.UserName == userName).FirstOrDefault();
+                if (query != null)
+                    return true;
+            }
+
+            return false;
+        }
+
+        [InitializeSimpleMembership]
+        private int CreateUserAccount(RegisterModel model)
+        {   
+            WebSecurity.CreateUserAndAccount(model.UserName, "password");
+            Roles.AddUserToRole(model.UserName, model.RoleName);
+            return 1;
+        }
         #endregion
     }
 }

@@ -42,7 +42,7 @@ namespace ATS.MVC.UI.Controllers
                 string roleName = Roles.GetRolesForUser(model.UserName).FirstOrDefault();
                 UserSetting.Current.Controllers = TimesheetRepository.Instance.GetControllers(roleName);
                 UserSetting.Current.RoleName = roleName;
-                UserSetting.Current.UserId = 1;
+                //TODO: UserSetting.Current.UserId = 0;
                 UserSetting.Current.UserName = model.UserName;
 
                 //return RedirectToLocal(returnUrl);
@@ -60,7 +60,9 @@ namespace ATS.MVC.UI.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
-        {
+        {   
+            UserSetting.Current = null;
+
             WebSecurity.Logout();
 
             return RedirectToAction("Index", "Home");

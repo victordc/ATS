@@ -14,6 +14,7 @@ namespace ATS.Data.Model
         #region Properties
 
         public string RoleName { get; set; }
+        public Person Person { get; set; }
 
         #endregion
 
@@ -57,6 +58,21 @@ namespace ATS.Data.Model
                 return context.UserProfiles.Where(r => r.UserName.Contains(name)).ToList();
             }
         }
+
+        /// <summary>
+        /// Get user by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static UserProfile GetUserByName(string userName)
+        {
+            using (var context = new ATSCEEntities())
+            {
+                return context.UserProfiles.Single(r => r.UserName == userName);
+            }
+        }
+
+
 
         #endregion
     }

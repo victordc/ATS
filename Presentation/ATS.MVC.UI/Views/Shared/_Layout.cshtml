@@ -87,6 +87,23 @@
     <div class="container">
         <div class="masthead">
             <h3 class="muted">ATS - AGENCY TIMESHEET SYSTEM</h3>
+            <div align="right">
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    if (Request.IsAuthenticated)
+                    {
+                        @Html.AntiForgeryToken()
+                        <span class="badge badge-success">@User.Identity.Name</span>
+                        <input type="submit" name="btnLogOff" value="Log off" class="btn btn-mini btn-success"/>
+                        @*<a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>*@
+                    }
+                    else
+                    {
+                    
+                        @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-mini btn-success" })
+                    }
+                }
+           </div>
             <div class="navbar">
               <div class="navbar-inner">
                 <div class="container">
@@ -104,9 +121,7 @@
                     <li>@Html.ActionLink("Leave Plan", "Index", "CodeTable")</li>
                     <li>@Html.ActionLink("Time Sheet", "Index", "CodeTable")</li>
                     *@
-                    } else {
-                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
-                    }
+                    } 
                     @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
 
@@ -131,6 +146,8 @@
                 </div>
               </div>
             </div><!-- /.navbar -->
+            
+            
         </div>
         <div id="body">
             @RenderSection("featured", required: false)

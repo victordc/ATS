@@ -361,6 +361,7 @@
     <Content Include="Views\Account\UnauthorizedAccess.cshtml" />
     <Content Include="Views\Supervisor\AssignStaff.cshtml" />
     <Content Include="Views\Agent\AssignStaff.cshtml" />
+    <Content Include="Views\Admin\AddStaff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

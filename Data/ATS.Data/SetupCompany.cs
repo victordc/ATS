@@ -9,7 +9,8 @@ namespace ATS.Data.Model
     public class SetupCompany
     {
         public Company Company { get; set; }
-        public List<RegisterModel> RegisterModels { get; set; }
-        public UserProfile Agent { get; set; }
+        public List<RegisterModel> Supervisors { get; set; }
+        public List<RegisterModel> Agents { get; set; }
+        public List<RegisterModel> Staffs { get; set; }
     }
 }

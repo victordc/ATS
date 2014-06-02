@@ -1,17 +1,17 @@
 ﻿@model ATS.Data.Model.RegisterModel
 @{
-    ViewBag.Title = "Add Supervisor";
+    ViewBag.Title = "Add Staff";
 }
 
 
-@using (Html.BeginForm("AddSupervisor", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("AddStaff", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
 {
 @*@Html.AntiForgeryToken()*@
+    
+    @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Add Supervisor</legend>
-        @Html.ValidationSummary(true)
+        <legend>Add Staff</legend>
         <div class="control-group">
-            @*@{ Html.EnableClientValidation(false); }*@
             @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
             <div class="controls">
                 @if (Model == null)
@@ -24,7 +24,6 @@
                     @Html.HiddenFor(m => m.UserName);
                     @Html.TextBoxFor(m => m.UserName, new { disabled = "disabled", @readonly = "readonly" })
                 }
-            @*@{ Html.EnableClientValidation(true); }*@
             </div>
         </div>
         <div class="control-group">
@@ -42,25 +41,25 @@
                 }
             </div>
         </div>
-        @*<div class="control-group">
-            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
-            <div class="controls">
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </div>
-        </div>
-        <div class="control-group">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
-            <div class="controls">
-                @Html.PasswordFor(m => m.ConfirmPassword)
-                @Html.ValidationMessageFor(m => m.ConfirmPassword)
-            </div>
-        </div>*@
         <div class="control-group">
             @Html.LabelFor(m => m.RoleName, new { @class = "control-label" })
             <div class="controls">
                 @Html.DropDownListFor(m => m.RoleName, ViewBag.myList as SelectList, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.RoleName)
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.SupervisorName, new { @class = "control-label" })
+            <div class="controls">
+                @Html.DropDownListFor(m => m.SupervisorName, ViewBag.Supervisors as SelectList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.SupervisorName)
+            </div>
+        </div>
+                <div class="control-group">
+            @Html.LabelFor(m => m.AgentName, new { @class = "control-label" })
+            <div class="controls">
+                @Html.DropDownListFor(m => m.AgentName, ViewBag.Agents as SelectList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.AgentName)
             </div>
         </div>
         <div class="control-group">
@@ -98,12 +97,14 @@
                 }
             </tbody>
         </table>
-        @Html.ActionLink("Back", "AddCompany", "Admin", null, new { @class = "btn" })
-        @Html.ActionLink("Next", "AddAgent", "Admin", null, new { @class = "btn btn-success" })
-        @*<input type="submit" name="prevBtn" value="Back" class="btn "/>
-        <input type="submit" name="nextBtn" value="Next" class="btn btn-success"/>
-        *@
-        
+
+        @*<div class="control-group">
+            <div class="controls">*@
+                @Html.ActionLink("Back", "AddAgent", "Admin", null, new { @class = "btn" })
+                @*<input type="submit" name="prevBtn" value="Back" class="btn "/>*@
+                <input type="submit" name="finishBtn" value="Finish" class="btn btn-success"/>
+            @*</div>
+        </div>*@
     </fieldset>
 }
 

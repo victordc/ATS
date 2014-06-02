@@ -1,7 +1,8 @@
-﻿@model ATS.MVC.UI.Models.RegisterModel
+﻿@model ATS.Data.Model.RegisterModel
 @{
     ViewBag.Title = "Add Agent";
 }
+
 
 @using (Html.BeginForm("AddAgent", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -10,7 +11,50 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Add Agent</legend>
-        
+        <div class="control-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+            <div class="controls">
+                @if (Model == null)
+                {
+                    @Html.EditorFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName)
+                }
+                else
+                {
+                    @Html.HiddenFor(m => m.UserName);
+                    @Html.TextBoxFor(m => m.UserName, new { disabled = "disabled", @readonly = "readonly" })
+                }
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.FullName, new { @class = "control-label" })
+            <div class="controls">
+                @if (Model == null)
+                {
+                    @Html.EditorFor(m => m.FullName)
+                    @Html.ValidationMessageFor(m => m.FullName)
+                }
+                else
+                {
+                    @Html.HiddenFor(m => m.FullName);
+                    @Html.TextBoxFor(m => m.FullName, new { disabled = "disabled", @readonly = "readonly" })
+                }
+            </div>
+        </div>
+        @*<div class="control-group">
+            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+            <div class="controls">
+                @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+            <div class="controls">
+                @Html.PasswordFor(m => m.ConfirmPassword)
+                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+            </div>
+        </div>*@
         <div class="control-group">
             @Html.LabelFor(m => m.RoleName, new { @class = "control-label" })
             <div class="controls">
@@ -20,10 +64,49 @@
         </div>
         <div class="control-group">
             <div class="controls">
-                <input type="submit" name="prevBtn" value="Back" class="btn"/>
-                <input type="submit" name="nextBtn" value="Finish" class="btn btn-primary"/>
+                <input type="submit" name="btnAdd" value="Add" class="btn btn-primary"/>
             </div>
         </div>
+
+        <table class="table table-striped table-bordered table-hover">
+            <colgroup>
+                <col style="width:10%">
+                <col style="width:40%">
+                <col style="width:40%">
+                <col style="width:10%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>Full Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.Users != null)
+                {
+                    foreach (var item in ViewBag.Users)
+                    {
+                    <tr>
+                        <td>@item.UserName</td>
+                        <td>@item.FullName</td>
+                        @*<td>@Html.ActionLink("Edit", "UpdateUser", "Admin", new { userId = item.UserId }, new { @class = "btn btn-mini btn-primary" })
+                           <input type="button" id="btnDeleteUser" class="btn btn-mini btn-danger cssDeleteUser" value="Delete" data-id="@item.UserName"/>
+                        </td>*@
+                    </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        @*<div class="control-group">
+            <div class="controls">*@
+        @Html.ActionLink("Back", "AddSupervisor", "Admin", null, new { @class = "btn" })
+        @Html.ActionLink("Next", "AddStaff", "Admin", null, new { @class = "btn btn-success" })
+        
+        @*<input type="submit" name="prevBtn" value="Back" class="btn "/>
+        <input type="submit" name="nextBtn" value="Next" class="btn btn-success"/>*@
+            @*</div>
+        </div>*@
     </fieldset>
 }
 

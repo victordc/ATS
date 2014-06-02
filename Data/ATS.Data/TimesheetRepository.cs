@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace ATS.Data
 {
@@ -257,6 +258,62 @@ namespace ATS.Data
         public static IEnumerable<TimeSheetMaster> GetAllTimeSheetMasters()
         {
             return TimeSheetMaster.GetAll();
+        }
+
+        #endregion
+
+        #region Setup Company
+
+        /// <summary>
+        /// Setup company
+        /// </summary>
+        /// <param name="setupCompany"></param>
+        /// <returns></returns>
+        public int SetupCompany(SetupCompany setupCompany) 
+        {
+            int result = -1;
+            try
+            {
+                //using (TransactionScope scope = new TransactionScope())
+                {
+                    //1. Insert company
+                    setupCompany.Company.Save();
+
+                    //2. Insert supervisors
+                    foreach (RegisterModel item in setupCompany.Supervisors)
+                    {
+                        Person supervisor = new Person();
+                        supervisor.PersonName = item.FullName;
+                        supervisor.Save();
+                    }
+
+                    //3. Insert Agents
+                    foreach (RegisterModel item in setupCompany.Agents)
+                    {
+                        Person agent = new Person();
+                        agent.PersonName = item.FullName;
+                        agent.Save();
+                    }
+
+                    //4. Insert Staffs
+                    foreach (RegisterModel item in setupCompany.Staffs)
+                    {
+                        Staff staff = new Staff();
+                        staff.PersonName = item.FullName;
+                        staff.SupervisorId = Person.GetByName(item.SupervisorName).PersonId;
+                        staff.AgentId = Person.GetByName(item.AgentName).PersonId;
+                        staff.Save();
+                    }
+
+                    //scope.Complete();
+                }
+            }
+            catch (TransactionAbortedException ex)
+            {
+                throw ex;
+            }
+
+            return result;
         }
 
         #endregion

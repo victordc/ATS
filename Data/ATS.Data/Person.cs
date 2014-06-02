@@ -14,11 +14,46 @@ namespace ATS.Data.Model
     [MetadataType(typeof(PersonData))]
     public partial class Person
     {
+        public string Save()
+        {
+            string result = string.Empty;
+            try
+            {
+                using (var context = new ATSCEEntities())
+                {
+                    if (this.PersonId <= 0)
+                    {
+                        context.Persons.Add(this);
+                    }
+                    else
+                    {
+                        context.Entry(this).State = System.Data.EntityState.Modified;
+                    }
+                    int rowAffected = context.SaveChanges();
+
+                    if (rowAffected <= 0)
+                        result = "Record is not saved";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log Exception here.
+                throw new Exception("Record is not saved: " + ex.ToString());
+            }
+
+            return result;
+        }
 
         public static Person GetById(int PersonId)
         {
             ATSCEEntities context = new ATSCEEntities();
             return context.Persons.Find(PersonId);
+        }
+
+        public static Person GetByName(string name)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            return context.Persons.Where(r=> r.PersonName == name).FirstOrDefault();
         }
 
 
