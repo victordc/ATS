@@ -19,14 +19,14 @@
     </div>
 </div>
 <div class="row">
-    <div class="span3">
+    <div class="span4">
         <h4>Assigned Staffs</h4>
         <div class="editor-field"> 
             @Html.ListBox("AssignedStaffs", ViewBag.AssignedStaffs as MultiSelectList, 
                    new { @class = "chzn-select", data_placeholder = "Choose  Staff...",style="min-height:360px;", id="assignedStaffs" }) 
         </div>
     </div>
-    <div class="span3" style="vertical-align:middle;text-align:center;">
+    <div class="span4" style="vertical-align:middle;text-align:center;">
         <br /><br /><br />
         <p>
         <button id="btnAdd" class="btn btn-primary" style="width:150px;"> << Add </button><br /><br />
@@ -36,7 +36,7 @@
          </p>
         <p><button class="btn btn-warning" style="width:150px;">Save</button></p>
     </div>
-    <div class="span3">
+    <div class="span4">
         <h4>Available Staffs</h4>
         <div class="editor-field"> 
             @Html.ListBox("AvailableStaffs", ViewBag.AvailableStaffs as MultiSelectList, 
@@ -45,7 +45,10 @@
     </div>
     
 </div>
-
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.PersonId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
 @section scripts {
     @Scripts.Render("~/bundles/jqueryval")
 

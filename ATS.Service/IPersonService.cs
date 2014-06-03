@@ -8,13 +8,20 @@ using System.Runtime.Serialization;
 namespace ATS.Service
 {
     [ServiceContract]
-    interface IPersonService
+    public interface IPersonService
     {
+        
         [OperationContract]
-        string GetPerson(int personId);
+        PersonDTO GetPerson(int personId);
+
+       
+        [OperationContract]
+        PersonDTO[] GetSupervisedStaffs(int supervisorId);
     }
 
     [DataContract(Name="Person")]
+    [KnownType(typeof(StaffDTO))]
+    [KnownType(typeof(AgentDTO))]
     public class PersonDTO
     {
         [DataMember]
@@ -23,17 +30,25 @@ namespace ATS.Service
         [DataMember]
         public String PersonName { get; set; }
 
-        
+        [DataMember]
+        public String Phone { get; set; }
+
+        [DataMember]
+        public String HomeAddress { get; set; }
     }
 
     [DataContract(Name="Staff")]
     public class StaffDTO : PersonDTO
     {
+        [DataMember]
+        public AgentDTO Agent { get; set; }
         
     }
 
     [DataContract(Name = "Agent")]
     public class AgentDTO : PersonDTO
     {
+        [DataMember]
+        public string Role { get; set; }
     }
 }

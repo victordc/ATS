@@ -370,10 +370,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ATS.BLL\ATS.BLL.csproj">
-      <Project>{7129e107-d31f-4f86-a08f-27c891e23a55}</Project>
-      <Name>ATS.BLL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Data\ATS.Data\ATS.Data.csproj">
       <Project>{2ccf5866-cc1a-4bbe-b549-874aa841888f}</Project>
       <Name>ATS.Data</Name>

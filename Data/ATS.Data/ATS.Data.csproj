@@ -70,6 +70,7 @@
     <Compile Include="IPersonRepository.cs" />
     <Compile Include="LeaveCategoroy.cs" />
     <Compile Include="LeavePlan.cs" />
+    <Compile Include="MaintainPersonBLL.cs" />
     <Compile Include="Model\Agent.cs">
       <DependentUpon>ATSCEModel.tt</DependentUpon>
     </Compile>
