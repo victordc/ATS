@@ -12,9 +12,21 @@
     <AssemblyName>ATS.Service</AssemblyName>
     <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <XsdCodeGenEnabled>True</XsdCodeGenEnabled>
+    <TargetFrameworkProfile />
+    <XsdCodeGenSerializerMode>XmlSerializer</XsdCodeGenSerializerMode>
+    <XsdCodeGenReuseTypesFlag>True</XsdCodeGenReuseTypesFlag>
+    <XsdCodeGenReuseTypesMode>All</XsdCodeGenReuseTypesMode>
+    <XsdCodeGenReferences />
+    <XsdCodeGenNamespaceMappings>%2a, ATS.Service.ContractTypes</XsdCodeGenNamespaceMappings>
+    <XsdCodeGenCollectionTypes>System.Array%3bSystem.Collections.Generic.Dictionary`2</XsdCodeGenCollectionTypes>
+    <XsdCodeGenExcludedTypes />
+    <XsdCodeGenImportXmlTypes>True</XsdCodeGenImportXmlTypes>
+    <XsdCodeGenGenerateSerializableTypes>True</XsdCodeGenGenerateSerializableTypes>
+    <XsdCodeGenGenerateInternalTypes>False</XsdCodeGenGenerateInternalTypes>
+    <XsdCodeGenEnableDataBinding>False</XsdCodeGenEnableDataBinding>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,6 +36,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +45,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -45,12 +59,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPersonService.cs" />
-    <Compile Include="IService1.cs" />
+    <Compile Include="PersonService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data\ATS.Data\ATS.Data.csproj">
+      <Project>{2ccf5866-cc1a-4bbe-b549-874aa841888f}</Project>
+      <Name>ATS.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

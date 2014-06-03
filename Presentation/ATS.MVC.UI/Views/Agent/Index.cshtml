@@ -3,7 +3,15 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<div class="row">
+    <div class="span12">
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a> <span class="divider">/</span></li>
+      <li>@Html.ActionLink("Agent", "Index")  <span class="divider">/</span></li>
+      <li class="active">List</li>
+    </ul>
+    </div>
+</div>
 <hgroup class="title">
     <h3>Maintain Agent</h3>
 </hgroup>
@@ -32,6 +40,7 @@
             
             <td>@Html.ActionLink("Edit", "Edit", new { id = item.PersonId }, new { @class = "btn btn-mini btn-primary" })
                 @Html.ActionLink("Details", "Details", new { id=item.PersonId },new { @class = "btn btn-mini btn-primary" }) 
+                @Html.ActionLink("Assign Staffs", "AssignStaff", new { id=item.PersonId },new { @class = "btn btn-mini btn-primary" }) 
                 @Html.ActionLink("Delete", "Delete",new { id = item.PersonId },new { @class = "btn btn-mini btn-danger" })
             </td>
         </tr>

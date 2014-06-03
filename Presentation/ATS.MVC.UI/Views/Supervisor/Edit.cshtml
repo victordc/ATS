@@ -3,7 +3,16 @@
 @{
     ViewBag.Title = "Edit";
 }
-
+<div class="row">
+    <div class="span12">
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a> <span class="divider">/</span></li>
+      <li>@Html.ActionLink("Supervisor", "Index")  <span class="divider">/</span></li>
+      <li>@Html.DisplayFor(model => model.PersonName) <span class="divider">/</span></li>
+      <li class="active">Edit</li>
+    </ul>
+    </div>
+</div>
 <h2>Edit</h2>
 
 @using (Html.BeginForm()) {
@@ -12,14 +21,6 @@
 
     <fieldset>
         <legend>Supervisor</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AgentId)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("AgentId", String.Empty)
-            @Html.ValidationMessageFor(model => model.AgentId)
-        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.CompanyId)
@@ -57,7 +58,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Save" class="btn btn-primary" />
         </p>
     </fieldset>
 }

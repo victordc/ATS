@@ -3,7 +3,15 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<div class="row">
+    <div class="span12">
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a> <span class="divider">/</span></li>
+      <li>@Html.ActionLink("Supervisor", "Index")  <span class="divider">/</span></li>
+      <li class="active">Manage</li>
+    </ul>
+    </div>
+</div>
 <hgroup class="title">
     <h3>Maintain Supervisor</h3>
 </hgroup>
@@ -16,7 +24,6 @@
         <tr>
             <th>@Html.DisplayNameFor(model => model.PersonId)</th>
             <th>@Html.DisplayNameFor(model => model.PersonName)</th>
-            <th>@Html.DisplayNameFor(model => model.AgentId)</th>
             <th>@Html.DisplayNameFor(model => model.CompanyId)</th>
             <th>@Html.DisplayNameFor(model => model.Phone)</th>
             <th></th>
@@ -28,12 +35,12 @@
         <tr>
             <td>@Html.DisplayFor(modelItem => item.PersonId)</td>
             <td>@Html.DisplayFor(modelItem => item.PersonName)</td>
-            <td>@Html.DisplayFor(modelItem => item.AgentId)</td>
             <td>@Html.DisplayFor(modelItem => item.Company.CompanyDescription)</td>
             <td>@Html.DisplayFor(modelItem => item.Phone)</td>
             
             <td>@Html.ActionLink("Edit", "Edit", new { id = item.PersonId }, new { @class = "btn btn-mini btn-primary" })
                 @Html.ActionLink("Details", "Details", new { id=item.PersonId },new { @class = "btn btn-mini btn-primary" }) 
+                @Html.ActionLink("Assign Staffs", "AssignStaff", new { id=item.PersonId },new { @class = "btn btn-mini btn-primary" }) 
                 @Html.ActionLink("Delete", "Delete",new { id = item.PersonId },new { @class = "btn btn-mini btn-danger" })
             </td>
         </tr>

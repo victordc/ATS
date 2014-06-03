@@ -121,7 +121,7 @@ namespace ATS.MVC.UI.Controllers
             {
                 return HttpNotFound();
             }
-            return View();
+            return View(agent);
         }
 
         //

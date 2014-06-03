@@ -9,6 +9,9 @@ namespace ATS.Data.DAL
 {
     public interface IPersonRepository : IDisposable
     {
+        IEnumerable<Person> GetAll();
+        Person GetPersonById(int personId);
+
         IEnumerable<Staff> GetStaffs();
         Staff GetStaffByID(int personId);
         void InsertStaff(Staff staff);
