@@ -22,6 +22,19 @@ namespace ATS.Data.DAL
             this.context = context;
         }
 
+        public IEnumerable<Person> GetAll()
+        {
+            return context.Persons.ToList<Person>();
+        }
+
+        public Person GetPersonById(int personId)
+        {
+            IQueryable<Person> query = from s in context.Persons
+                                      where s.PersonId == personId
+                                      select s;
+            Person person = query.FirstOrDefault<Person>();
+            return person;
+        }
 
         public IEnumerable<Staff> GetStaffs()
         {

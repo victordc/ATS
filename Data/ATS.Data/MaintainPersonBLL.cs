@@ -17,6 +17,16 @@ namespace ATS.BLL
             this.repository = new PersonRepository();
         }
 
+        public IEnumerable<Person> GetAll()
+        {
+            return repository.GetAll();
+        }
+
+        public Person GetPersonById(int personId)
+        {
+            return repository.GetPersonById(personId);
+        }
+
         #region Staff
         public void InsertStaff(Staff staff)
         {
