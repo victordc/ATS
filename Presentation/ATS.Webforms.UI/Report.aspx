@@ -1,14 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="ATS.Webforms.UI.Report" %>
+﻿<%@ Page Title="Report" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="ATS.Webforms.UI.Report" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
+<asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="body">
     
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="LeavePlanId" DataSourceID="LeavePlanDataSource" ForeColor="#333333" GridLines="None">
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
@@ -35,7 +27,4 @@
         <asp:EntityDataSource ID="LeavePlanDataSource" runat="server" ConnectionString="name=ATSCEEntities" DefaultContainerName="ATSCEEntities" EnableFlattening="False" EntitySetName="LeavePlans">
         </asp:EntityDataSource>
     
-    </div>
-    </form>
-</body>
-</html>
+</asp:Content>

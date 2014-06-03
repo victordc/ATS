@@ -57,3 +57,4 @@ C:\NUS\Enterprise.Net1\ATS\Presentation\ATS.Webforms.UI\bin\ATS.Framework.pdb
 C:\NUS\Enterprise.Net1\ATS\Presentation\ATS.Webforms.UI\obj\Debug\ATS.Webforms.UI.csprojResolveAssemblyReference.cache
 C:\NUS\Enterprise.Net1\ATS\Presentation\ATS.Webforms.UI\obj\Debug\ATS.Webforms.UI.dll
 C:\NUS\Enterprise.Net1\ATS\Presentation\ATS.Webforms.UI\obj\Debug\ATS.Webforms.UI.pdb
+C:\NUS\Enterprise.Net1\ATS\Presentation\ATS.Webforms.UI\bin\AspNet.ScriptManager.jQuery.dll
