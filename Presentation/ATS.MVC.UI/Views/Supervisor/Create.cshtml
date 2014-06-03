@@ -3,7 +3,15 @@
 @{
     ViewBag.Title = "Create";
 }
-
+<div class="row">
+    <div class="span12">
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a> <span class="divider">/</span></li>
+      <li>@Html.ActionLink("Supervisor", "Index")  <span class="divider">/</span></li>
+      <li class="active">Create</li>
+    </ul>
+    </div>
+</div>
 <h2>Create</h2>
 
 @using (Html.BeginForm()) {
@@ -37,14 +45,7 @@
             @Html.ValidationMessageFor(model => model.HomeAddress)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AgentId)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("AgentId", String.Empty)
-            @Html.ValidationMessageFor(model => model.AgentId)
-        </div>
-
+        
         <div class="editor-label">
             @Html.LabelFor(model => model.CompanyId)
         </div>
@@ -58,7 +59,7 @@
         
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Create" class="btn btn-primary"/>
         </p>
     </fieldset>
 }

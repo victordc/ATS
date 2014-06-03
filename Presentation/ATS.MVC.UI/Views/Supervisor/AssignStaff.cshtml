@@ -4,7 +4,19 @@
     ViewBag.Title = "Assign Staff";
 }
 <div class="row">
-    <h2>Assign Staffs under @Html.DisplayFor(model => model.PersonName)</h2>
+    <div class="span12">
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a> <span class="divider">/</span></li>
+      <li>@Html.ActionLink("Supervisor", "Index")  <span class="divider">/</span></li>
+      <li>@Html.DisplayFor(model => model.PersonName) <span class="divider">/</span></li>
+      <li class="active">Assign Staffs</li>
+    </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <h3>Assign Staffs under @Html.DisplayFor(model => model.PersonName)</h3>
+    </div>
 </div>
 <div class="row">
     <div class="span3">
@@ -15,13 +27,14 @@
         </div>
     </div>
     <div class="span3" style="vertical-align:middle;text-align:center;">
-        <br /><br /><br /><br /><br /><br />
+        <br /><br /><br />
         <p>
         <button id="btnAdd" class="btn btn-primary" style="width:150px;"> << Add </button><br /><br />
         <button id="btnAddAll" class="btn btn-primary" style="width:150px;"> << Add All </button><br /><br />
         <button id="btnRemove" class="btn btn-primary" style="width:150px;"> Remove >> </button><br /><br />
         <button id="btnRemoveAll" class="btn btn-primary" style="width:150px;"> Remove All >> </button><br /><br />
          </p>
+         <p><button class="btn btn-warning" style="width:150px;">Save</button></p>
     </div>
     <div class="span3">
         <h4>Available Staffs</h4>
@@ -31,9 +44,6 @@
         </div>
     </div>
     
-</div>
-<div class="row">
-    <p><button id="btnSave" class="btn btn-primary">Save</button></p>
 </div>
 
 @section scripts {

@@ -3,7 +3,15 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<div class="row">
+    <div class="span12">
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a> <span class="divider">/</span></li>
+      <li>@Html.ActionLink("Staff", "Index")  <span class="divider">/</span></li>
+      <li class="active">Manage</li>
+    </ul>
+    </div>
+</div>
 <hgroup class="title">
     <h3>Maintain Staff</h3>
 </hgroup>

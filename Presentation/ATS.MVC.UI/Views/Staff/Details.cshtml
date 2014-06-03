@@ -3,7 +3,16 @@
 @{
     ViewBag.Title = "Staff Details";
 }
-
+<div class="row">
+    <div class="span12">
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a> <span class="divider">/</span></li>
+      <li>@Html.ActionLink("Staff", "Index")  <span class="divider">/</span></li>
+        <li>@Html.DisplayFor(model => model.PersonName) <span class="divider">/</span></li>
+      <li class="active">Details</li>
+    </ul>
+    </div>
+</div>
 <h2>Staff Details</h2>
 <table class="table table-stripe table-condensed">
     <tbody>

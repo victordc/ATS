@@ -3,7 +3,16 @@
 @{
     ViewBag.Title = "Delete";
 }
-
+<div class="row">
+    <div class="span12">
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a> <span class="divider">/</span></li>
+      <li>@Html.ActionLink("Agent", "Index")  <span class="divider">/</span></li>
+      <li>@Html.DisplayFor(model => model.PersonName) <span class="divider">/</span></li>
+      <li class="active">Delete</li>
+    </ul>
+    </div>
+</div>
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
@@ -31,21 +40,13 @@
         @Html.DisplayFor(model => model.HomeAddress)
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.SupervisorId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SupervisorId)
-    </div>
-
-    
-
+   
     
 </fieldset>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     <p>
-        <input type="submit" value="Delete" /> |
+        <input type="submit" value="Delete" class="btn btn-primary"/> |
         @Html.ActionLink("Back to List", "Index")
     </p>
 }

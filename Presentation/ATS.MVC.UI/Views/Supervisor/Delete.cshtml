@@ -1,28 +1,23 @@
-﻿@model ATS.Data.Model.Staff
+﻿@model ATS.Data.Model.Supervisor
 
 @{
     ViewBag.Title = "Delete";
 }
-
+<div class="row">
+    <div class="span12">
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a> <span class="divider">/</span></li>
+      <li>@Html.ActionLink("Supervisor", "Index")  <span class="divider">/</span></li>
+      <li>@Html.DisplayFor(model => model.PersonName) <span class="divider">/</span></li>
+      <li class="active">Delete</li>
+    </ul>
+    </div>
+</div>
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <fieldset>
-    <legend>Staff</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.AgentId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AgentId)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.SupervisorId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SupervisorId)
-    </div>
+    <legend>Supervisor</legend>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.PersonName)
@@ -48,7 +43,7 @@
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     <p>
-        <input type="submit" value="Delete" /> |
+        <input type="submit" value="Delete" , class="btn btn-primary" /> |
         @Html.ActionLink("Back to List", "Index")
     </p>
 }
