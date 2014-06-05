@@ -1,5 +1,8 @@
-﻿using System;
+﻿using ATS.Data;
+using ATS.Data.Model;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,7 +14,20 @@ namespace ATS.Webforms.UI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(); 
+                LeavesGridView.DataSource = leaves.ToList();
+                LeavesGridView.DataBind();
+            }
         }
+
+        protected void LeavesGridView_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans();
+            LeavesGridView.DataSource = leaves.OrderBy(x => DataBinder.Eval(x, e.SortExpression)).ToList();
+            LeavesGridView.DataBind();
+        }
+
     }
 }

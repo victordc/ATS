@@ -1,30 +1,20 @@
 ﻿<%@ Page Title="Report" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="ATS.Webforms.UI.Report" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="body">
-    
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="LeavePlanId" DataSourceID="LeavePlanDataSource" ForeColor="#333333" GridLines="None">
-            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-            <Columns>
-                <asp:BoundField DataField="LeavePlanId" HeaderText="LeavePlanId" ReadOnly="True" SortExpression="LeavePlanId" />
-                <asp:BoundField DataField="PersonId" HeaderText="PersonId" SortExpression="PersonId" />
-                <asp:BoundField DataField="LeaveCategoryId" HeaderText="LeaveCategoryId" SortExpression="LeaveCategoryId" />
-                <asp:BoundField DataField="StartDate" HeaderText="StartDate" SortExpression="StartDate" />
-                <asp:BoundField DataField="EndDate" HeaderText="EndDate" SortExpression="EndDate" />
-                <asp:BoundField DataField="Duration" HeaderText="Duration" SortExpression="Duration" />
-                <asp:CheckBoxField DataField="Admitted" HeaderText="Admitted" SortExpression="Admitted" />
-            </Columns>
-            <EditRowStyle BackColor="#999999" />
-            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-            <SortedAscendingCellStyle BackColor="#E9E7E2" />
-            <SortedAscendingHeaderStyle BackColor="#506C8C" />
-            <SortedDescendingCellStyle BackColor="#FFFDF8" />
-            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-        </asp:GridView>
-        <asp:EntityDataSource ID="LeavePlanDataSource" runat="server" ConnectionString="name=ATSCEEntities" DefaultContainerName="ATSCEEntities" EnableFlattening="False" EntitySetName="LeavePlans">
-        </asp:EntityDataSource>
-    
-</asp:Content>
+
+    <asp:GridView ID="LeavesGridView" runat="server" AutoGenerateColumns="False" 
+        CssClass="table table-striped table-bordered table-hover"
+        AllowSorting="True" OnSorting="LeavesGridView_Sorting" >
+        <Columns>
+            <asp:BoundField DataField="LeavePlanId" HeaderText="LeavePlan Id" SortExpression="LeavePlanId" />
+            <asp:BoundField DataField="PersonId" HeaderText="PersonId" Visible="False" />
+            <asp:templatefield headertext="Person" SortExpression="PersonId"><itemtemplate><%#Eval("Person.PersonName")%></itemtemplate></asp:templatefield>
+            <asp:BoundField DataField="LeaveCategoryId" HeaderText="LeaveCategoryId" SortExpression="LeaveCategoryId" Visible="False" />
+            <asp:templatefield headertext="Leave Category" SortExpression="LeaveCategoryId"><itemtemplate><%#Eval("LeaveCategory.LeaveCategoryDesc")%></itemtemplate></asp:templatefield>
+            <asp:BoundField DataField="StartDate" HeaderText="Start Date" SortExpression="StartDate" DataFormatString='{0:d}' />
+            <asp:BoundField DataField="EndDate" HeaderText="End Date" SortExpression="EndDate" DataFormatString='{0:d}' />
+            <asp:BoundField DataField="Duration" HeaderText="Duration" SortExpression="Duration" />
+            <asp:CheckBoxField DataField="Admitted" HeaderText="Admitted" SortExpression="Admitted" />
+        </Columns>
+    </asp:GridView>
+    </asp:Content>

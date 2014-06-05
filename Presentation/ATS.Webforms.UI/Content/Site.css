@@ -72,3 +72,20 @@
             border-right: 0;
             border-radius: 0 3px 3px 0;
         }
+
+
+.graph {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #aeaeae;
+    background-color: #eaeaea;
+}
+
+.bar {
+    width: 8px;
+    margin: 1px;
+    display: inline-block;
+    position: relative;
+    background-color: #aeaeae;
+    vertical-align: baseline;
+}

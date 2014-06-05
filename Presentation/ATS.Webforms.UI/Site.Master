@@ -21,10 +21,10 @@
                     <div class="navbar-inner">
                         <div class="container">
                             <ul class="nav">
-                                <li><a href="/Report.aspx">Home</a></li>
-                                <li><a href="/Report.aspx">Calendar</a></li>
+                                <li><a href="/Report.aspx">Report View</a></li>
+                                <li><a href="/Chart.aspx">Chart</a></li>
                                 <li><a href="/Report.aspx">Leave Summary</a></li>
-                                <li><a href="/Report.aspx">Directory</a></li>
+                                <li><a href="/Report.aspx">Staff Directory</a></li>
                             </ul>
                         </div>
                     </div>
