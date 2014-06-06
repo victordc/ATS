@@ -12,11 +12,11 @@ namespace ATS.MVC.UI.Controllers
 {
     public class SupervisorController : BaseController
     {
-        private MaintainPersonBLL personBLL;
+        private MaintainPersonFacade personFacade;
 
         public SupervisorController()
         {
-            this.personBLL = new MaintainPersonBLL();
+            this.personFacade = new MaintainPersonFacade();
         }
 
         
@@ -25,7 +25,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Index()
         {
-            return View(personBLL.GetSupervisors());
+            return View(personFacade.GetSupervisors());
         }
 
         //
@@ -33,7 +33,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Details(int id)
         {
-            var supervisor = personBLL.GetSupervisorById(id);
+            var supervisor = personFacade.GetSupervisorById(id);
             return View(supervisor);
         }
 
@@ -44,7 +44,7 @@ namespace ATS.MVC.UI.Controllers
         {
             //TODO, Add CompanyID selection
             ViewBag.CompanyId = new SelectList(Company.GetAll(), "CompanyId", "CompanyDescription");
-            ViewBag.AgentId = new SelectList(personBLL.GetAgents(), "PersonId", "PersonName");
+            ViewBag.AgentId = new SelectList(personFacade.GetAgents(), "PersonId", "PersonName");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace ATS.MVC.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    personBLL.InsertSupervisor(supervisor);
+                    personFacade.InsertSupervisor(supervisor);
                     return RedirectToAction("Details", new { id = supervisor.PersonId });
                 }
             }
@@ -70,7 +70,7 @@ namespace ATS.MVC.UI.Controllers
             }
             //TODO, Add CompanyID selection
             ViewBag.CompanyId = new SelectList(Company.GetAll(), "CompanyId", "CompanyDescription");
-            ViewBag.AgentId = new SelectList(personBLL.GetAgents(), "PersonId", "PersonName");
+            ViewBag.AgentId = new SelectList(personFacade.GetAgents(), "PersonId", "PersonName");
 
             return View(supervisor);
         }
@@ -80,14 +80,14 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Edit(int id)
         {
-            Supervisor supervisor = personBLL.GetSupervisorById(id);
+            Supervisor supervisor = personFacade.GetSupervisorById(id);
             if (supervisor == null)
             {
                 return HttpNotFound();
             }
             //TODO, Add CompanyID selection
             ViewBag.CompanyId = new SelectList(Company.GetAll(), "CompanyId", "CompanyDescription", supervisor.CompanyId);
-            ViewBag.AgentId = new SelectList(personBLL.GetAgents(), "PersonId", "PersonName", supervisor.AgentId);
+            ViewBag.AgentId = new SelectList(personFacade.GetAgents(), "PersonId", "PersonName", supervisor.AgentId);
             return View(supervisor);
         }
 
@@ -102,7 +102,7 @@ namespace ATS.MVC.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    personBLL.UpdateSupervisor(supervisor);
+                    personFacade.UpdateSupervisor(supervisor);
                     return RedirectToAction("Index");
                 }
             }
@@ -113,7 +113,7 @@ namespace ATS.MVC.UI.Controllers
             }
             //TODO, Add CompanyID selection
             ViewBag.CompanyId = new SelectList(Company.GetAll(), "CompanyId", "CompanyDescription", supervisor.CompanyId);
-            ViewBag.AgentId = new SelectList(personBLL.GetAgents(), "PersonId", "PersonName", supervisor.AgentId);
+            ViewBag.AgentId = new SelectList(personFacade.GetAgents(), "PersonId", "PersonName", supervisor.AgentId);
             return View(supervisor);
         }
 
@@ -122,7 +122,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Delete(int id)
         {
-            Supervisor supervisor = personBLL.GetSupervisorById(id);
+            Supervisor supervisor = personFacade.GetSupervisorById(id);
             if (supervisor == null)
             {
                 return HttpNotFound();
@@ -139,7 +139,7 @@ namespace ATS.MVC.UI.Controllers
         {
             try
             {
-                personBLL.DeleteSupervisor(id);
+                personFacade.DeleteSupervisor(id);
                 return RedirectToAction("Index");
             }
             catch
@@ -155,10 +155,10 @@ namespace ATS.MVC.UI.Controllers
         /// <returns></returns>
         public ActionResult AssignStaff(int id)
         {
-            Supervisor supervisor = personBLL.GetSupervisorById(id);
+            Supervisor supervisor = personFacade.GetSupervisorById(id);
             //find supervided Staffs
-            IEnumerable<Staff> supervisedStaffs = personBLL.GetSupervisedStaffs(supervisor);
-            IEnumerable<Staff> avaiableStaffs = personBLL.GetUnsupervisedStaffs();
+            IEnumerable<Staff> supervisedStaffs = personFacade.GetSupervisedStaffs(supervisor);
+            IEnumerable<Staff> avaiableStaffs = personFacade.GetUnsupervisedStaffs();
             IEnumerable<SelectListItem> assignedStaffs = Enumerable.Empty<SelectListItem>();
             if (supervisedStaffs != null && supervisedStaffs.Count<Staff>() > 0)
             {
@@ -189,7 +189,7 @@ namespace ATS.MVC.UI.Controllers
         [HttpPost, ActionName("AssignStaff")]
         public ActionResult AssignStaffConfirm(int id)
         {
-            Supervisor supervisor = personBLL.GetSupervisorById(id);
+            Supervisor supervisor = personFacade.GetSupervisorById(id);
             if (supervisor == null)
             {
                 return HttpNotFound();
@@ -200,13 +200,13 @@ namespace ATS.MVC.UI.Controllers
             if (assignedStaffIdStr.Length > 0)
             {
                 int[] assignedStaffIds = assignedStaffIdStr.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
-                personBLL.AssignStaffsUnderSupervisor(supervisor, assignedStaffIds);
+                personFacade.AssignStaffsUnderSupervisor(supervisor, assignedStaffIds);
             }
 
             if (availableStaffIdStr.Length > 0)
             {
                 int[] availableStaffIds = availableStaffIdStr.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
-                personBLL.RemoveStaffsFromSupervisor(supervisor, availableStaffIds);
+                personFacade.RemoveStaffsFromSupervisor(supervisor, availableStaffIds);
             }
 
             //Ajax method to assign the staffs to Supervisor

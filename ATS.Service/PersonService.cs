@@ -11,11 +11,11 @@ namespace ATS.Service
     class PersonService : IPersonService
     {
 
-        public MaintainPersonBLL personBll = new MaintainPersonBLL();
+        public MaintainPersonFacade personFacade = new MaintainPersonFacade();
 
         public PersonDTO GetPerson(int personId)
         {
-            Staff staff = personBll.GetStaffById(personId);
+            Staff staff = personFacade.GetStaffById(personId);
             if (staff != null)
             {
                 StaffDTO dto = new StaffDTO();
@@ -37,7 +37,7 @@ namespace ATS.Service
             else
             {
                 //Not staff, Agent
-                Agent agent = personBll.GetAgentById(personId);
+                Agent agent = personFacade.GetAgentById(personId);
                 if(agent != null){
                     AgentDTO adto = new AgentDTO();
                     adto.HomeAddress = staff.Agent.HomeAddress;
@@ -55,13 +55,13 @@ namespace ATS.Service
 
         public PersonDTO[] GetSupervisedStaffs(int supervisorId)
         {
-            Supervisor supervisor = personBll.GetSupervisorById(supervisorId);
+            Supervisor supervisor = personFacade.GetSupervisorById(supervisorId);
             if (supervisor == null)
             {
                 //return soap exception??
                 return null; 
             }
-            IEnumerable<Staff> staffs = personBll.GetSupervisedStaffs(supervisor);
+            IEnumerable<Staff> staffs = personFacade.GetSupervisedStaffs(supervisor);
             ICollection<StaffDTO> result = new List<StaffDTO>();
             foreach (var staff in staffs)
             {

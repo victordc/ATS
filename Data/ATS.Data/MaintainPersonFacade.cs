@@ -8,11 +8,11 @@ using ATS.Data.Model;
 namespace ATS.BLL
 {
     
-    public class MaintainPersonBLL
+    public class MaintainPersonFacade
     {
         private IPersonRepository repository;
 
-        public MaintainPersonBLL()
+        public MaintainPersonFacade()
         {
             this.repository = new PersonRepository();
         }

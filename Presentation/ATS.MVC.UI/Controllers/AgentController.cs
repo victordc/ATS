@@ -12,11 +12,11 @@ namespace ATS.MVC.UI.Controllers
 {
     public class AgentController : BaseController
     {
-        private MaintainPersonBLL personBLL;
+        private MaintainPersonFacade personFacade;
 
         public AgentController()
         {
-            this.personBLL = new MaintainPersonBLL();
+            this.personFacade = new MaintainPersonFacade();
         }
 
         
@@ -25,7 +25,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Index()
         {
-            return View(personBLL.GetAgents());
+            return View(personFacade.GetAgents());
         }
 
         //
@@ -33,7 +33,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Details(int id)
         {
-            var agent = personBLL.GetAgentById(id);
+            var agent = personFacade.GetAgentById(id);
             return View(agent);
         }
 
@@ -42,7 +42,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.SupervisorId = new SelectList(personBLL.GetSupervisors(), "PersonId", "PersonName");
+            ViewBag.SupervisorId = new SelectList(personFacade.GetSupervisors(), "PersonId", "PersonName");
             
             return View();
         }
@@ -58,7 +58,7 @@ namespace ATS.MVC.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    personBLL.InsertAgent(agent);
+                    personFacade.InsertAgent(agent);
                     return RedirectToAction("Details", new { id = agent.PersonId });
                 }
             }
@@ -67,7 +67,7 @@ namespace ATS.MVC.UI.Controllers
                 //Log error?
                 ModelState.AddModelError(string.Empty, "Unable to save changes.");
             }
-            ViewBag.SupervisorId = new SelectList(personBLL.GetSupervisors(), "PersonId", "PersonName");
+            ViewBag.SupervisorId = new SelectList(personFacade.GetSupervisors(), "PersonId", "PersonName");
             
 
             return View(agent);
@@ -78,12 +78,12 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Edit(int id)
         {
-            Agent agent = personBLL.GetAgentById(id);
+            Agent agent = personFacade.GetAgentById(id);
             if (agent == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SupervisorId = new SelectList(personBLL.GetSupervisors(), "PersonId", "PersonName", agent.SupervisorId);
+            ViewBag.SupervisorId = new SelectList(personFacade.GetSupervisors(), "PersonId", "PersonName", agent.SupervisorId);
             return View(agent);
         }
 
@@ -98,7 +98,7 @@ namespace ATS.MVC.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    personBLL.UpdateAgent(agent);
+                    personFacade.UpdateAgent(agent);
                     return RedirectToAction("Index");
                 }
             }
@@ -107,7 +107,7 @@ namespace ATS.MVC.UI.Controllers
                 //Log error?
                 ModelState.AddModelError(string.Empty, "Unable to save changes.");
             }
-            ViewBag.SupervisorId = new SelectList(personBLL.GetSupervisors(), "PersonId", "PersonName", agent.SupervisorId);
+            ViewBag.SupervisorId = new SelectList(personFacade.GetSupervisors(), "PersonId", "PersonName", agent.SupervisorId);
             return View(agent);
         }
 
@@ -116,7 +116,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Delete(int id)
         {
-            Agent agent = personBLL.GetAgentById(id);
+            Agent agent = personFacade.GetAgentById(id);
             if (agent == null)
             {
                 return HttpNotFound();
@@ -133,7 +133,7 @@ namespace ATS.MVC.UI.Controllers
         {
             try
             {
-                personBLL.DeleteAgent(id);
+                personFacade.DeleteAgent(id);
                 return RedirectToAction("Index");
             }
             catch
@@ -149,14 +149,14 @@ namespace ATS.MVC.UI.Controllers
         /// <returns></returns>
         public ActionResult AssignStaff(int id)
         {
-            Agent agent = personBLL.GetAgentById(id);
+            Agent agent = personFacade.GetAgentById(id);
             if (agent == null)
             {
                 return HttpNotFound();
             }
             //find supervided Staffs
-            IEnumerable<Staff> agentedStaffs = personBLL.GetRepresentedStaffs(agent);
-            IEnumerable<Staff> avaiableStaffs = personBLL.GetStaffsWithoutAgency();
+            IEnumerable<Staff> agentedStaffs = personFacade.GetRepresentedStaffs(agent);
+            IEnumerable<Staff> avaiableStaffs = personFacade.GetStaffsWithoutAgency();
             IEnumerable<SelectListItem> assignedStaffs = Enumerable.Empty<SelectListItem>();
             if(agentedStaffs != null && agentedStaffs.Count<Staff>() > 0)
             {
@@ -187,7 +187,7 @@ namespace ATS.MVC.UI.Controllers
         [HttpPost, ActionName("AssignStaff")]
         public ActionResult AssignStaffConfirm(int id)
         {
-            Agent agent = personBLL.GetAgentById(id);
+            Agent agent = personFacade.GetAgentById(id);
             if (agent == null)
             {
                 return HttpNotFound();
@@ -198,13 +198,13 @@ namespace ATS.MVC.UI.Controllers
             if (assignedStaffIdStr.Length > 0)
             {
                 int[] assignedStaffIds = assignedStaffIdStr.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
-                personBLL.AssignStaffsUnderAgent(agent, assignedStaffIds);
+                personFacade.AssignStaffsUnderAgent(agent, assignedStaffIds);
             }
 
             if (availableStaffIdStr.Length > 0)
             {
                 int[] availableStaffIds = availableStaffIdStr.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
-                personBLL.RemoveStaffsFromAgent(agent, availableStaffIds);
+                personFacade.RemoveStaffsFromAgent(agent, availableStaffIds);
             }
 
             //Ajax method to assign the staffs to Supervisor
