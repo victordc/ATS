@@ -155,13 +155,49 @@ namespace ATS.Data.DAL
             master.Agent = staff.Agent;
             master.Status = Convert.ToInt32(TimeSheetStatus.Draft);
 
+            IEnumerable<LeavePlan> leavePlan = TimesheetRepository.GetLeavePlans(staff.PersonId);
+            List<LeavePlan> monthLeavePlan = new List<LeavePlan>();
+
+            foreach (LeavePlan plan in leavePlan)
+            {
+                if (plan.Admitted == true)
+                {
+                    if (plan.StartDate.Month == forCalendarMonth.Month || plan.EndDate.Month == forCalendarMonth.Month)
+                    {
+                        monthLeavePlan.Add(plan);
+                    }
+                }
+            }
+
             List<TimeSheetDetail> listDetails = new List<TimeSheetDetail>();
             for (int i = 1; i <= DateTime.DaysInMonth(forCalendarMonth.Year, forCalendarMonth.Month); i++)
             {
                 TimeSheetDetail detail = new TimeSheetDetail();
                 detail.StartTime = new DateTime(forCalendarMonth.Year, forCalendarMonth.Month, i);
                 detail.EndTime = new DateTime(forCalendarMonth.Year, forCalendarMonth.Month, i);
-                detail.LeaveCategories = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc");
+
+                int leave = 0;
+
+                foreach (LeavePlan plan in monthLeavePlan)
+                {
+                    if (plan.StartDate == detail.StartTime || plan.EndDate == detail.EndTime ||
+                        (plan.StartDate < detail.StartTime && plan.EndDate > detail.EndTime))
+                    {
+                        leave = plan.LeaveCategory.LeaveCategoryId;
+                        break;
+                    }
+                }
+
+                if (leave == 0)
+                {
+                    detail.LeaveCategories = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc");
+
+                }
+                else
+                {
+                    detail.LeaveCategories = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", leave);
+
+                }
                 listDetails.Add(detail);
             }
             master.TimeSheetDetail = listDetails;
