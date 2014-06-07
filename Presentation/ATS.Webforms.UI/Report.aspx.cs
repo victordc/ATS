@@ -16,17 +16,22 @@ namespace ATS.Webforms.UI
         {
             if (!IsPostBack)
             {
-                IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(); 
-                LeavesGridView.DataSource = leaves.ToList();
-                LeavesGridView.DataBind();
+
+                //Get this user
+                int userId = 4;
+
+                //Get leaves and credits from CodeTable
+                IEnumerable<LeaveCategory> history = TimesheetRepository.GetLeaveCategories();
+                LeaveCategoryGridView.DataSource = history.ToList();
+                LeaveCategoryGridView.DataBind();
             }
         }
 
         protected void LeavesGridView_Sorting(object sender, GridViewSortEventArgs e)
         {
             IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans();
-            LeavesGridView.DataSource = leaves.OrderBy(x => DataBinder.Eval(x, e.SortExpression)).ToList();
-            LeavesGridView.DataBind();
+            LeaveCategoryGridView.DataSource = leaves.OrderBy(x => DataBinder.Eval(x, e.SortExpression)).ToList();
+            LeaveCategoryGridView.DataBind();
         }
 
     }

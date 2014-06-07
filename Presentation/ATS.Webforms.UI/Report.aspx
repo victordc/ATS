@@ -2,19 +2,23 @@
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="body">
 
-    <asp:GridView ID="LeavesGridView" runat="server" AutoGenerateColumns="False" 
-        CssClass="table table-striped table-bordered table-hover"
-        AllowSorting="True" OnSorting="LeavesGridView_Sorting" >
+    <asp:GridView ID="LeaveCategoryGridView" runat="server" AutoGenerateColumns="False"
+        CssClass="table table-striped table-bordered table-hover">
         <Columns>
-            <asp:BoundField DataField="LeavePlanId" HeaderText="LeavePlan Id" SortExpression="LeavePlanId" />
-            <asp:BoundField DataField="PersonId" HeaderText="PersonId" Visible="False" />
-            <asp:templatefield headertext="Person" SortExpression="PersonId"><itemtemplate><%#Eval("Person.PersonName")%></itemtemplate></asp:templatefield>
-            <asp:BoundField DataField="LeaveCategoryId" HeaderText="LeaveCategoryId" SortExpression="LeaveCategoryId" Visible="False" />
-            <asp:templatefield headertext="Leave Category" SortExpression="LeaveCategoryId"><itemtemplate><%#Eval("LeaveCategory.LeaveCategoryDesc")%></itemtemplate></asp:templatefield>
-            <asp:BoundField DataField="StartDate" HeaderText="Start Date" SortExpression="StartDate" DataFormatString='{0:d}' />
-            <asp:BoundField DataField="EndDate" HeaderText="End Date" SortExpression="EndDate" DataFormatString='{0:d}' />
-            <asp:BoundField DataField="Duration" HeaderText="Duration" SortExpression="Duration" />
-            <asp:CheckBoxField DataField="Admitted" HeaderText="Admitted" SortExpression="Admitted" />
+            <asp:BoundField DataField="LeaveCategoryDesc" HeaderText="Leave Types" SortExpression="LeaveCategoryDesc" />
+            <asp:TemplateField HeaderText="Leaves">
+                <ItemTemplate>
+                    <asp:GridView ID="LeaveItemsGridView" runat="server" AutoGenerateColumns="False"
+                        CssClass="table table-striped table-bordered table-hover"
+                        DataSource='<%# Eval("LeavePlans") %>'>
+                        <Columns>
+                            <asp:BoundField DataField="StartDate" HeaderText="StartDate" SortExpression="StartDate" DataFormatString='{0:MM/dd/yyyy}' />
+                            <asp:BoundField DataField="EndDate" HeaderText="EndDate" SortExpression="EndDate" DataFormatString='{0:MM/dd/yyyy}' />
+                            <asp:BoundField DataField="Admitted" HeaderText="Approved" SortExpression="Admitted" />
+                        </Columns>
+                    </asp:GridView>
+                </ItemTemplate>
+            </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    </asp:Content>
+</asp:Content>
