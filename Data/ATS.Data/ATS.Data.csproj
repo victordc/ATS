@@ -66,30 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agent.cs" />
-    <Compile Include="TimeSheetMasterRepository.cs" />
-    <Compile Include="CodeTable.cs" />
-    <Compile Include="Company.cs" />
-    <Compile Include="IPersonRepository.cs" />
-    <Compile Include="LeaveCategoroy.cs" />
-    <Compile Include="LeavePlan.cs" />
-    <Compile Include="MaintainPersonFacade.cs" />
     <Compile Include="Model\Agent.cs">
       <DependentUpon>ATSCEModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ATSCEModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ATSCEModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ATSCEModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ATSCEModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ATSCEModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ATSCEModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\CodeTable.cs">
       <DependentUpon>ATSCEModel.tt</DependentUpon>
@@ -132,6 +110,28 @@
     </Compile>
     <Compile Include="Model\webpages_Roles.cs">
       <DependentUpon>ATSCEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeSheetMasterRepository.cs" />
+    <Compile Include="CodeTable.cs" />
+    <Compile Include="Company.cs" />
+    <Compile Include="IPersonRepository.cs" />
+    <Compile Include="LeaveCategoroy.cs" />
+    <Compile Include="LeavePlan.cs" />
+    <Compile Include="MaintainPersonFacade.cs" />
+    <Compile Include="Model\ATSCEModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ATSCEModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ATSCEModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ATSCEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ATSCEModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ATSCEModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="ObjectAccess.cs" />
     <Compile Include="Person.cs" />

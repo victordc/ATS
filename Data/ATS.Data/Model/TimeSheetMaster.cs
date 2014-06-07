@@ -14,6 +14,11 @@ namespace ATS.Data.Model
     
     public partial class TimeSheetMaster
     {
+        public TimeSheetMaster()
+        {
+            this.TimeSheetDetail = new HashSet<TimeSheetDetail>();
+        }
+    
         public int TimeSheetMasterId { get; set; }
         public int PersonId { get; set; }
         public Nullable<int> ManagerId { get; set; }
@@ -26,5 +31,6 @@ namespace ATS.Data.Model
         public virtual Person Person { get; set; }
         public virtual Company Company { get; set; }
         public virtual Supervisor Supervisor { get; set; }
+        public virtual ICollection<TimeSheetDetail> TimeSheetDetail { get; set; }
     }
 }

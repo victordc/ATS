@@ -506,6 +506,7 @@
           <NavigationProperty Name="Person" Relationship="ATSCEModel.TimeSheetMasterPerson" FromRole="TimeSheetMaster" ToRole="Person" />
           <NavigationProperty Name="Company" Relationship="ATSCEModel.TimeSheetMasterCompany" FromRole="TimeSheetMaster" ToRole="Company" />
           <NavigationProperty Name="Supervisor" Relationship="ATSCEModel.TimeSheetMasterSupervisor" FromRole="TimeSheetMaster" ToRole="Supervisor" />
+          <NavigationProperty Name="TimeSheetDetail" Relationship="ATSCEModel.TimeSheetMasterTimeSheetDetail" FromRole="TimeSheetMaster" ToRole="TimeSheetDetail" />
         </EntityType>
         <Association Name="TimeSheetMasterTimeSheetDetail">
           <End Type="ATSCEModel.TimeSheetMaster" Role="TimeSheetMaster" Multiplicity="1" />

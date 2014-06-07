@@ -18,7 +18,6 @@ namespace ATS.Data.Model
     {
 
         public IEnumerable<SelectListItem> ActionsList { get; set; }
-        public virtual ICollection<TimeSheetDetail> TimeSheetDetail { get; set; }
         public virtual Agent Agent { get; set; }
 
 
