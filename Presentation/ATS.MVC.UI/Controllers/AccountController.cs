@@ -42,7 +42,11 @@ namespace ATS.MVC.UI.Controllers
                 string roleName = Roles.GetRolesForUser(model.UserName).FirstOrDefault();
                 UserSetting.Current.Controllers = TimesheetRepository.Instance.GetControllers(roleName);
                 UserSetting.Current.RoleName = roleName;
-                //TODO: UserSetting.Current.UserId = 0;
+                ATS.Data.Model.Person person = TimesheetRepository.Instance.GetPersonByUserName(model.UserName);
+                if (person != null)
+                {
+                    UserSetting.Current.PersonId = TimesheetRepository.Instance.GetPersonByUserName(model.UserName).PersonId;
+                }
                 UserSetting.Current.UserName = model.UserName;
 
                 //return RedirectToLocal(returnUrl);

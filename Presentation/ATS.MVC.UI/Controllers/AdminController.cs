@@ -437,13 +437,13 @@ namespace ATS.MVC.UI.Controllers
 
         private void BindSupervisorList()
         {
-            SelectList list = new SelectList(Setting.Current.SetupCompany.Supervisors, "FullName", "FullName");
+            SelectList list = new SelectList(Setting.Current.SetupCompany.Supervisors, "UserName", "FullName");
             ViewBag.Supervisors = list;
         }
 
         private void BindAgentList()
         {
-            SelectList list = new SelectList(Setting.Current.SetupCompany.Agents, "FullName", "FullName");
+            SelectList list = new SelectList(Setting.Current.SetupCompany.Agents, "UserName", "FullName");
             ViewBag.Agents = list;
         }
 
@@ -465,7 +465,7 @@ namespace ATS.MVC.UI.Controllers
 
         [InitializeSimpleMembership]
         private int CreateUserAccount(RegisterModel model)
-        {   
+        {
             WebSecurity.CreateUserAndAccount(model.UserName, "password");
             Roles.AddUserToRole(model.UserName, model.RoleName);
             return 1;
