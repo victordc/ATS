@@ -36,6 +36,11 @@ namespace ATS.Data
             return CodeTable.GetById(codeTableId);
         }
 
+        public IEnumerable<CodeTable> GetCodeTableByGroup(string codeGroup)
+        {
+            return CodeTable.GetByGroupCode(codeGroup);
+        }
+
         public IEnumerable<CodeTable> GetCodeTables()
         {
             return CodeTable.GetAll();

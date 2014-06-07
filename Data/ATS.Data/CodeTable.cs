@@ -55,6 +55,14 @@ namespace ATS.Data.Model
             }
         }
 
+        public static IEnumerable<CodeTable> GetByGroupCode(string groupCode)
+        {
+            using (var context = new ATSCEEntities())
+            {
+                return context.CodeTables.Where(r => r.GroupCode == groupCode).ToList();
+            }
+        }
+
         public static IEnumerable<CodeTable> GetAll()
         {
             using (var context = new ATSCEEntities())
