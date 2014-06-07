@@ -313,8 +313,8 @@ namespace ATS.Data
                     {
                         Staff staff = new Staff();
                         staff.PersonName = item.FullName;
-                        staff.SupervisorId = Person.GetByName(item.UserName).PersonId;
-                        staff.AgentId = Person.GetByName(item.UserName).PersonId;
+                        staff.SupervisorId = Person.GetByName(item.SupervisorName).PersonId;
+                        staff.AgentId = Person.GetByName(item.AgentName).PersonId;
                         staff.Save();
                     }
 
