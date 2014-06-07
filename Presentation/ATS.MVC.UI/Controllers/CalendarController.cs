@@ -38,6 +38,12 @@ namespace ATS.MVC.UI.Controllers
             int currentUserId = UserSetting.Current.PersonId;
             IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(currentUserId);
             return View(leaves);
+            
+        }
+
+        public ActionResult OpenReport()
+        {
+            return Redirect("http://localhost:8888/TeamReport.aspx?personid=" + UserSetting.Current.PersonId.ToString());
         }
 
     }

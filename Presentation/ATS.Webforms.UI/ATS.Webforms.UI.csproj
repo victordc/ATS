@@ -272,6 +272,10 @@
       <Project>{2ccf5866-cc1a-4bbe-b549-874aa841888f}</Project>
       <Name>ATS.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Shared\ATS.Framework\ATS.Framework.csproj">
+      <Project>{a34242e6-b219-44ee-8c65-d0efe79ddd7d}</Project>
+      <Name>ATS.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ATS.MVC.UI\ATS.MVC.UI.csproj">
       <Project>{b2322759-d8f4-42b7-9894-f9010d17a7ce}</Project>
       <Name>ATS.MVC.UI</Name>
@@ -288,9 +292,9 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>8888</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1144/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
