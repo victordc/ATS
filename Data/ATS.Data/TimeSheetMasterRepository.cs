@@ -106,9 +106,28 @@ namespace ATS.Data.DAL
             return TimeSheetMaster.GetById(TimeSheetMasterId);
         }
 
+        public static IEnumerable<TimeSheetMaster> GetAllTimeSheetsByPersonId(int PersonId)
+        {
+            return TimeSheetMaster.GetAllByPersonId(PersonId);
+        }
+
         public static IEnumerable<TimeSheetMaster> GetAllTimeSheetMasters()
         {
             return TimeSheetMaster.GetAll();
+        }
+
+        public static IEnumerable<TimeSheetMaster> GetAllTimeSheetMastersByAgentId(int AgentId)
+        {
+            IEnumerable<TimeSheetMaster> timeSheetMasters = TimeSheetMaster.GetAll();
+            List<TimeSheetMaster> timeSheetMastersByAgentId = new List<TimeSheetMaster>();
+            foreach (TimeSheetMaster master in timeSheetMasters)
+            {
+                if (master.AgencyId == AgentId)
+                {
+                    timeSheetMastersByAgentId.Add(master);
+                }
+            }
+            return timeSheetMastersByAgentId;
         }
 
         //----------------------------------------------------------------------------------

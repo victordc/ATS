@@ -8,17 +8,53 @@ using ATS.Data;
 using ATS.Data.DAL;
 using System.IO;
 using ATS.MVC.UI.Helpers;
+using ATS.MVC.UI.Common;
+using ATS.Framework;
+using System.Globalization;
 
 namespace ATS.MVC.UI.Controllers
 {
     public class TimeSheetController : BaseController
     {
+
+        public ActionResult Reminder()
+        {
+            var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMastersByAgentId(UserSetting.Current.PersonId);
+            //var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMasters();
+
+            return View(timeSheetMasters.ToList());
+        }
+
+        public ActionResult SendReminder(int id)
+        {
+            //do something for the to address
+            TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
+            string subject = "";
+            string message = "";
+
+            if (master.Status == 1)
+            {
+                subject = "Reminder to submit timesheet for month of " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(master.Month);
+                message = "Please submit your timesheet to your supervisor as soon as possible. From your friendly agent";
+            }
+            else if (master.Status == 2)
+            {
+                subject = "Reminder to approve timesheet for month of " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(master.Month);
+                message = "Please evaluate the timesheet from your staff as soon as possible. From your friendly agent";
+            }
+            //send email
+            EmailManager.SendReminder("nusissdotnetagent01@gmail.com", "nusissdotnet", "vinaykasireddy@gmail.com", subject, message);
+            return RedirectToAction("Reminder");
+        }
+
+
         //
         // GET: /TimeSheet/
 
         public ActionResult Index()
         {
-            var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMasters();
+            var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetsByPersonId(UserSetting.Current.PersonId);
+            //var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMasters();
             return View(timeSheetMasters.ToList());
         }
 
@@ -41,10 +77,8 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Create()
         {
-            // Create TimeSheet Master
-            // Create Detail List based on the number of days from the calendar month
             PersonRepository personRepository = new PersonRepository(new ATSCEEntities());
-            Staff staff = personRepository.GetStaffByID(2);
+            Staff staff = personRepository.GetStaffByID(UserSetting.Current.PersonId);
             TimeSheetMaster master = TimeSheetMasterRepository.CreateTimeSheetMasterTemplate(DateTime.Today, staff);
             ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
             return View(master);

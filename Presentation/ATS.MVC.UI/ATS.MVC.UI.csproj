@@ -363,6 +363,7 @@
     <Content Include="Views\Supervisor\AssignStaff.cshtml" />
     <Content Include="Views\Agent\AssignStaff.cshtml" />
     <Content Include="Views\Admin\AddStaff.cshtml" />
+    <Content Include="Views\TimeSheet\Reminder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

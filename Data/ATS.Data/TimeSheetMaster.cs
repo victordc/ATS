@@ -34,6 +34,15 @@ namespace ATS.Data.Model
             return context.TimeSheetMasters;
         }
 
+        public static IEnumerable<TimeSheetMaster> GetAllByPersonId(int personId)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            IEnumerable<TimeSheetMaster> timeSheetMasters = from master in context.TimeSheetMasters
+                                                       where master.PersonId == personId
+                                                       select master;
+            return timeSheetMasters;
+        }
+
         public string Save()
         {
             string result = string.Empty;
@@ -42,6 +51,8 @@ namespace ATS.Data.Model
                 using (var context = new ATSCEEntities())
                 {
                     context.Entry(this).State = this.TimeSheetMasterId <= 0 ? EntityState.Added : EntityState.Modified;
+                    context.Entry(this.Person).State = EntityState.Unchanged;
+                    context.Entry(this.Supervisor).State = EntityState.Unchanged;
                     foreach (TimeSheetDetail detail in this.TimeSheetDetail.ToList())
                         context.Entry(detail).State = detail.TimeSheetDetailId <= 0 ? EntityState.Added : EntityState.Modified;
 

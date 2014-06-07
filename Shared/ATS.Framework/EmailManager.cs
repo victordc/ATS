@@ -33,7 +33,7 @@ namespace ATS.Framework
             }
         }
 
-        public static void sendReminder(string from, string password, string to, string subject, string message)
+        public static void SendReminder(string from, string password, string to, string subject, string message)
         {
             var loginInfo = new NetworkCredential(from, password);
             var msg = new MailMessage();
