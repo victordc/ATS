@@ -14,28 +14,28 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Index()
         {
-            int currentUserId = UserSetting.Current.UserId;
+            int currentUserId = UserSetting.Current.PersonId;
             IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(currentUserId);
             return View(leaves);
         }
 
         public ActionResult Team()
         {
-            int currentUserId = UserSetting.Current.UserId;
+            int currentUserId = UserSetting.Current.PersonId;
             IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(currentUserId); 
             return View(leaves);
         }
 
         public ActionResult MyDetail(int Year, int Month)
         {
-            int currentUserId = UserSetting.Current.UserId;
+            int currentUserId = UserSetting.Current.PersonId;
             IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(currentUserId);
             return View(leaves);
         }
 
         public ActionResult TeamDetail(int Year, int Month)
         {
-            int currentUserId = UserSetting.Current.UserId;
+            int currentUserId = UserSetting.Current.PersonId;
             IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(currentUserId);
             return View(leaves);
         }

@@ -17,7 +17,8 @@ namespace ATS.Webforms.UI
             if (!IsPostBack)
             {
                 //Get this user
-                int currentUserId = UserSetting.Current.UserId;
+                //int currentUserId = UserSetting.Current.PersonId;
+                int currentUserId = 13;
 
                 IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(currentUserId);
                 LeavesGridView.DataSource = leaves.ToList();

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Routing;
-using Microsoft.AspNet.FriendlyUrls;
 
 namespace ATS.Webforms.UI
 {
@@ -10,7 +9,6 @@ namespace ATS.Webforms.UI
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.EnableFriendlyUrls();
         }
     }
 }
