@@ -53,7 +53,8 @@ namespace ATS.Data.Model
         public static Person GetByName(string name)
         {
             ATSCEEntities context = new ATSCEEntities();
-            return context.Persons.Where(r=> r.PersonName == name).FirstOrDefault();
+            //return context.Persons.Where(r=> r.PersonName == name).FirstOrDefault();
+            return context.Persons.Where(r => r.UserName == name).FirstOrDefault();
         }
 
 

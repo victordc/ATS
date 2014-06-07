@@ -465,8 +465,8 @@ namespace ATS.MVC.UI.Controllers
 
         [InitializeSimpleMembership]
         private int CreateUserAccount(RegisterModel model)
-        {   
-            WebSecurity.CreateUserAndAccount(model.UserName, "password");
+        {
+            WebSecurity.CreateUserAndAccount(model.UserName, "password", new { Gender = "Mal", DOB = DateTime.Now.AddYears(-1), Email = "vdkhiem81@yahoo.com" });
             Roles.AddUserToRole(model.UserName, model.RoleName);
             return 1;
         }

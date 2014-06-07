@@ -31,9 +31,9 @@ namespace ATS.MVC.UI.Common
 
         #region Public Properties
 
-        public string[] Controllers { get; set; }
+        public List<ObjectAccess> Controllers { get; set; }
 
-        public int UserId { get; set; }
+        public int PersonId { get; set; }
         public string UserName { get; set; }
         public string RoleName { get; set; }
 

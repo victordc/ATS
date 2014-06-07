@@ -107,16 +107,25 @@ namespace ATS.Data.Model
         /// Get controllers by role.
         /// </summary>
         /// <returns></returns>
-        public static string[] GetControllers(string roleName)
+        public static List<ObjectAccess> GetControllers(string roleName)
         {
-            string[] objectAccesses = null;
+            List<ObjectAccess> objectAccesses = null;
             using (var context = new ATSCEEntities())
             {
-                var query = from r in context.ObjectAccesses
-                                    where r.Role == roleName
-                                    select r;
+                var query = (from r in context.ObjectAccesses
+                            where r.Role == roleName
+                            select new 
+                            {
+                                Controller = r.Controller,
+                                Action = r.Action
+                            }).ToList();
 
-                objectAccesses = query.Select(r => r.Controller).Distinct().ToArray();
+                objectAccesses = (from r in query
+                                 select new ObjectAccess
+                                 {
+                                     Controller = r.Controller,
+                                     Action = r.Action
+                                 }).Distinct().OrderBy(r=>r.Controller).ToList();
 
             }
 

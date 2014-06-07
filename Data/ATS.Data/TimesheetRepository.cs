@@ -83,7 +83,7 @@ namespace ATS.Data
         /// Get controllers by role.
         /// </summary>
         /// <returns></returns>
-        public string[] GetControllers(string roleName)
+        public List<ObjectAccess> GetControllers(string roleName)
         {
             return ObjectAccess.GetControllers(roleName);
         }
@@ -237,6 +237,11 @@ namespace ATS.Data
             return Company.GetAll();
         }
 
+        public Person GetPersonByUserName(string userName)
+        {
+            return Person.GetByName(userName);
+        }
+
         #endregion
 
         #region Timesheet
@@ -287,16 +292,19 @@ namespace ATS.Data
                     //2. Insert supervisors
                     foreach (RegisterModel item in setupCompany.Supervisors)
                     {
-                        Person supervisor = new Person();
+                        Supervisor supervisor = new Supervisor();
                         supervisor.PersonName = item.FullName;
+                        supervisor.UserName = item.UserName;
+                        
                         supervisor.Save();
                     }
 
                     //3. Insert Agents
                     foreach (RegisterModel item in setupCompany.Agents)
                     {
-                        Person agent = new Person();
+                        Agent agent = new Agent();
                         agent.PersonName = item.FullName;
+                        agent.UserName = item.UserName;
                         agent.Save();
                     }
 
@@ -305,8 +313,8 @@ namespace ATS.Data
                     {
                         Staff staff = new Staff();
                         staff.PersonName = item.FullName;
-                        staff.SupervisorId = Person.GetByName(item.SupervisorName).PersonId;
-                        staff.AgentId = Person.GetByName(item.AgentName).PersonId;
+                        staff.SupervisorId = Person.GetByName(item.UserName).PersonId;
+                        staff.AgentId = Person.GetByName(item.UserName).PersonId;
                         staff.Save();
                     }
 

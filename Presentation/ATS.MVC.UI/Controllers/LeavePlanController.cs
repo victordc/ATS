@@ -19,7 +19,7 @@ namespace ATS.MVC.UI.Controllers
         // GET: /LeavePlan/
         public ActionResult Index()
         {
-            int currentUserId = UserSetting.Current.UserId;
+            int currentUserId = UserSetting.Current.PersonId;
             //int currentUserId = 1;
             var leavePlans = TimesheetRepository.GetLeavePlans(currentUserId);
             return View(leavePlans.ToList());
@@ -44,7 +44,7 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Create()
         {
             ViewBag.LeaveCategoryId = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc");
-            int currentUserId = UserSetting.Current.UserId;
+            int currentUserId = UserSetting.Current.PersonId;
             ViewBag.PersonId = new SelectList(TimesheetRepository.GetAllPersons(), "PersonId", "PersonName", currentUserId);
             return View();
         }
@@ -56,7 +56,7 @@ namespace ATS.MVC.UI.Controllers
         //[ValidateAntiForgeryToken]
         public bool Create(LeavePlan leaveplan)
         {
-            int currentUserId = UserSetting.Current.UserId;
+            int currentUserId = UserSetting.Current.PersonId;
             leaveplan.PersonId = currentUserId;
             //System.TimeSpan diff = leaveplan.EndDate.Subtract(leaveplan.StartDate);
             //leaveplan.Duration = 
@@ -103,7 +103,7 @@ namespace ATS.MVC.UI.Controllers
         public bool Edit(LeavePlan leaveplan)
         {
 
-            int currentUserId = UserSetting.Current.UserId;
+            int currentUserId = UserSetting.Current.PersonId;
             leaveplan.PersonId = currentUserId;
 
             if (ModelState.IsValid)
@@ -150,7 +150,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Supervise()
         {
-            int thisUserId = UserSetting.Current.UserId;
+            int thisUserId = UserSetting.Current.PersonId;
             var leavePlans = TimesheetRepository.GetAllPersonsBySupervisorId(thisUserId);
             return View(leavePlans.ToList());
         }

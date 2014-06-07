@@ -119,6 +119,7 @@
           <Property Name="SupervisorId" Type="int" />
           <Property Name="Phone" Type="nvarchar" MaxLength="10" />
           <Property Name="HomeAddress" Type="nvarchar" MaxLength="256" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="56" />
         </EntityType>
         <EntityType Name="TM_TimeSheetDetails">
           <Key>
@@ -407,6 +408,7 @@
           <Property Type="String" Name="Phone" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="HomeAddress" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LeavePlans" Relationship="ATSCEModel.Leave__Person" FromRole="Person" ToRole="LeavePlan" />
+          <Property Type="String" Name="UserName" MaxLength="56" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="Leave__Person">
           <End Type="ATSCEModel.Person" Role="Person" Multiplicity="1" />
@@ -670,6 +672,7 @@
           <EntitySetMapping Name="Persons">
             <EntityTypeMapping TypeName="IsTypeOf(ATSCEModel.Supervisor)">
               <MappingFragment StoreEntitySet="Persons">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="PersonName" ColumnName="PersonName" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
@@ -681,6 +684,7 @@
             </EntityTypeMapping>
             <EntityTypeMapping TypeName="IsTypeOf(ATSCEModel.Agent)">
               <MappingFragment StoreEntitySet="Persons">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="PersonName" ColumnName="PersonName" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
@@ -691,6 +695,7 @@
             </EntityTypeMapping>
             <EntityTypeMapping TypeName="IsTypeOf(ATSCEModel.Staff)">
               <MappingFragment StoreEntitySet="Persons">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="PersonName" ColumnName="PersonName" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
@@ -702,6 +707,7 @@
             </EntityTypeMapping>
             <EntityTypeMapping TypeName="ATSCEModel.Person">
               <MappingFragment StoreEntitySet="Persons">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="PersonName" ColumnName="PersonName" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />

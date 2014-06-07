@@ -19,7 +19,6 @@
             /* Custom container */
             .container {
             margin: 0 auto;
-            max-width: 1000px;
             }
             .container > hr {
             margin: 60px 0;
@@ -110,10 +109,11 @@
                   <ul class="nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @if (!string.IsNullOrEmpty(ATS.MVC.UI.Common.UserSetting.Current.UserName)){
-                        for (int i = 0; i < ATS.MVC.UI.Common.UserSetting.Current.Controllers.Length; i++)
+                        for (int i = 0; i < ATS.MVC.UI.Common.UserSetting.Current.Controllers.Count; i++)
                         {
-                            string controller = ATS.MVC.UI.Common.UserSetting.Current.Controllers[i];
-                            <li>@Html.ActionLink(controller, "Index", controller)</li>        
+                            string controller = ATS.MVC.UI.Common.UserSetting.Current.Controllers[i].Controller;
+                            string action = ATS.MVC.UI.Common.UserSetting.Current.Controllers[i].Action;
+                            <li>@Html.ActionLink(controller, action, controller)</li>        
                         }
                     
                     @*<li>@Html.ActionLink("Code Table", "Index", "CodeTable")</li>
