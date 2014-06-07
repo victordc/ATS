@@ -70,10 +70,9 @@ namespace ATS.Data.Model
             var query = ((from persons in context.Persons
                           where persons.PersonId == userId
                           select persons).FirstOrDefault() as Staff);
-
             if (query != null)
             {
-                int supervisorId = query.SupervisorId.Value;
+                queryId = query.SupervisorId.Value;
             }
             leavesForTeam = from allLeavePlans in context.LeavePlans
                             where (allLeavePlans.Person as Staff).SupervisorId == queryId
