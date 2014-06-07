@@ -3,11 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ATS.Data.DAL;
+using System.Data;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.Web.Mvc;
+using System.Web;
 
 namespace ATS.Data.Model
 {
+
+
     public partial class TimeSheetMaster
     {
+
+        public IEnumerable<SelectListItem> ActionsList { get; set; }
+        public virtual ICollection<TimeSheetDetail> TimeSheetDetail { get; set; }
+        public virtual Agent Agent { get; set; }
+
+
         public static TimeSheetMaster GetById(int TimeSheetMasterId)
         {
             ATSCEEntities context = new ATSCEEntities();
@@ -27,18 +41,11 @@ namespace ATS.Data.Model
             {
                 using (var context = new ATSCEEntities())
                 {
-                    if (this.TimeSheetMasterId <= 0)
-                    {
-                        context.TimeSheetMasters.Add(this);
-                    }
-                    else
-                    {
-                        context.Entry(this).State = System.Data.EntityState.Modified;
-                    }
-                    int rowAffected = context.SaveChanges();
+                    context.Entry(this).State = this.TimeSheetMasterId <= 0 ? EntityState.Added : EntityState.Modified;
+                    foreach (TimeSheetDetail detail in this.TimeSheetDetail.ToList())
+                        context.Entry(detail).State = detail.TimeSheetDetailId <= 0 ? EntityState.Added : EntityState.Modified;
 
-                    if (rowAffected <= 0)
-                        result = "Record is not saved";
+                    context.SaveChanges();
                 }
             }
             catch (Exception)
@@ -66,4 +73,6 @@ namespace ATS.Data.Model
 
         }
     }
+
+
 }

@@ -1,0 +1,13 @@
+C:\NUS\Enterprise.Net1\ATS\ATS.Service\bin\Debug\Database\ATSCE.sdf
+C:\NUS\Enterprise.Net1\ATS\ATS.Service\bin\Debug\ATS.Service.dll.config
+C:\NUS\Enterprise.Net1\ATS\ATS.Service\bin\Debug\ATS.Service.dll
+C:\NUS\Enterprise.Net1\ATS\ATS.Service\bin\Debug\ATS.Service.pdb
+C:\NUS\Enterprise.Net1\ATS\ATS.Service\bin\Debug\ATS.Data.dll
+C:\NUS\Enterprise.Net1\ATS\ATS.Service\bin\Debug\EntityFramework.dll
+C:\NUS\Enterprise.Net1\ATS\ATS.Service\bin\Debug\ATS.Framework.dll
+C:\NUS\Enterprise.Net1\ATS\ATS.Service\bin\Debug\log4net.dll
+C:\NUS\Enterprise.Net1\ATS\ATS.Service\bin\Debug\ATS.Data.pdb
+C:\NUS\Enterprise.Net1\ATS\ATS.Service\bin\Debug\ATS.Framework.pdb
+C:\NUS\Enterprise.Net1\ATS\ATS.Service\obj\Debug\ATS.Service.csprojResolveAssemblyReference.cache
+C:\NUS\Enterprise.Net1\ATS\ATS.Service\obj\Debug\ATS.Service.dll
+C:\NUS\Enterprise.Net1\ATS\ATS.Service\obj\Debug\ATS.Service.pdb
