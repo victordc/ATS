@@ -1,5 +1,6 @@
 ﻿using ATS.Data;
 using ATS.Data.Model;
+using ATS.MVC.UI.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,9 +17,6 @@ namespace ATS.Webforms.UI
         {
             if (!IsPostBack)
             {
-                //Get this user
-                int userId = 4;
-
                 //Get leaves and credits from CodeTable
                 IEnumerable<CodeTable> codes = TimesheetRepository.Instance.GetCodeTableByGroup("LEAVE_TYPE");
                 CodeGridView.DataSource = codes.ToList();

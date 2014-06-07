@@ -367,6 +367,10 @@
       <Project>{2ccf5866-cc1a-4bbe-b549-874aa841888f}</Project>
       <Name>ATS.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ATS.MVC.UI\ATS.MVC.UI.csproj">
+      <Project>{b2322759-d8f4-42b7-9894-f9010d17a7ce}</Project>
+      <Name>ATS.MVC.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ATS.Data.Model;
 using ATS.Data;
+using ATS.MVC.UI.Common;
 
 namespace ATS.MVC.UI.Controllers
 {
@@ -13,29 +14,29 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Index()
         {
-            int currentUserId = 1;
+            int currentUserId = UserSetting.Current.UserId;
             IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(currentUserId);
             return View(leaves);
         }
 
         public ActionResult Team()
         {
-            int supId = 4;
-            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(supId); 
+            int currentUserId = UserSetting.Current.UserId;
+            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(currentUserId); 
             return View(leaves);
         }
 
         public ActionResult MyDetail(int Year, int Month)
         {
-            int currentUserId = 1;
+            int currentUserId = UserSetting.Current.UserId;
             IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(currentUserId);
             return View(leaves);
         }
 
         public ActionResult TeamDetail(int Year, int Month)
         {
-            int supId = 4;
-            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(supId);
+            int currentUserId = UserSetting.Current.UserId;
+            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(currentUserId);
             return View(leaves);
         }
 

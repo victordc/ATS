@@ -1,5 +1,6 @@
 ﻿using ATS.Data;
 using ATS.Data.Model;
+using ATS.MVC.UI.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,10 @@ namespace ATS.Webforms.UI
         {
             if (!IsPostBack)
             {
-                int userId = 1;
-                IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(userId);
+                //Get this user
+                int currentUserId = UserSetting.Current.UserId;
+
+                IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(currentUserId);
                 LeavesGridView.DataSource = leaves.ToList();
                 LeavesGridView.DataBind();
             }
