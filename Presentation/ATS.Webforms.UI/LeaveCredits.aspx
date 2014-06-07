@@ -11,9 +11,6 @@
         </Columns>
     </asp:GridView>
 
-    <asp:EntityDataSource ID="EntityDataSource1" runat="server" ConnectionString="name=ATSCEEntities" DefaultContainerName="ATSCEEntities" EnableFlattening="False" EntitySetName="LeaveCategories" Include="LeavePlans">
-    </asp:EntityDataSource>
-
     <asp:GridView ID="CreditsGridView" runat="server" AutoGenerateColumns="False"
         CssClass="table table-striped table-bordered table-hover">
         <Columns>

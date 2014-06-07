@@ -181,9 +181,7 @@ namespace ATS.Data
 
         public static IEnumerable<LeavePlan> GetLeavePlansForTeam(int userId)
         {
-            //TODO get supervisorID from personId
-            //return LeavePlan.GetAllLeavePlansForTeam(userId);
-            return LeavePlan.GetAll(userId);
+            return LeavePlan.GetAllLeavePlansForTeam(userId);
         }
 
         public static LeavePlan AddUpdateLeavePlan(LeavePlan leavePlan)

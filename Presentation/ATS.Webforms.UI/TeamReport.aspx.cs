@@ -9,15 +9,16 @@ using System.Web.UI.WebControls;
 
 namespace ATS.Webforms.UI
 {
-    public partial class Directory : System.Web.UI.Page
+    public partial class TeamReport : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                IEnumerable<Person> persons = TimesheetRepository.GetAllPersons();
-                PersonGridView.DataSource = persons.ToList();
-                PersonGridView.DataBind();
+                int userId = 1;
+                IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(userId);
+                LeavesGridView.DataSource = leaves.ToList();
+                LeavesGridView.DataBind();
             }
         }
     }

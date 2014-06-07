@@ -16,10 +16,6 @@ namespace ATS.Webforms.UI
         {
             if (!IsPostBack)
             {
-
-                //Get this user
-                int userId = 4;
-
                 //Get leaves and credits from CodeTable
                 IEnumerable<LeaveCategory> history = TimesheetRepository.GetLeaveCategories();
                 LeaveCategoryGridView.DataSource = history.ToList();
@@ -27,10 +23,10 @@ namespace ATS.Webforms.UI
             }
         }
 
-        protected void LeavesGridView_Sorting(object sender, GridViewSortEventArgs e)
+        protected void LeaveCategoryGridView_Sorting(object sender, GridViewSortEventArgs e)
         {
-            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans();
-            LeaveCategoryGridView.DataSource = leaves.OrderBy(x => DataBinder.Eval(x, e.SortExpression)).ToList();
+            IEnumerable<LeaveCategory> history = TimesheetRepository.GetLeaveCategories();
+            LeaveCategoryGridView.DataSource = history.OrderByDescending(x => DataBinder.Eval(x, e.SortExpression)).ToList();
             LeaveCategoryGridView.DataBind();
         }
 

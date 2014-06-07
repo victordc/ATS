@@ -64,10 +64,10 @@ namespace ATS.Data.Model
         public static IEnumerable<LeavePlan> GetAllLeavePlansForTeam(int userId)
         {
             ATSCEEntities context = new ATSCEEntities();
-            IEnumerable<LeavePlan> leaves = from allLeavePlans in context.LeavePlans
-                                            where (allLeavePlans.Person as Staff).SupervisorId == userId
-                                            select allLeavePlans;
-            return leaves;
+            IEnumerable<LeavePlan> leavesToSupervise = from allLeavePlans in context.LeavePlans
+                                                       where (allLeavePlans.Person as Staff).SupervisorId == userId
+                                                       select allLeavePlans;
+            return leavesToSupervise;
         }
 
         public static bool Delete(int leavePlanId)

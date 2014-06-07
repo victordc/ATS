@@ -24,7 +24,7 @@
                                 <li><a href="/Report.aspx">Report View</a></li>
                                 <li><a href="/Chart.aspx">Chart</a></li>
                                 <li><a href="/LeaveCredits.aspx">Leave Credits</a></li>
-                                <li><a href="/Directory.aspx">Staff Directory</a></li>
+                                <li><a href="/TeamReport.aspx">Team Report</a></li>
                             </ul>
                         </div>
                     </div>
