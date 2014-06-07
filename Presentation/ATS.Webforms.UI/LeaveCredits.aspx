@@ -11,30 +11,22 @@
         </Columns>
     </asp:GridView>
 
+    <asp:EntityDataSource ID="EntityDataSource1" runat="server" ConnectionString="name=ATSCEEntities" DefaultContainerName="ATSCEEntities" EnableFlattening="False" EntitySetName="LeaveCategories" Include="LeavePlans">
+    </asp:EntityDataSource>
+
     <asp:GridView ID="CreditsGridView" runat="server" AutoGenerateColumns="False"
         CssClass="table table-striped table-bordered table-hover">
         <Columns>
             <asp:BoundField DataField="LeaveCategoryId" HeaderText="LeaveCategoryId" SortExpression="LeaveCategoryId" ReadOnly="True" />
             <asp:BoundField DataField="LeaveCategoryDesc" HeaderText="LeaveCategoryDesc" SortExpression="LeaveCategoryDesc" />
-        </Columns>
-    </asp:GridView>
-
-    <asp:GridView ID="LeavesGridView" runat="server" AutoGenerateColumns="False"
-        CssClass="table table-striped table-bordered table-hover">
-        <Columns>
-            <asp:BoundField DataField="LeavePlanId" HeaderText="LeavePlan Id" SortExpression="LeavePlanId" />
-            <asp:BoundField DataField="PersonId" HeaderText="PersonId" Visible="False" />
-            <asp:TemplateField HeaderText="Person" SortExpression="PersonId">
-                <ItemTemplate><%#Eval("Person.PersonName")%></ItemTemplate>
+            <asp:TemplateField HeaderText="Leaves">
+                <ItemTemplate>
+                    <asp:GridView ID="LeaveItemsGridView" runat="server" 
+                        CssClass="table table-striped table-bordered table-hover"
+                        DataSource='<%# Eval("LeavePlans") %>'>
+                    </asp:GridView>
+                </ItemTemplate>
             </asp:TemplateField>
-            <asp:BoundField DataField="LeaveCategoryId" HeaderText="LeaveCategoryId" SortExpression="LeaveCategoryId" Visible="False" />
-            <asp:TemplateField HeaderText="Leave Category" SortExpression="LeaveCategoryId">
-                <ItemTemplate><%#Eval("LeaveCategory.LeaveCategoryDesc")%></ItemTemplate>
-            </asp:TemplateField>
-            <asp:BoundField DataField="StartDate" HeaderText="Start Date" SortExpression="StartDate" DataFormatString='{0:d}' />
-            <asp:BoundField DataField="EndDate" HeaderText="End Date" SortExpression="EndDate" DataFormatString='{0:d}' />
-            <asp:BoundField DataField="Duration" HeaderText="Duration" SortExpression="Duration" />
-            <asp:CheckBoxField DataField="Admitted" HeaderText="Admitted" SortExpression="Admitted" />
         </Columns>
     </asp:GridView>
 

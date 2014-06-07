@@ -28,10 +28,6 @@ namespace ATS.Webforms.UI
                 IEnumerable<LeaveCategory> history = TimesheetRepository.GetLeaveCategories();
                 CreditsGridView.DataSource = history.ToList();
                 CreditsGridView.DataBind();
-
-                IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(userId);
-                LeavesGridView.DataSource = leaves.ToList();
-                LeavesGridView.DataBind();
             }
         }
 
