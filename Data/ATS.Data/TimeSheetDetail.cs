@@ -3,11 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.Web;
+using System.Web.Mvc;
 
 namespace ATS.Data.Model
 {
+    [MetadataType(typeof(TimeSheetDetailData))]
     public partial class TimeSheetDetail
     {
+
+        [DataType(DataType.Upload)]
+        public HttpPostedFileBase SupportDocumentUpload1 { get; set; }
+
+        [DataType(DataType.Upload)]
+        public HttpPostedFileBase SupportDocumentUpload2 { get; set; }
+
+        [DataType(DataType.Upload)]
+        public HttpPostedFileBase SupportDocumentUpload3 { get; set; }
+
+        public SelectList LeaveCategories { get; set; }
+
         public static TimeSheetDetail GetById(int TimeSheetDetailId)
         {
             ATSCEEntities context = new ATSCEEntities();
@@ -65,5 +82,15 @@ namespace ATS.Data.Model
             }
 
         }
+    }
+
+    public class TimeSheetDetailData
+    {
+
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        public string StartTime { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        public string EndTime { get; set; }
     }
 }

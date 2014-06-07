@@ -30,17 +30,17 @@
         <AssociationConnector Association="ATSCEModel.Staff__Agent" />
         <AssociationConnector Association="ATSCEModel.Staff__Supervisor" />
         <AssociationConnector Association="ATSCEModel.Supervisor__Company" />
-        <EntityTypeShape EntityType="ATSCEModel.TimeSheetDetail" Width="1.5" PointX="10.125" PointY="6" />
+        <EntityTypeShape EntityType="ATSCEModel.TimeSheetDetail" Width="1.5" PointX="11.5" PointY="6.125" />
         <EntityTypeShape EntityType="ATSCEModel.TimeSheetMaster" Width="1.5" PointX="7.125" PointY="6.625" />
         <AssociationConnector Association="ATSCEModel.TimeSheetMasterTimeSheetDetail" />
         <AssociationConnector Association="ATSCEModel.TimeSheetMasterPerson" />
         <AssociationConnector Association="ATSCEModel.TimeSheetMasterCompany" />
         <AssociationConnector Association="ATSCEModel.TimeSheetMasterSupervisor" />
-        <EntityTypeShape EntityType="ATSCEModel.ObjectAccess" Width="1.5" PointX="9.5505181018032683" PointY="5.8501744595589926" />
-        <EntityTypeShape EntityType="ATSCEModel.UserProfile" Width="1.5" PointX="7.8161136469878789" PointY="5.9732221392789961" />
+        <EntityTypeShape EntityType="ATSCEModel.ObjectAccess" Width="1.5" PointX="9" PointY="9.875" />
+        <EntityTypeShape EntityType="ATSCEModel.UserProfile" Width="1.5" PointX="9.125" PointY="5.75" />
         <EntityTypeShape EntityType="ATSCEModel.webpages_Membership" Width="1.5" PointX="6.1195242880468843" PointY="31.865664809879689" />
-        <EntityTypeShape EntityType="ATSCEModel.webpages_OAuthMembership" Width="1.5" PointX="10.732700703075482" PointY="6.8860801639436184" />
-        <EntityTypeShape EntityType="ATSCEModel.webpages_Roles" Width="1.5" PointX="6.8611527508409473" PointY="7.1170327994586122" />
+        <EntityTypeShape EntityType="ATSCEModel.webpages_OAuthMembership" Width="1.5" PointX="13.25" PointY="8.125" />
+        <EntityTypeShape EntityType="ATSCEModel.webpages_Roles" Width="1.5" PointX="5.125" PointY="7.375" />
         <AssociationConnector Association="ATSCEModel.webpages_UsersInRoles" />
       </Diagram>
     </edmx:Diagrams>

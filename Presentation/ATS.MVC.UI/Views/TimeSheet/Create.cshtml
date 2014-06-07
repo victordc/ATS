@@ -1,103 +1,115 @@
-﻿@model ATS.Data.Model.TimeSheetDetail
+﻿@model ATS.Data.Model.TimeSheetMaster
 
 @{
     ViewBag.Title = "Create";
+    var listTimeSheetDetail = Model.TimeSheetDetail.ToList();
 }
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) {
+<form action="" method="post" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
+    <table class="table table-striped table-bordered table-hover">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Person.PersonName)
+                @Html.DisplayFor(model => model.Person.PersonName)
+                @Html.HiddenFor(model => model.PersonId)
+                @Html.HiddenFor(model => model.Person.PersonName)
+                @Html.HiddenFor(model => model.AgencyId)
+            </td>
+            <td>
+                @Html.Label("Supervisor", new { @class = "control-label" })
+                @Html.DisplayFor(model => model.Supervisor.PersonName)
+                @Html.HiddenFor(model => model.Supervisor.PersonId)
+                @Html.HiddenFor(model => model.Supervisor.PersonName)
+                @Html.HiddenFor(model => model.ManagerId)
+            </td>
+            <td>
+                @Html.Label("Company", new { @class = "control-label" })
+                @Html.DisplayFor(model => model.Company.CompanyDescription)
+                @Html.HiddenFor(model => model.AgencyId)
+                @Html.DisplayFor(model => model.Agent.PersonName)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.Month)
+                @Html.DisplayFor(model => model.Month)
+                @Html.HiddenFor(model => model.Month)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.Year)
+                @Html.DisplayFor(model => model.Year)
+                @Html.HiddenFor(model => model.Year)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.Status)
+                @Html.HiddenFor(model => model.Status)
+                @Html.DropDownListFor(model => model.Status, new SelectList(ViewBag.StatusList, "Value", "Text"),new { disabled = "disabled" })
+            </td>
+            <td>
+                @Html.HiddenFor(model => model.Remarks)
+            </td>
+        </tr>
+    </table>
+    
     <fieldset>
         <legend>TimeSheetDetail</legend>
+        <table class="table table-striped table-bordered table-hover">
+            <tr>
+                <th>
+                    @Html.Label("Date", new { @class = "control-label" })
+                </th>
+                <th>
+                    @Html.Label("Start Time", new { @class = "control-label" })
+                </th>
+                <th>
+                    @Html.Label("End Time", new { @class = "control-label" })
+                </th>
+                <th>@Html.Label("Leave Category", new { @class = "control-label" })</th>
+                <th>
+                    @Html.Label("Remarks", new { @class = "control-label" })
+                </th>
+                <th>
+                    @Html.Label("Supporting Documents", new { @class = "control-label" })
+                </th>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TimeSheetMasterId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.TimeSheetMasterId)
-            @Html.ValidationMessageFor(model => model.TimeSheetMasterId)
-        </div>
+                <th></th>
+            </tr>
+            @for (int i = 0; i < listTimeSheetDetail.Count;i++ )
+            {
+                
+                <tr>
+                    <td>@Html.Label("TimeSheetDetail[" + @i + "].Date", 
+                                      listTimeSheetDetail[i].StartTime.ToString("dd/MM/yyyy"))</td>
+                    <td>@Html.TextBox("TimeSheetDetail[" + @i + "].StartTime", 
+                                      listTimeSheetDetail[i].StartTime)</td>
+                    <td>@Html.TextBox("TimeSheetDetail[" + @i + "].EndTime", 
+                                      listTimeSheetDetail[i].EndTime)</td>
+                    <td>@Html.DropDownList("TimeSheetDetail[" + @i + "].LeaveCategoryId", (SelectList)listTimeSheetDetail[i].LeaveCategories,"")</td>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CalendarYearId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CalendarYearId)
-            @Html.ValidationMessageFor(model => model.CalendarYearId)
-        </div>
+                    <td>@Html.TextBox("TimeSheetDetail[" + @i + "].Remarks", 
+                                      listTimeSheetDetail[i].Remarks)</td>
+                    <td>@Html.TextBox("TimeSheetDetail[" + @i + "].SupportDocumentUpload1", listTimeSheetDetail[i].SupportDocumentUpload1, new { type = "file" })
+                        <br />
+                        @Html.TextBox("TimeSheetDetail[" + @i + "].SupportDocumentUpload2", listTimeSheetDetail[i].SupportDocumentUpload2, new { type = "file" })
+                        <br />
+                        @Html.TextBox("TimeSheetDetail[" + @i + "].SupportDocumentUpload3", listTimeSheetDetail[i].SupportDocumentUpload3, new { type = "file" })
+                    </td>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.LeaveCategoryId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.LeaveCategoryId)
-            @Html.ValidationMessageFor(model => model.LeaveCategoryId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.StartTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.StartTime)
-            @Html.ValidationMessageFor(model => model.StartTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EndTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EndTime)
-            @Html.ValidationMessageFor(model => model.EndTime)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Hour)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Hour)
-            @Html.ValidationMessageFor(model => model.Hour)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Remarks)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Remarks)
-            @Html.ValidationMessageFor(model => model.Remarks)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SupportDocument1)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SupportDocument1)
-            @Html.ValidationMessageFor(model => model.SupportDocument1)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SupportDocument2)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SupportDocument2)
-            @Html.ValidationMessageFor(model => model.SupportDocument2)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SupportDocument3)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SupportDocument3)
-            @Html.ValidationMessageFor(model => model.SupportDocument3)
-        </div>
-
+                </tr>
+            }
+            @if (Model.Status == 1)
+            {
+                @Html.ActionLink("Send Reminder", "Index")
+            }
+            </table>
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" name="action:Save" value="Save" /> &nbsp;<input type="submit" name="action:Submit" value="Submit" />
         </p>
     </fieldset>
-}
+</form>
 
 <div>
     @Html.ActionLink("Back to List", "Index")

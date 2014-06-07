@@ -39,10 +39,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PersonId)
+                @Html.DisplayFor(modelItem => item.Person.PersonName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ManagerId)
+                @Html.DisplayFor(modelItem => item.Supervisor.PersonName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AgencyId)
