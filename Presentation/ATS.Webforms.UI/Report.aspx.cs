@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ATS.MVC.UI.Common;
 
 namespace ATS.Webforms.UI
 {
@@ -16,6 +17,13 @@ namespace ATS.Webforms.UI
         {
             if (!IsPostBack)
             {
+                //Store this user from MVC
+                if (HttpContext.Current.Session["UserSetting"] == null)
+                {
+                    HttpContext.Current.Session["UserSetting"] = new UserSetting();
+                    UserSetting.Current.PersonId = int.Parse(Request.QueryString["personid"]);
+                }
+
                 //Get leaves and credits from CodeTable
                 IEnumerable<LeaveCategory> history = TimesheetRepository.GetLeaveCategories();
                 LeaveCategoryGridView.DataSource = history.ToList();
