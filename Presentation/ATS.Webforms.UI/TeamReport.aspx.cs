@@ -21,7 +21,6 @@ namespace ATS.Webforms.UI
                 int currentUserId = UserSetting.Current.PersonId;
                 //LogManager.LogInfo("CurrentUserId = " + currentUserId);
                 TeamReportBinder(currentUserId);
-
             }
         }
         private void TeamReportBinder(int id)
