@@ -33,7 +33,7 @@ namespace ATS.Webforms.UI
                         UserSetting.Current.PersonId = int.Parse(Request.QueryString["personid"]);
                     }
                     else
-                        if (int.Parse(Request.QueryString["personid"]) != UserSetting.Current.PersonId) //Hacker?
+                        //Hacker or user conflict
                         {
                             HttpContext.Current.Session["UserSetting"] = null; //Ask user to login again
                             Response.Redirect("http://localhost:1409/Account/Login");
