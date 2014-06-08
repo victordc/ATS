@@ -52,6 +52,8 @@
 </table>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.PersonId }) |
+    @if(!ViewBag.ViewOnly) {
+        @Html.ActionLink("Edit", "Edit", new { id=Model.PersonId }) 
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>

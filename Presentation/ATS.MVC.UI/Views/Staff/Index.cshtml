@@ -17,7 +17,9 @@
 </hgroup>
 <hr/>
 <p>
-    @Html.ActionLink("Add New", "Create", "Staff",null,new { @class = "btn btn-primary" })
+    @if(!ViewBag.ViewOnly) {
+        @Html.ActionLink("Add New", "Create", "Staff",null,new { @class = "btn btn-primary" })
+    }
 </p>
 <table class="table table-striped table-bordered table-hover">
     <thead>
@@ -44,9 +46,12 @@
             <td>@Html.DisplayFor(modelItem => item.Supervisor.PersonName)</td>
             <td>@Html.DisplayFor(modelItem => item.Phone)</td>
             
-            <td>@Html.ActionLink("Edit", "Edit", new { id = item.PersonId }, new { @class = "btn btn-mini btn-primary" })
+            <td>
                 @Html.ActionLink("Details", "Details", new { id=item.PersonId },new { @class = "btn btn-mini btn-primary" }) 
-                @Html.ActionLink("Delete", "Delete",new { id = item.PersonId },new { @class = "btn btn-mini btn-danger" })
+                 @if(!ViewBag.ViewOnly) {
+                     @Html.ActionLink("Edit", "Edit", new { id = item.PersonId }, new { @class = "btn btn-mini btn-primary" })
+                    @Html.ActionLink("Delete", "Delete",new { id = item.PersonId },new { @class = "btn btn-mini btn-danger" })
+                 }
             </td>
         </tr>
         }

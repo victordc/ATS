@@ -38,6 +38,7 @@ namespace ATS.MVC.UI.Controllers
                 {
                     staffs = personFacade.GetRepresentedStaffs(agent);
                 }
+                ViewBag.ViewOnly = false;
             }
             else if (userRole == "Supervisor")
             {
@@ -46,7 +47,12 @@ namespace ATS.MVC.UI.Controllers
                 {
                     staffs = personFacade.GetSupervisedStaffs(supervisor);
                 }
-
+                ViewBag.ViewOnly = true;
+            }
+            else if (userRole == "Administrator")
+            {
+                staffs = personFacade.GetStaffs();
+                ViewBag.ViewOnly = false;
             }
             return View(staffs);
         }
@@ -56,6 +62,9 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Details(int id)
         {
+             var userRole = UserSetting.Current.RoleName;
+             if (userRole == "Supervisor") ViewBag.ViewOnly = true;
+             else ViewBag.ViewOnly = false;
             var staff = personFacade.GetStaffById(id);
             return View(staff);
         }
