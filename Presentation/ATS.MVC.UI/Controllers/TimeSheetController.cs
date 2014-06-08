@@ -32,12 +32,12 @@ namespace ATS.MVC.UI.Controllers
             string subject = "";
             string message = "";
 
-            if (master.Status == 1)
+            if (master.Status == Convert.ToInt32(TimeSheetStatus.Draft))
             {
                 subject = "Reminder to submit timesheet for month of " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(master.Month);
                 message = "Please submit your timesheet to your supervisor as soon as possible. From your friendly agent";
             }
-            else if (master.Status == 2)
+            else if (master.Status == Convert.ToInt32(TimeSheetStatus.Submitted))
             {
                 subject = "Reminder to approve timesheet for month of " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(master.Month);
                 message = "Please evaluate the timesheet from your staff as soon as possible. From your friendly agent";
@@ -113,6 +113,7 @@ namespace ATS.MVC.UI.Controllers
             return View(master);
         }
 
+
         public void SaveTimeSheet(TimeSheetMaster master)
         {
             PersonRepository personRepository = new PersonRepository(new ATSCEEntities());
@@ -170,6 +171,11 @@ namespace ATS.MVC.UI.Controllers
             TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
             ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
 
+            foreach (var item in master.TimeSheetDetail)
+            {
+                item.LeaveCategories = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", item.LeaveCategoryId);
+            }
+            
             if (master == null)
             {
                 return HttpNotFound();
@@ -186,7 +192,7 @@ namespace ATS.MVC.UI.Controllers
             TimeSheetMaster newMaster = master;
             if (ModelState.IsValid)
             {
-                newMaster.Save();
+                SaveTimeSheet(master);
                 return RedirectToAction("Index");
             }
             return View(master);

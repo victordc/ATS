@@ -5,7 +5,7 @@
     var listTimeSheetDetail = Model.TimeSheetDetail.ToList();
 }
 
-<h2>Create</h2>
+<h2>@ViewBag.Title</h2>
 
 <form action="" method="post" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
@@ -100,10 +100,6 @@
                     </td>
 
                 </tr>
-            }
-            @if (Model.Status == 1)
-            {
-                @Html.ActionLink("Send Reminder", "Index")
             }
             </table>
         <p>

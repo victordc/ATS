@@ -6,6 +6,5 @@ C:\Users\Siyavash\Documents\Visual Studio 2012\Projects\ATS\Shared\ATS.Framework
 C:\NUS\Enterprise.Net1\ATS\Shared\ATS.Framework\bin\Debug\ATS.Framework.dll
 C:\NUS\Enterprise.Net1\ATS\Shared\ATS.Framework\bin\Debug\ATS.Framework.pdb
 C:\NUS\Enterprise.Net1\ATS\Shared\ATS.Framework\bin\Debug\log4net.dll
-C:\NUS\Enterprise.Net1\ATS\Shared\ATS.Framework\obj\Debug\ATS.Framework.csprojResolveAssemblyReference.cache
 C:\NUS\Enterprise.Net1\ATS\Shared\ATS.Framework\obj\Debug\ATS.Framework.dll
 C:\NUS\Enterprise.Net1\ATS\Shared\ATS.Framework\obj\Debug\ATS.Framework.pdb
