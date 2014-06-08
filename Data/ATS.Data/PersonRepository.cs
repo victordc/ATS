@@ -36,6 +36,33 @@ namespace ATS.Data.DAL
             return person;
         }
 
+        public bool IsUniqueUsername(Person person)
+        {
+            IQueryable<Person> query = from s in context.Persons
+                                       where s.UserName == person.UserName
+                                       select s;
+           Person p = query.FirstOrDefault<Person>();
+           if (p == null)
+           {
+               return true;
+           }else 
+                return false;
+        }
+
+        public bool IsUniqueEmail(Person person)
+        {
+            IQueryable<Person> query = from s in context.Persons
+                                       where s.Email == person.Email
+                                       select s;
+            Person p = query.FirstOrDefault<Person>();
+            if (p == null)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
         public IEnumerable<Staff> GetStaffs()
         {
             return context.Persons.OfType<Staff>().ToList();
@@ -49,6 +76,16 @@ namespace ATS.Data.DAL
             Staff staff = query.FirstOrDefault<Staff>();
             return staff;
             
+        }
+
+        public Staff GetStaffByUsername(String username)
+        {
+            IQueryable<Staff> query = from s in context.Persons.OfType<Staff>()
+                                      where s.UserName == username
+                                      select s;
+            Staff staff = query.FirstOrDefault<Staff>();
+            return staff;
+
         }
 
         public void InsertStaff(Staff staff)
@@ -126,6 +163,15 @@ namespace ATS.Data.DAL
             return supervisor;
         }
 
+        public Supervisor GetSupervisorByUsername(string username)
+        {
+            IQueryable<Supervisor> query = from s in context.Persons.OfType<Supervisor>()
+                                           where s.UserName == username
+                                           select s;
+            Supervisor supervisor = query.FirstOrDefault<Supervisor>();
+            return supervisor;
+        }
+
         public IEnumerable<Supervisor> GetSupervisorsByCompany(Company company)
         {
             IQueryable<Supervisor> query = from s in context.Persons.OfType<Supervisor>()
@@ -169,6 +215,15 @@ namespace ATS.Data.DAL
             IQueryable<Agent> query = from s in context.Persons.OfType<Agent>()
                                            where s.PersonId == personId
                                            select s;
+            Agent agent = query.FirstOrDefault<Agent>();
+            return agent;
+        }
+
+        public Agent GetAgentByUsername(string username)
+        {
+            IQueryable<Agent> query = from s in context.Persons.OfType<Agent>()
+                                      where s.UserName == username
+                                      select s;
             Agent agent = query.FirstOrDefault<Agent>();
             return agent;
         }

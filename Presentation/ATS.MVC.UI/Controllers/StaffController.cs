@@ -7,6 +7,10 @@ using System.Web.Mvc;
 using ATS.Data.DAL;
 using ATS.Data.Model;
 using ATS.BLL;
+using ATS.MVC.UI.Filters;
+using WebMatrix.WebData;
+using System.Web.Security;
+using ATS.MVC.UI.Common;
 
 namespace ATS.MVC.UI.Controllers
 {
@@ -24,7 +28,27 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Index()
         {
-            return View(personFacade.GetStaffs());
+            IEnumerable<Staff> staffs = Enumerable.Empty<Staff>();
+            var userName = UserSetting.Current.UserName;
+            var userRole = UserSetting.Current.RoleName;
+            if (userRole == "Agent")
+            {
+                Agent agent = personFacade.GetAgentByUsername(userName);
+                if (agent != null)
+                {
+                    staffs = personFacade.GetRepresentedStaffs(agent);
+                }
+            }
+            else if (userRole == "Supervisor")
+            {
+                Supervisor supervisor = personFacade.GetSupervisorByUsername(userName);
+                if (supervisor != null)
+                {
+                    staffs = personFacade.GetSupervisedStaffs(supervisor);
+                }
+
+            }
+            return View(staffs);
         }
 
         //
@@ -51,13 +75,26 @@ namespace ATS.MVC.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [InitializeSimpleMembership]
         public ActionResult Create(Staff staff)
         {
             try
             {
+                if (!personFacade.IsUniqueEmail(staff))
+                {
+                    ModelState.AddModelError("Email", "Email is taken!");
+                }
+
+                if (!personFacade.IsUniqueUsername(staff))
+                {
+                    ModelState.AddModelError("UserName", "User name is taken!");
+                }
+
                 if (ModelState.IsValid)
                 {
                     personFacade.InsertStaff(staff);
+                    WebSecurity.CreateUserAndAccount(staff.UserName, "password");
+                    Roles.AddUserToRole(staff.UserName, "Staff");
                     return RedirectToAction("Details", new { id = staff.PersonId});
                 }
             }

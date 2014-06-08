@@ -24,6 +24,7 @@ namespace ATS.Data.Model
         public string Phone { get; set; }
         public string HomeAddress { get; set; }
         public string UserName { get; set; }
+        public string Email { get; set; }
     
         public virtual ICollection<LeavePlan> LeavePlans { get; set; }
     }

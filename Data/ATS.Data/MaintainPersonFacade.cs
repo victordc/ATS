@@ -27,6 +27,18 @@ namespace ATS.BLL
             return repository.GetPersonById(personId);
         }
 
+      
+
+        public bool IsUniqueUsername(Person person)
+        {
+            return repository.IsUniqueUsername(person);
+        }
+
+        public bool IsUniqueEmail(Person person)
+        {
+            return repository.IsUniqueEmail(person);
+        }
+
         #region Staff
         public void InsertStaff(Staff staff)
         {
@@ -49,6 +61,11 @@ namespace ATS.BLL
         public Staff GetStaffById(int staffId)
         {
             return repository.GetStaffByID(staffId);
+        }
+
+        public Staff GetStaffByUsername(string username)
+        {
+            return repository.GetStaffByUsername(username);
         }
 
         public IEnumerable<Staff> GetStaffs()
@@ -103,6 +120,11 @@ namespace ATS.BLL
             return repository.GetSupervisorByID(supervisorId);
         }
 
+        public Supervisor GetSupervisorByUsername(String username)
+        {
+            return repository.GetSupervisorByUsername(username);
+        }
+
         public IEnumerable<Supervisor> GetSupervisors()
         {
             return repository.GetSupervisors();
@@ -148,6 +170,11 @@ namespace ATS.BLL
             return repository.GetAgentByID(agentId);
         }
 
+        public Agent GetAgentByUsername(string username)
+        {
+            return repository.GetAgentByUsername(username);
+        }
+
         public void InsertAgent(Agent agent)
         {
             repository.InsertAgent(agent);
@@ -180,6 +207,8 @@ namespace ATS.BLL
                 repository.UpdateStaff(staff);
             }
         }
+
+        
 
         public void RemoveStaffsFromAgent(Agent agent, int[] staffIds)
         {

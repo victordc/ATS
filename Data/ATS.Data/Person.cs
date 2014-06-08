@@ -104,16 +104,29 @@ namespace ATS.Data.Model
     {
         
         [DisplayName("Name")]
+        [Required]
         public string PersonName { get; set; }
 
         //[DisplayName("Category ID")]
         //public int PersonCategoryId { get; set; }
 
         [DisplayName("Phone")]
+        [Required]
         public string Phone { get; set; }
 
         
         [DisplayName("Home Address")]
         public string HomeAddress { get; set; }
+
+        //TODO, any Unique Validator ? use repository to validate for now
+        [DisplayName("Email")]
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddressAttribute]
+        public string Email { get; set; }
+
+        [DisplayName("Username")]
+        [Required]
+        public string UserName { get; set; }
     }
 }
