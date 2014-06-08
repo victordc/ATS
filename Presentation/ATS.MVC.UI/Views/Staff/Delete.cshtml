@@ -19,18 +19,19 @@
 <fieldset>
     <legend>Staff</legend>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.AgentId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AgentId)
-    </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.SupervisorId)
+         @Html.DisplayNameFor(model => model.UserName)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.SupervisorId)
+        @Html.DisplayFor(model => model.UserName)
+    </div>
+
+     <div class="display-label">
+         @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
     </div>
 
     <div class="display-label">
@@ -53,6 +54,22 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.HomeAddress)
     </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AgentId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AgentId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SupervisorId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SupervisorId)
+    </div>
+
+    
 </fieldset>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()

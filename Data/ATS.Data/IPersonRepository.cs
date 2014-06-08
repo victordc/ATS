@@ -11,9 +11,12 @@ namespace ATS.Data.DAL
     {
         IEnumerable<Person> GetAll();
         Person GetPersonById(int personId);
+        bool IsUniqueUsername(Person person);
+        bool IsUniqueEmail(Person person);
 
         IEnumerable<Staff> GetStaffs();
         Staff GetStaffByID(int personId);
+        Staff GetStaffByUsername(string username);
         void InsertStaff(Staff staff);
         bool DeleteStaff(int personId);
         void UpdateStaff(Staff staff);
@@ -25,6 +28,7 @@ namespace ATS.Data.DAL
 
         IEnumerable<Supervisor> GetSupervisors();
         Supervisor GetSupervisorByID(int personId);
+        Supervisor GetSupervisorByUsername(string username);
         void InsertSupervisor(Supervisor supervisorId);
         bool DeleteSupervisor(int personId);
         void UpdateSupervisor(Supervisor supervisorId);
@@ -32,6 +36,7 @@ namespace ATS.Data.DAL
 
         IEnumerable<Agent> GetAgents();
         Agent GetAgentByID(int personId);
+        Agent GetAgentByUsername(string username);
         void InsertAgent(Agent agent);
         bool DeleteAgent(int personId);
         void UpdateAgent(Agent agent);

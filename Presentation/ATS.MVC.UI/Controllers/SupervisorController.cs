@@ -7,6 +7,9 @@ using System.Web.Mvc;
 using ATS.Data.DAL;
 using ATS.Data.Model;
 using ATS.BLL;
+using ATS.MVC.UI.Filters;
+using WebMatrix.WebData;
+using System.Web.Security;
 
 namespace ATS.MVC.UI.Controllers
 {
@@ -53,13 +56,25 @@ namespace ATS.MVC.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [InitializeSimpleMembership]
         public ActionResult Create(Supervisor supervisor)
         {
             try
             {
+                if (!personFacade.IsUniqueEmail(supervisor))
+                {
+                    ModelState.AddModelError("Email", "Email is taken!");
+                }
+
+                if (!personFacade.IsUniqueUsername(supervisor))
+                {
+                    ModelState.AddModelError("UserName", "User name is taken!");
+                }
                 if (ModelState.IsValid)
                 {
                     personFacade.InsertSupervisor(supervisor);
+                    WebSecurity.CreateUserAndAccount(supervisor.UserName, "password");
+                    Roles.AddUserToRole(supervisor.UserName, "Supervisor");
                     return RedirectToAction("Details", new { id = supervisor.PersonId });
                 }
             }
