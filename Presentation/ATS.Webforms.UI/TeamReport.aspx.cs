@@ -20,11 +20,26 @@ namespace ATS.Webforms.UI
                 //Get this user
                 int currentUserId = UserSetting.Current.PersonId;
                 //LogManager.LogInfo("CurrentUserId = " + currentUserId);
+                TeamReportBinder(currentUserId);
 
-                IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(currentUserId);
-                LeavesGridView.DataSource = leaves.ToList();
-                LeavesGridView.DataBind();
             }
+        }
+        private void TeamReportBinder(int id)
+        {
+            IEnumerable<LeavePlan> leaves = null;
+
+            //If admin, show all
+            if (id == 0)
+            {
+                leaves = TimesheetRepository.GetLeavePlans();
+            }
+            else
+            {
+                leaves = TimesheetRepository.GetLeavePlansForTeam(id);
+            }
+            LeavesGridView.DataSource = leaves.ToList();
+            LeavesGridView.DataBind();
+
         }
     }
 }

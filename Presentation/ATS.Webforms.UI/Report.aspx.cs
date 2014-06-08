@@ -17,12 +17,26 @@ namespace ATS.Webforms.UI
         {
             if (!IsPostBack)
             {
-                //Store this user from MVC
+                //Store this user when called by MVC
                 if (HttpContext.Current.Session["UserSetting"] == null)
                 {
-                    HttpContext.Current.Session["UserSetting"] = new UserSetting();
-                    UserSetting.Current.PersonId = int.Parse(Request.QueryString["personid"]);
+                    if (Request.QueryString["personid"] == null) //Session timeout?
+                    {
+                        Response.Redirect("http://localhost:1409/Home/Index");
+                    }
+                    else
+                    {
+                        HttpContext.Current.Session["UserSetting"] = new UserSetting();
+                        UserSetting.Current.PersonId = int.Parse(Request.QueryString["personid"]);
+                    }
                 }
+                //else
+                //{
+                //    if ((int.Parse(Request.QueryString["personid"]) != UserSetting.Current.PersonId)) //Hacker?
+                //    {
+                //        Response.Redirect("http://localhost:1409/Home/Index");
+                //    }
+                //}
 
                 //Get leaves and credits from CodeTable
                 IEnumerable<LeaveCategory> history = TimesheetRepository.GetLeaveCategories();

@@ -9,6 +9,11 @@ namespace ATS.Webforms.UI
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+            routes.MapPageRoute(
+                    "Default",
+                    "",
+                    "~/Report.aspx"
+            );
         }
     }
 }
