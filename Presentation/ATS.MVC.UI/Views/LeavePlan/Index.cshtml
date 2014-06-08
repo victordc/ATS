@@ -5,7 +5,10 @@
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+    @if (ViewBag.UserRole == "Staff")
+    {
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })   
+    }
 </p>
 <table class="table table-striped table-bordered table-hover">
     <tr>
@@ -75,7 +78,7 @@
                 @Html.ActionLink("Details", "Details", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-success" })
                 @Html.ActionLink("Edit", "Edit", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-primary", @style = "visibility:" + @visible + ";" })
                 @*@Html.ActionLink("Delete", "Delete", new { id = item.LeavePlanId }, new { @class = "btn btn-mini btn-danger", @style = "visibility:" + @visible + ";" })*@
-                <a class="btn btn-mini btn-danger delete" leaveId="@item.LeavePlanId">Delete</a>
+                <a class="btn btn-mini btn-danger delete" leaveId="@item.LeavePlanId" style="visibility:@visible">Delete</a>
                 <img src="~/Content/img/ajax-loader.gif" style="display:none" id="Progress-@item.LeavePlanId"/>
             </td>
         </tr>
@@ -83,24 +86,27 @@
 </table>
 
 <div id="divDeleteOAModel" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Delete Object Access</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to delete this record?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button id="btnDeleteOAOk" type="button" class="btn btn-danger">Ok</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Delete Object Access</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this Leave?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="btnDeleteOAOk" type="button" class="btn btn-danger">Ok</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-<div id="info" style="display:none"></div>
+<div id="info" style="display: none"></div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
@@ -115,7 +121,7 @@
 
                 //var userResponse = confirm("Are you sure you want to delete this leave request?\nif yes press OK.");
                 //if (userResponse == true) {
-              
+
                 //}
                 //else {
                 //    $("#Progress-" + idx).hide(1000);

@@ -75,11 +75,28 @@
 
 
 
+            Date.bizdays = function (d1, d2) {
+                var bd = 0, dd, incr = d1.getDate();
+                while (d1 < d2) {
+                    d1.setDate(++incr);
+                    dd = d1.getDay();
+                    if (dd % 6)++bd;
+                }
+                return bd;
+            }
+
+            $('#StartDate').datepicker();
+            $('#EndDate').datepicker();
+
+            $('#LeaveCategoryId').val('1');
+
+
             $("#StartDate").change(function () {
 
-                var dateStart = Date.parse($('#StartDate').val());
-                var dateEnd = Date.parse($('#EndDate').val());
-                var duration = (dateEnd - dateStart) / 86400000;
+                var dateStart = new Date($('#StartDate').val());
+                var dateEnd = new Date($('#EndDate').val());
+
+                var duration = Date.bizdays(dateStart, dateEnd);
 
                 $('#Duration').val(duration);
 
@@ -87,9 +104,10 @@
 
             $("#EndDate").change(function () {
 
-                var dateStart = Date.parse($('#StartDate').val());
-                var dateEnd = Date.parse($('#EndDate').val());
-                var duration = (dateEnd - dateStart) / 86400000;
+                var dateStart = new Date($('#StartDate').val());
+                var dateEnd = new Date($('#EndDate').val());
+
+                var duration = Date.bizdays(dateStart, dateEnd);
 
                 $('#Duration').val(duration);
 
@@ -97,9 +115,10 @@
 
             $("#Duration").change(function () {
 
-                var dateStart = Date.parse($('#StartDate').val());
-                var dateEnd = Date.parse($('#EndDate').val());
-                var duration = (dateEnd - dateStart) / 86400000;
+                var dateStart = new Date($('#StartDate').val());
+                var dateEnd = new Date($('#EndDate').val());
+
+                var duration = Date.bizdays(dateStart, dateEnd);
 
                 $('#Duration').val(duration);
 
@@ -132,11 +151,15 @@
 
                 request.done(function (response, textStatus, jqXHR) {
                     if (response == "True") {
-                        $('#info').html("Successfully Saved.");
+                        $('#info').html("Successfully Done.");
                         $('#info').show(500);
                     }
                     else if (response == "False") {
                         $('#info').html("could not be done. try again in a few minutes please.");
+                        $('#info').slideDown(500);
+                    }
+                    else {
+                        $('#info').html(response);
                         $('#info').slideDown(500);
                     }
                 });

@@ -20,8 +20,10 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Index()
         {
             int currentUserId = UserSetting.Current.PersonId;
+            ViewBag.UserRole = UserSetting.Current.RoleName;
             //int currentUserId = 1;
             var leavePlans = TimesheetRepository.GetLeavePlans(currentUserId);
+            
             return View(leavePlans.ToList());
         }
 
@@ -53,31 +55,32 @@ namespace ATS.MVC.UI.Controllers
         // POST: /LeavePlan/Create
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public bool Create(LeavePlan leaveplan)
+        public string Create(LeavePlan leaveplan)
         {
+            if (leaveplan.StartDate < DateTime.Now || leaveplan.EndDate < DateTime.Now)
+            {
+                return "Start and End Dates can not be in the past. Please correct.";
+            }
             int currentUserId = UserSetting.Current.PersonId;
             leaveplan.PersonId = currentUserId;
-            //System.TimeSpan diff = leaveplan.EndDate.Subtract(leaveplan.StartDate);
-            //leaveplan.Duration = 
-            //leaveplan.PersonId = 1;
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (!TimesheetRepository.CheckLeavesOverlaps(leaveplan))
+                    {
+                        return "The selected dates have overlap with previously applied leaves, please correct.";
+                    }
                     TimesheetRepository.AddUpdateLeavePlan(leaveplan);
-                    //return RedirectToAction("Index");
-                    return true;
+                    return "True";
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    return false;
+                    return "False";
                 }
             }
-            return false;
-            //ViewBag.LeaveCategoryId = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", leaveplan.LeaveCategoryId);
-            //ViewBag.PersonId = new SelectList(TimesheetRepository.GetAllPersons(), "PersonId", "PersonName", leaveplan.PersonId);
-            //return View(leaveplan);
+            return "False";
         }
 
         //
@@ -100,9 +103,12 @@ namespace ATS.MVC.UI.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public bool Edit(LeavePlan leaveplan)
+        public string Edit(LeavePlan leaveplan)
         {
-
+            if (leaveplan.StartDate < DateTime.Now || leaveplan.EndDate < DateTime.Now)
+            {
+                return "Start and End Dates can not be in the past. Please correct.";
+            }
             int currentUserId = UserSetting.Current.PersonId;
             leaveplan.PersonId = currentUserId;
 
@@ -110,26 +116,19 @@ namespace ATS.MVC.UI.Controllers
             {
                 try
                 {
+                    if (!TimesheetRepository.CheckLeavesOverlaps(leaveplan))
+                    {
+                        return "The selected dates have overlap with previously applied leaves, please correct.";
+                    }
                     TimesheetRepository.AddUpdateLeavePlan(leaveplan);
-
-                    return true;
+                    return "True";
                 }
                 catch (Exception)
                 {
-                    return false;
+                    return "False";
                 }
             }
-            return false;
-
-
-            //if (ModelState.IsValid)
-            //{
-            //    TimesheetRepository.AddUpdateLeavePlan(leaveplan);
-            //    return RedirectToAction("Index");
-            //}
-            //ViewBag.LeaveCategoryId = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", leaveplan.LeaveCategoryId);
-            //ViewBag.PersonId = new SelectList(TimesheetRepository.GetAllPersons(), "PersonId", "PersonName", leaveplan.PersonId);
-            //return View(leaveplan);
+            return "False";
         }
 
         //

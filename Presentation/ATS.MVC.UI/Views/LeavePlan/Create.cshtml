@@ -66,18 +66,32 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
+
         $(document).ready(function () {
 
-            //$("#PersonId").attr('disabled', 'disabled');
-            //$("#PersonId").hide();
+
+            Date.bizdays = function (d1, d2) {
+                var bd = 0, dd, incr = d1.getDate();
+                while (d1 < d2) {
+                    d1.setDate(++incr);
+                    dd = d1.getDay();
+                    if (dd % 6)++bd;
+                }
+                return bd;
+            }
+
+            $('#StartDate').datepicker();
+            $('#EndDate').datepicker();
+
             $('#LeaveCategoryId').val('1');
             
 
             $("#StartDate").change(function () {
 
-                var dateStart = Date.parse($('#StartDate').val());
-                var dateEnd = Date.parse($('#EndDate').val());
-                var duration = (dateEnd - dateStart) / 86400000;
+                var dateStart = new Date($('#StartDate').val());
+                var dateEnd = new Date($('#EndDate').val());
+
+                var duration = Date.bizdays(dateStart, dateEnd);
 
                 $('#Duration').val(duration);
 
@@ -85,9 +99,10 @@
 
             $("#EndDate").change(function () {
 
-                var dateStart = Date.parse($('#StartDate').val());
-                var dateEnd = Date.parse($('#EndDate').val());
-                var duration = (dateEnd - dateStart) / 86400000;
+                var dateStart = new Date($('#StartDate').val());
+                var dateEnd = new Date($('#EndDate').val());
+
+                var duration = Date.bizdays(dateStart, dateEnd);
 
                 $('#Duration').val(duration);
 
@@ -95,9 +110,10 @@
 
             $("#Duration").change(function () {
 
-                var dateStart = Date.parse($('#StartDate').val());
-                var dateEnd = Date.parse($('#EndDate').val());
-                var duration = (dateEnd - dateStart) / 86400000;
+                var dateStart = new Date($('#StartDate').val());
+                var dateEnd = new Date($('#EndDate').val());
+
+                var duration = Date.bizdays(dateStart, dateEnd);
 
                 $('#Duration').val(duration);
 
@@ -135,6 +151,10 @@
                     }
                     else if (response == "False") {
                         $('#info').html("could not be done. try again in a few minutes please.");
+                        $('#info').slideDown(500);
+                    }
+                    else {
+                        $('#info').html(response);
                         $('#info').slideDown(500);
                     }
                 });
