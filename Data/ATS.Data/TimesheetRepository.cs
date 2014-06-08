@@ -189,6 +189,11 @@ namespace ATS.Data
             return LeavePlan.Save(leavePlan);
         }
 
+        public static bool CheckLeavesOverlaps(LeavePlan leavePlan)
+        {
+            return LeavePlan.CheckOverLap(leavePlan);
+        }
+
         public static bool RemoveLeavePlan(int leavePlanId) 
         {
             return LeavePlan.Delete(leavePlanId);

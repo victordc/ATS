@@ -52,7 +52,7 @@ namespace ATS.Data.Model
         public static IEnumerable<LeavePlan> GetAll(int userId)
         {
             ATSCEEntities context = new ATSCEEntities();
-            return context.LeavePlans.Include(l => l.LeaveCategory).Include(l => l.Person).Where(l=>l.PersonId == userId);
+            return context.LeavePlans.Include(l => l.LeaveCategory).Include(l => l.Person).Where(l => l.PersonId == userId);
         }
 
         public static IEnumerable<LeavePlan> GetAll()
@@ -131,6 +131,28 @@ namespace ATS.Data.Model
             return GetAllLeavePlansBySupervisorId(int.Parse((leaveToUpdate.Person as Staff).SupervisorId.ToString()));
         }
 
+        public static bool CheckOverLap(LeavePlan leave)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            IEnumerable<LeavePlan> AllLeaves = from leaves in context.LeavePlans
+                                               where ((leaves.PersonId == leave.PersonId) && ((leaves.Admitted == null) || (leaves.Admitted == true)))
+                                               select leaves;
+            Console.WriteLine(AllLeaves.Count());
+            foreach (LeavePlan lp in AllLeaves)
+            {
+                if (lp.LeavePlanId != leave.LeavePlanId)
+                {
+                    bool startBetween = (leave.StartDate >= lp.StartDate && leave.StartDate <= lp.EndDate);
+                    bool endBetween = (leave.EndDate >= lp.StartDate && leave.EndDate <= lp.EndDate);
+                    if (startBetween || endBetween)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
     }
 
     public class LeavePlanData
@@ -140,17 +162,17 @@ namespace ATS.Data.Model
         //public int LeaveCategoty { get; set; }
 
         [Required(ErrorMessage = "Start Date is required")]
-        [DataType(DataType.Date)]
         [DisplayName("From")]
         public DateTime StartDate { get; set; }
 
         [Required(ErrorMessage = "End Date is required")]
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         [DisplayName("To")]
         public DateTime EndDate { get; set; }
 
 
         [Required(ErrorMessage = "Duration is required")]
+        [Range(1, int.MaxValue, ErrorMessage = "Leave duration should be at least 1 day.")]
         [DisplayName("Duration")]
         public string Duration { get; set; }
 
