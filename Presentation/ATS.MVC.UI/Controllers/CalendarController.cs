@@ -26,17 +26,17 @@ namespace ATS.MVC.UI.Controllers
             return View(leaves);
         }
 
-        public ActionResult MyDetail(int Year, int Month)
+        public ActionResult MyDetail(int year, int month)
         {
             int currentUserId = UserSetting.Current.PersonId;
-            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(currentUserId);
+            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(currentUserId, year, month);
             return View(leaves);
         }
 
-        public ActionResult TeamDetail(int Year, int Month)
+        public ActionResult TeamDetail(int year, int month)
         {
             int currentUserId = UserSetting.Current.PersonId;
-            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(currentUserId);
+            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(currentUserId, year, month);
             return View(leaves);
             
         }

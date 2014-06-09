@@ -49,18 +49,28 @@ namespace ATS.Data.Model
 
         }
 
-        public static IEnumerable<LeavePlan> GetAll(int userId)
-        {
-            ATSCEEntities context = new ATSCEEntities();
-            return context.LeavePlans.Include(l => l.LeaveCategory).Include(l => l.Person).Where(l => l.PersonId == userId);
-        }
-
         public static IEnumerable<LeavePlan> GetAll()
         {
             ATSCEEntities context = new ATSCEEntities();
             return context.LeavePlans.Include(l => l.LeaveCategory).Include(l => l.Person);
         }
 
+
+        public static IEnumerable<LeavePlan> GetAll(int userId)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            return context.LeavePlans.Include(l => l.LeaveCategory).Include(l => l.Person).Where(l => l.PersonId == userId);
+        }
+
+        public static IEnumerable<LeavePlan> GetAll(int userId, int year, int month)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            DateTime monthStart = new DateTime(year, month, 1);
+            DateTime monthEnd = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+            return context.LeavePlans.Include(l => l.LeaveCategory).Include(l => l.Person)
+                .Where(l => l.PersonId == userId && l.StartDate <= monthEnd && l.EndDate >= monthStart);
+        }
+        
         public static IEnumerable<LeavePlan> GetAllLeavePlansForTeam(int userId)
         {
             ATSCEEntities context = new ATSCEEntities();
@@ -76,6 +86,28 @@ namespace ATS.Data.Model
             }
             leavesForTeam = from allLeavePlans in context.LeavePlans
                             where (allLeavePlans.Person as Staff).SupervisorId == queryId
+                            select allLeavePlans;
+            return leavesForTeam;
+        }
+
+        public static IEnumerable<LeavePlan> GetAllLeavePlansForTeam(int userId, int year, int month)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            IEnumerable<LeavePlan> leavesForTeam = null;
+            DateTime monthStart = new DateTime(year, month, 1);
+            DateTime monthEnd = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+            int queryId = userId;
+            //Check if this user has Supervisor
+            var query = ((from persons in context.Persons
+                          where persons.PersonId == userId
+                          select persons).FirstOrDefault() as Staff);
+            if (query != null)
+            {
+                queryId = query.SupervisorId.Value;
+            }
+            leavesForTeam = from allLeavePlans in context.LeavePlans
+                            where (allLeavePlans.Person as Staff).SupervisorId == queryId
+                            where (allLeavePlans.StartDate <= monthEnd && allLeavePlans.EndDate >= monthStart)
                             select allLeavePlans;
             return leavesForTeam;
         }

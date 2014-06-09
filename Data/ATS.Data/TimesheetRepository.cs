@@ -169,19 +169,30 @@ namespace ATS.Data
             return LeavePlan.GetById(leavePlanId);
         }
 
-        public static IEnumerable<LeavePlan> GetLeavePlans(int userId)
-        {
-            return LeavePlan.GetAll(userId);
-        }
-
         public static IEnumerable<LeavePlan> GetLeavePlans()
         {
             return LeavePlan.GetAll();
         }
 
+        public static IEnumerable<LeavePlan> GetLeavePlans(int userId)
+        {
+            return LeavePlan.GetAll(userId);
+        }
+
+        public static IEnumerable<LeavePlan> GetLeavePlans(int userId, int year, int month)
+        {
+            return LeavePlan.GetAll(userId, year, month);
+        }
+
+
         public static IEnumerable<LeavePlan> GetLeavePlansForTeam(int userId)
         {
             return LeavePlan.GetAllLeavePlansForTeam(userId);
+        }
+
+        public static IEnumerable<LeavePlan> GetLeavePlansForTeam(int userId, int year, int month)
+        {
+            return LeavePlan.GetAllLeavePlansForTeam(userId, year, month);
         }
 
         public static LeavePlan AddUpdateLeavePlan(LeavePlan leavePlan)
