@@ -47,6 +47,36 @@ namespace ATS.MVC.UI.Controllers
             return RedirectToAction("Reminder");
         }
 
+        public ActionResult SupervisorEdit()
+        {
+            //var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMastersBySupervisorId(UserSetting.Current.PersonId);
+            var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMasters();
+
+            return View(timeSheetMasters.ToList());
+        }
+
+        public ActionResult StaffDetails(int id)
+        {
+            TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
+            ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
+            return View(master);
+        }
+
+        public ActionResult ApproveLeave(int id)
+        {
+            TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
+            master.Status = Convert.ToInt32(TimeSheetStatus.Approved);
+            SaveTimeSheet(master);
+            return RedirectToAction("SupervisorEdit");
+        }
+
+        public ActionResult RejectLeave(int id)
+        {
+            TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
+            master.Status = Convert.ToInt32(TimeSheetStatus.Rejected);
+            SaveTimeSheet(master);
+            return RedirectToAction("SupervisorEdit");
+        }
 
         //
         // GET: /TimeSheet/

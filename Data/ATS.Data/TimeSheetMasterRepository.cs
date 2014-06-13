@@ -130,6 +130,20 @@ namespace ATS.Data.DAL
             return timeSheetMastersByAgentId;
         }
 
+        public static IEnumerable<TimeSheetMaster> GetAllTimeSheetMastersBySupervisorId(int SupervisorId)
+        {
+            IEnumerable<TimeSheetMaster> timeSheetMasters = TimeSheetMaster.GetAll();
+            List<TimeSheetMaster> timeSheetMastersBySupId = new List<TimeSheetMaster>();
+            foreach (TimeSheetMaster master in timeSheetMasters)
+            {
+                if (master.ManagerId == SupervisorId)
+                {
+                    timeSheetMastersBySupId.Add(master);
+                }
+            }
+            return timeSheetMastersBySupId;
+        }
+
         //----------------------------------------------------------------------------------
 
         public static IEnumerable<Person> GetAllSupervisors()
