@@ -68,7 +68,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\ATS.Data\ATS.Data.csproj">
+    <ProjectReference Include="..\..\Data\ATS.Data\ATS.Data.csproj">
       <Project>{2ccf5866-cc1a-4bbe-b549-874aa841888f}</Project>
       <Name>ATS.Data</Name>
     </ProjectReference>
