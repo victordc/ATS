@@ -41,7 +41,6 @@
       <p1:Variable x:TypeArguments="x:String" Name="TORSubmitted" />
       <p1:Variable x:TypeArguments="x:String" Name="CVSubmitted" />
       <p1:Variable x:TypeArguments="x:String" Name="EnglishReportSubmitted" />
-      <p1:Variable x:TypeArguments="x:String" Name="SubmitInfoStatus" />
     </p1:Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg3:Dictionary x:TypeArguments="x:String, x:Object">
@@ -86,7 +85,7 @@
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg3:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <w:SubmitInfo CV="[CVSubmitted]" Diploma="[DiplomaSubmitted]" EnglishAsMedium="[If(MediumInstruction, &quot;True&quot;, &quot;False&quot;)]" EnglishTest="[EnglishReportSubmitted]" sap:VirtualizedContainerService.HintSize="509,22" ID="[ID]" Status="[SubmitStatus]" SubmitInfoStatus="[SubmitInfoStatus]" TOR="[TORSubmitted]" />
+          <w:SubmitInfo CV="[CVSubmitted]" Diploma="[DiplomaSubmitted]" EnglishAsMedium="[If(MediumInstruction, &quot;True&quot;, &quot;False&quot;)]" EnglishTest="[EnglishReportSubmitted]" sap:VirtualizedContainerService.HintSize="509,22" ID="[IDSubmitted]" Status="[SubmitStatus]" TOR="[TORSubmitted]" />
           <p1:If Condition="[SubmitStatus = &quot;True&quot;]" sap:VirtualizedContainerService.HintSize="509,208">
             <p1:If.Then>
               <p1:Assign sap:VirtualizedContainerService.HintSize="242,60">
@@ -104,7 +103,7 @@
                   <p1:OutArgument x:TypeArguments="x:String">[Status]</p1:OutArgument>
                 </p1:Assign.To>
                 <p1:Assign.Value>
-                  <p1:InArgument x:TypeArguments="x:String">Rejected1</p1:InArgument>
+                  <p1:InArgument x:TypeArguments="x:String">Rejected</p1:InArgument>
                 </p1:Assign.Value>
               </p1:Assign>
             </p1:If.Else>
@@ -117,7 +116,7 @@
             <p1:OutArgument x:TypeArguments="x:String">[Status]</p1:OutArgument>
           </p1:Assign.To>
           <p1:Assign.Value>
-            <p1:InArgument x:TypeArguments="x:String">Rejected2</p1:InArgument>
+            <p1:InArgument x:TypeArguments="x:String">Rejected</p1:InArgument>
           </p1:Assign.Value>
         </p1:Assign>
       </p1:If.Else>
@@ -125,7 +124,6 @@
     <SendReply Request="{x:Reference __ReferenceID0}" DisplayName="SendReplyToReceive" sap:VirtualizedContainerService.HintSize="798,90">
       <SendParametersContent>
         <p1:InArgument x:TypeArguments="x:String" x:Key="Status">[Status]</p1:InArgument>
-        <p1:InArgument x:TypeArguments="x:String" x:Key="SubmitInfoStatus">[SubmitInfoStatus]</p1:InArgument>
       </SendParametersContent>
     </SendReply>
   </p1:Sequence>

@@ -190,7 +190,7 @@
           <OutArgument x:TypeArguments="x:String">[Status]</OutArgument>
         </Assign.To>
         <Assign.Value>
-          <InArgument x:TypeArguments="x:String">[DocumentIsComplete.ToString()]</InArgument>
+          <InArgument x:TypeArguments="x:String">[If(DocumentIsComplete, "True", "False")]</InArgument>
         </Assign.Value>
       </Assign>
     </Sequence>
