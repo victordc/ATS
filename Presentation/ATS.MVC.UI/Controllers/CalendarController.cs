@@ -43,7 +43,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult OpenReport()
         {
-            return Redirect("http://localhost:8888/Report.aspx?personid=" + UserSetting.Current.PersonId.ToString());
+            return Redirect("~/Reports/TeamReport");
         }
 
     }

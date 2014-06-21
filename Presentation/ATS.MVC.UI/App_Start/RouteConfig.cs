@@ -18,7 +18,14 @@ namespace ATS.MVC.UI
                 url: "{controller}/{action}/{year}/{month}",
                 defaults: new { controller = "Calendar", action = "Index", year = "", month = "" },
                 constraints: new { month = @"^(0?[1-9]|1[012])$" }
-            ); 
+            );
+
+            //Custom route for reports
+            routes.MapPageRoute(
+             "ReportRoute",                         // Route name
+             "Reports/{reportname}",                // URL
+             "~/Webforms/{reportname}.aspx"   // File
+             );
             
             routes.MapRoute(
                 name: "Default",
