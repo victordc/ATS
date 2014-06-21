@@ -42,6 +42,24 @@ namespace ATS.Data.Model
             return timeSheetMasters;
         }
 
+        public static IEnumerable<TimeSheetMaster> GetAllByAgentId(int agentId)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            IEnumerable<TimeSheetMaster> timeSheetMasters = from master in context.TimeSheetMasters
+                                                            where master.AgencyId == agentId
+                                                            select master;
+            return timeSheetMasters;
+        }
+
+        public static IEnumerable<TimeSheetMaster> GetAllBySupervisorId(int supervisorId)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            IEnumerable<TimeSheetMaster> timeSheetMasters = from master in context.TimeSheetMasters
+                                                            where master.ManagerId == supervisorId
+                                                            select master;
+            return timeSheetMasters;
+        }
+
         public string Save()
         {
             string result = string.Empty;

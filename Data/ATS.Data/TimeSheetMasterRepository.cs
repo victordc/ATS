@@ -118,30 +118,12 @@ namespace ATS.Data.DAL
 
         public static IEnumerable<TimeSheetMaster> GetAllTimeSheetMastersByAgentId(int AgentId)
         {
-            IEnumerable<TimeSheetMaster> timeSheetMasters = TimeSheetMaster.GetAll();
-            List<TimeSheetMaster> timeSheetMastersByAgentId = new List<TimeSheetMaster>();
-            foreach (TimeSheetMaster master in timeSheetMasters)
-            {
-                if (master.AgencyId == AgentId)
-                {
-                    timeSheetMastersByAgentId.Add(master);
-                }
-            }
-            return timeSheetMastersByAgentId;
+            return TimeSheetMaster.GetAllByAgentId(AgentId);
         }
 
         public static IEnumerable<TimeSheetMaster> GetAllTimeSheetMastersBySupervisorId(int SupervisorId)
         {
-            IEnumerable<TimeSheetMaster> timeSheetMasters = TimeSheetMaster.GetAll();
-            List<TimeSheetMaster> timeSheetMastersBySupId = new List<TimeSheetMaster>();
-            foreach (TimeSheetMaster master in timeSheetMasters)
-            {
-                if (master.ManagerId == SupervisorId)
-                {
-                    timeSheetMastersBySupId.Add(master);
-                }
-            }
-            return timeSheetMastersBySupId;
+            return TimeSheetMaster.GetAllBySupervisorId(SupervisorId);
         }
 
         //----------------------------------------------------------------------------------
