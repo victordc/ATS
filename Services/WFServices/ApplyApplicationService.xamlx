@@ -24,7 +24,7 @@
  xmlns:st="clr-namespace:System.Text;assembly=mscorlib"
  xmlns:w="clr-namespace:WFServices;assembly=WFServices"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <p1:Sequence DisplayName="CAService" sad:XamlDebuggerXmlReader.FileName="C:\NUS\ENet1\ATS\ATS\Services\WFServices\ApplyApplicationService.xamlx" sap:VirtualizedContainerService.HintSize="820,988" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+  <p1:Sequence DisplayName="CAService" sad:XamlDebuggerXmlReader.FileName="C:\NUS\ENet1\ATS\ATS\Services\WFServices\ApplyApplicationService.xamlx" sap:VirtualizedContainerService.HintSize="1067,1360" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
     <p1:Sequence.Variables>
       <x:Reference>__ReferenceID1</x:Reference>
       <p1:Variable x:TypeArguments="x:String" Name="ID" />
@@ -41,13 +41,14 @@
       <p1:Variable x:TypeArguments="x:String" Name="TORSubmitted" />
       <p1:Variable x:TypeArguments="x:String" Name="CVSubmitted" />
       <p1:Variable x:TypeArguments="x:String" Name="EnglishReportSubmitted" />
+      <p1:Variable x:TypeArguments="x:Boolean" Name="InterviewResult" />
     </p1:Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg3:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg3:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Receive x:Name="__ReferenceID0" CanCreateInstance="True" sap:VirtualizedContainerService.HintSize="798,90" OperationName="ApplyApplication" ServiceContractName="p:IService">
+    <Receive x:Name="__ReferenceID0" CanCreateInstance="True" sap:VirtualizedContainerService.HintSize="1045,90" OperationName="ApplyApplication" ServiceContractName="p:IService">
       <Receive.CorrelationInitializers>
         <RequestReplyCorrelationInitializer>
           <RequestReplyCorrelationInitializer.CorrelationHandle>
@@ -74,28 +75,51 @@
         <p1:OutArgument x:TypeArguments="x:String" x:Key="TORSubmitted">[TORSubmitted]</p1:OutArgument>
         <p1:OutArgument x:TypeArguments="x:String" x:Key="CVSubmitted">[CVSubmitted]</p1:OutArgument>
         <p1:OutArgument x:TypeArguments="x:String" x:Key="EnglishReportSubmitted">[EnglishReportSubmitted]</p1:OutArgument>
+        <p1:OutArgument x:TypeArguments="x:Boolean" x:Key="InterviewResult">[InterviewResult]</p1:OutArgument>
       </ReceiveParametersContent>
     </Receive>
-    <w:AdmissionService Degree="[Degree]" EnglishScore="[EnglishScore]" EnglishType="[EnglishType]" sap:VirtualizedContainerService.HintSize="798,22" ID="[ID]" MediumInstruction="[MediumInstruction]" Program="[Program]" Status="[Status]" YearExperience="[YearExperience]" />
-    <p1:If Condition="[Status = &quot;DocumentPending&quot;]" sap:VirtualizedContainerService.HintSize="798,542">
+    <w:AdmissionService Degree="[Degree]" EnglishScore="[EnglishScore]" EnglishType="[EnglishType]" sap:VirtualizedContainerService.HintSize="1045,22" ID="[ID]" MediumInstruction="[MediumInstruction]" Program="[Program]" Status="[Status]" YearExperience="[YearExperience]" />
+    <p1:If Condition="[Status = &quot;DocumentPending&quot;]" sap:VirtualizedContainerService.HintSize="1045,914">
       <p1:If.Then>
-        <p1:Sequence sap:VirtualizedContainerService.HintSize="531,394">
+        <p1:Sequence sap:VirtualizedContainerService.HintSize="778,766">
           <sap:WorkflowViewStateService.ViewState>
             <scg3:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg3:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <w:SubmitInfo CV="[CVSubmitted]" Diploma="[DiplomaSubmitted]" EnglishAsMedium="[If(MediumInstruction, &quot;True&quot;, &quot;False&quot;)]" EnglishTest="[EnglishReportSubmitted]" sap:VirtualizedContainerService.HintSize="509,22" ID="[IDSubmitted]" Status="[SubmitStatus]" TOR="[TORSubmitted]" />
-          <p1:If Condition="[SubmitStatus = &quot;True&quot;]" sap:VirtualizedContainerService.HintSize="509,208">
+          <w:SubmitInfo CV="[CVSubmitted]" Diploma="[DiplomaSubmitted]" EnglishAsMedium="[If(MediumInstruction, &quot;True&quot;, &quot;False&quot;)]" EnglishTest="[EnglishReportSubmitted]" sap:VirtualizedContainerService.HintSize="756,22" ID="[IDSubmitted]" Status="[SubmitStatus]" TOR="[TORSubmitted]" />
+          <p1:If Condition="[SubmitStatus = &quot;True&quot;]" sap:VirtualizedContainerService.HintSize="756,580">
             <p1:If.Then>
-              <p1:Assign sap:VirtualizedContainerService.HintSize="242,60">
-                <p1:Assign.To>
-                  <p1:OutArgument x:TypeArguments="x:String">[Status]</p1:OutArgument>
-                </p1:Assign.To>
-                <p1:Assign.Value>
-                  <p1:InArgument x:TypeArguments="x:String">WaitForInterview</p1:InArgument>
-                </p1:Assign.Value>
-              </p1:Assign>
+              <p1:Sequence sap:VirtualizedContainerService.HintSize="489,432">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <p1:Assign sap:VirtualizedContainerService.HintSize="467,60">
+                  <p1:Assign.To>
+                    <p1:OutArgument x:TypeArguments="x:String">[Status]</p1:OutArgument>
+                  </p1:Assign.To>
+                  <p1:Assign.Value>
+                    <p1:InArgument x:TypeArguments="x:String">WaitForInterview</p1:InArgument>
+                  </p1:Assign.Value>
+                </p1:Assign>
+                <p1:If Condition="[Status = &quot;WaitForInterview&quot;]" sap:VirtualizedContainerService.HintSize="467,208">
+                  <p1:If.Then>
+                    <w:InterviewResultService sap:VirtualizedContainerService.HintSize="200,22" ID="[ID]" InterviewResult="[InterviewResult]" Status="[Status]" />
+                  </p1:If.Then>
+                  <p1:If.Else>
+                    <p1:Assign sap:VirtualizedContainerService.HintSize="242,60">
+                      <p1:Assign.To>
+                        <p1:OutArgument x:TypeArguments="x:String">[Status]</p1:OutArgument>
+                      </p1:Assign.To>
+                      <p1:Assign.Value>
+                        <p1:InArgument x:TypeArguments="x:String">InterviewRejected</p1:InArgument>
+                      </p1:Assign.Value>
+                    </p1:Assign>
+                  </p1:If.Else>
+                </p1:If>
+              </p1:Sequence>
             </p1:If.Then>
             <p1:If.Else>
               <p1:Assign sap:VirtualizedContainerService.HintSize="242,60">
@@ -103,7 +127,7 @@
                   <p1:OutArgument x:TypeArguments="x:String">[Status]</p1:OutArgument>
                 </p1:Assign.To>
                 <p1:Assign.Value>
-                  <p1:InArgument x:TypeArguments="x:String">Rejected</p1:InArgument>
+                  <p1:InArgument x:TypeArguments="x:String">DocumentRejected</p1:InArgument>
                 </p1:Assign.Value>
               </p1:Assign>
             </p1:If.Else>
@@ -116,12 +140,12 @@
             <p1:OutArgument x:TypeArguments="x:String">[Status]</p1:OutArgument>
           </p1:Assign.To>
           <p1:Assign.Value>
-            <p1:InArgument x:TypeArguments="x:String">Rejected</p1:InArgument>
+            <p1:InArgument x:TypeArguments="x:String">AdmissionRejected</p1:InArgument>
           </p1:Assign.Value>
         </p1:Assign>
       </p1:If.Else>
     </p1:If>
-    <SendReply Request="{x:Reference __ReferenceID0}" DisplayName="SendReplyToReceive" sap:VirtualizedContainerService.HintSize="798,90">
+    <SendReply Request="{x:Reference __ReferenceID0}" DisplayName="SendReplyToReceive" sap:VirtualizedContainerService.HintSize="1045,90">
       <SendParametersContent>
         <p1:InArgument x:TypeArguments="x:String" x:Key="Status">[Status]</p1:InArgument>
       </SendParametersContent>
