@@ -39,16 +39,17 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PersonId)
+                @Html.DisplayFor(modelItem => item.Person.PersonName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ManagerId)
+                @Html.DisplayFor(modelItem => item.Supervisor.PersonName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AgencyId)
+                @Html.DisplayFor(modelItem => item.Agent.PersonName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Month)
+                @Html.HiddenFor(modelItem => item.Month)
+                @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Month)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Year)
