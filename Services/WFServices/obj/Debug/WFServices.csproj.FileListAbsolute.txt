@@ -1,0 +1,13 @@
+C:\NUS\ENet1\ATS\Services\WFServices\bin\WFServices.dll
+C:\NUS\ENet1\ATS\Services\WFServices\bin\WFServices.pdb
+C:\NUS\ENet1\ATS\Services\WFServices\obj\Debug\WFServices.csprojResolveAssemblyReference.cache
+C:\NUS\ENet1\ATS\Services\WFServices\obj\Debug\AdmissionService.g.xaml
+C:\NUS\ENet1\ATS\Services\WFServices\obj\Debug\_WFServices.g.cs
+C:\NUS\ENet1\ATS\Services\WFServices\obj\Debug\AdmissionService.g.cs
+C:\NUS\ENet1\ATS\Services\WFServices\obj\Debug\WFServices.csproj.XamlGeneratedCodeFileListAbsolute.txt
+C:\NUS\ENet1\ATS\Services\WFServices\obj\Debug\WFServices.csproj.XamlGeneratedXamlFileListAbsolute.txt
+C:\NUS\ENet1\ATS\Services\WFServices\obj\Debug\InProcessTempFiles\AdmissionService.g.cs
+C:\NUS\ENet1\ATS\Services\WFServices\obj\Debug\InProcessTempFiles\AdmissionService.g.xaml
+C:\NUS\ENet1\ATS\Services\WFServices\obj\Debug\InProcessTempFiles\_WFServices.g.cs
+C:\NUS\ENet1\ATS\Services\WFServices\obj\Debug\WFServices.dll
+C:\NUS\ENet1\ATS\Services\WFServices\obj\Debug\WFServices.pdb

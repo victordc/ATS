@@ -1,0 +1,70 @@
+﻿<WorkflowService mc:Ignorable="sads sap" ConfigurationName="ApplyApplicationService" sap:VirtualizedContainerService.HintSize="644,706" Name="ApplyApplicationService" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"
+ xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:p="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:s1="clr-namespace:System;assembly=System"
+ xmlns:s2="clr-namespace:System;assembly=System.Xml"
+ xmlns:s3="clr-namespace:System;assembly=System.Core"
+ xmlns:s4="clr-namespace:System;assembly=System.ServiceModel"
+ xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
+ xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System"
+ xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel"
+ xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core"
+ xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:sl="clr-namespace:System.Linq;assembly=System.Core"
+ xmlns:st="clr-namespace:System.Text;assembly=mscorlib"
+ xmlns:w="clr-namespace:WFServices;assembly=WFServices"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <p:Flowchart sad:XamlDebuggerXmlReader.FileName="C:\NUS\ENet1\ATS\Services\WFServices\ApplyApplicationService.xamlx" sap:VirtualizedContainerService.HintSize="614,636" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+    <p:Flowchart.Variables>
+      <p:Variable x:TypeArguments="x:String" Name="AdminStatus" />
+    </p:Flowchart.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+        <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+        <av:Size x:Key="ShapeSize">60,75</av:Size>
+        <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,129</av:PointCollection>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <p:Flowchart.StartNode>
+      <x:Reference>__ReferenceID1</x:Reference>
+    </p:Flowchart.StartNode>
+    <p:FlowStep x:Name="__ReferenceID1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+          <av:Point x:Key="ShapeLocation">200,129</av:Point>
+          <av:Size x:Key="ShapeSize">200,22</av:Size>
+          <av:PointCollection x:Key="ConnectorLocation">300,151 300,201</av:PointCollection>
+        </scg3:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <w:AdmissionService Degree="{x:Null}" EnglishScore="{x:Null}" EnglishType="{x:Null}" ID="{x:Null}" MediumInstruction="{x:Null}" Program="{x:Null}" YearExperience="{x:Null}" sap:VirtualizedContainerService.HintSize="200,22" Status="[AdminStatus]">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg3:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </w:AdmissionService>
+      <p:FlowStep.Next>
+        <p:FlowDecision x:Name="__ReferenceID0" Condition="[AdminStatus = &quot;Interview&quot;]" sap:VirtualizedContainerService.HintSize="70,87">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <av:Point x:Key="ShapeLocation">265,201</av:Point>
+              <av:Size x:Key="ShapeSize">70,87</av:Size>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </p:FlowDecision>
+      </p:FlowStep.Next>
+    </p:FlowStep>
+    <x:Reference>__ReferenceID0</x:Reference>
+  </p:Flowchart>
+</WorkflowService>

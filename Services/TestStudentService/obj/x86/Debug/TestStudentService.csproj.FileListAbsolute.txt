@@ -1,0 +1,8 @@
+C:\NUS\ENet1\ATS\Services\TestStudentService\bin\Debug\TestStudentService.exe.config
+C:\NUS\ENet1\ATS\Services\TestStudentService\bin\Debug\TestStudentService.exe
+C:\NUS\ENet1\ATS\Services\TestStudentService\bin\Debug\TestStudentService.pdb
+C:\NUS\ENet1\ATS\Services\TestStudentService\bin\Debug\WFServices.dll
+C:\NUS\ENet1\ATS\Services\TestStudentService\bin\Debug\WFServices.pdb
+C:\NUS\ENet1\ATS\Services\TestStudentService\obj\x86\Debug\TestStudentService.csprojResolveAssemblyReference.cache
+C:\NUS\ENet1\ATS\Services\TestStudentService\obj\x86\Debug\TestStudentService.exe
+C:\NUS\ENet1\ATS\Services\TestStudentService\obj\x86\Debug\TestStudentService.pdb

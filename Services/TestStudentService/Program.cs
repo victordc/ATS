@@ -16,7 +16,11 @@ namespace TestStudentService
             AutoResetEvent syncEvent = new AutoResetEvent(false);
             AutoResetEvent idleEvent = new AutoResetEvent(false);
 
-            var inputs = new Dictionary<string, object>() { { "ID", "A6041119R" }, { "Degree", "Degree"} };
+            // Successfull Case
+            //var inputs = new Dictionary<string, object>() { { "ID", "A6041119R" }, { "Degree", "Degree"}, {"YearExperience",2}, {"MediumInstruction", true}, {"EnglishType", "IELTS"}, {"EnglishScore", 7} };
+
+            // Fail Case
+            var inputs = new Dictionary<string, object>() { { "ID", "A6041119R" }, { "Degree", "Degree" }, { "YearExperience", 2 }, { "MediumInstruction", true }, { "EnglishType", "IELTS" }, { "EnglishScore", 5 } };
 
             WorkflowApplication wfApp =
                 new WorkflowApplication(new AdmissionService(), inputs);

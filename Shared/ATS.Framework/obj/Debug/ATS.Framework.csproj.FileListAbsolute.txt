@@ -8,3 +8,9 @@ C:\NUS\Enterprise.Net1\ATS\Shared\ATS.Framework\bin\Debug\ATS.Framework.pdb
 C:\NUS\Enterprise.Net1\ATS\Shared\ATS.Framework\bin\Debug\log4net.dll
 C:\NUS\Enterprise.Net1\ATS\Shared\ATS.Framework\obj\Debug\ATS.Framework.dll
 C:\NUS\Enterprise.Net1\ATS\Shared\ATS.Framework\obj\Debug\ATS.Framework.pdb
+C:\NUS\ENet1\ATS\Shared\ATS.Framework\bin\Debug\ATS.Framework.dll
+C:\NUS\ENet1\ATS\Shared\ATS.Framework\bin\Debug\ATS.Framework.pdb
+C:\NUS\ENet1\ATS\Shared\ATS.Framework\bin\Debug\log4net.dll
+C:\NUS\ENet1\ATS\Shared\ATS.Framework\obj\Debug\ATS.Framework.csprojResolveAssemblyReference.cache
+C:\NUS\ENet1\ATS\Shared\ATS.Framework\obj\Debug\ATS.Framework.dll
+C:\NUS\ENet1\ATS\Shared\ATS.Framework\obj\Debug\ATS.Framework.pdb
