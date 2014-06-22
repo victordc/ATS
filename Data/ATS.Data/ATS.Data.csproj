@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agent.cs" />
+    <Compile Include="IEntity.cs" />
     <Compile Include="Model\Agent.cs">
       <DependentUpon>ATSCEModel.tt</DependentUpon>
     </Compile>
@@ -111,6 +112,10 @@
     <Compile Include="Model\webpages_Roles.cs">
       <DependentUpon>ATSCEModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\CodeTableRepository.cs" />
+    <Compile Include="Repository\GenericDataRepository.cs" />
+    <Compile Include="Repository\ICodeTableRepository.cs" />
+    <Compile Include="Repository\IGenericDataRepository.cs" />
     <Compile Include="TimeSheetMasterRepository.cs" />
     <Compile Include="CodeTable.cs" />
     <Compile Include="Company.cs" />

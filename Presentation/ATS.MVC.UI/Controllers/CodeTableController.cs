@@ -9,6 +9,7 @@ using ATS.Data.Model;
 using ATS.Data;
 using ATS.MVC.UI;
 using ATS.MVC.UI.Common;
+using ATS.BusinessFacade;
 
 namespace ATS.MVC.UI.Controllers
 {
@@ -17,11 +18,16 @@ namespace ATS.MVC.UI.Controllers
     {
         //
         // GET: /CodeTable/
+        IAdminFacade adminFacade;
+        public CodeTableController() 
+        {
+            adminFacade = new AdminFacade();
+        }
 
         public ActionResult Index()
         {
             ViewBag.Message = "List Of CodeTable";
-            IEnumerable<CodeTable> model = TimesheetRepository.Instance.GetCodeTables();
+            IEnumerable<CodeTable> model = adminFacade.GetAllCodeTables();
             return View(model);
         }
 
@@ -54,7 +60,7 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            CodeTable model = TimesheetRepository.Instance.GetCodeTableById(id);
+            CodeTable model = adminFacade.GetCodeTableById(id);
             if (model == null)
             {
                 return HttpNotFound();

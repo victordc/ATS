@@ -108,7 +108,7 @@ namespace ATS.Data.DAL
 
         public void UpdateStaff(Staff staff)
         {
-            context.Entry(staff).State = EntityState.Modified;
+            context.Entry(staff).State = System.Data.EntityState.Modified;
             context.SaveChanges();
         }
 
@@ -201,7 +201,7 @@ namespace ATS.Data.DAL
 
         public void UpdateSupervisor(Supervisor supervisor)
         {
-            context.Entry(supervisor).State = EntityState.Modified;
+            context.Entry(supervisor).State = System.Data.EntityState.Modified;
             context.SaveChanges();
         }
 
@@ -248,7 +248,7 @@ namespace ATS.Data.DAL
 
         public void UpdateAgent(Agent agent)
         {
-            context.Entry(agent).State = EntityState.Modified;
+            context.Entry(agent).State = System.Data.EntityState.Modified;
             context.SaveChanges();
         }
 

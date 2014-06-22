@@ -1,4 +1,5 @@
-﻿using ATS.Data;
+﻿using ATS.BusinessFacade;
+using ATS.Data;
 using ATS.Data.Model;
 using ATS.MVC.UI.Common;
 using ATS.MVC.UI.Webforms;
@@ -15,14 +16,17 @@ namespace ATS.Webforms.UI
     public partial class LeaveCredits : System.Web.UI.Page
     {
         //Get leaves and credits from CodeTable
-        IEnumerable<CodeTable> codes = TimesheetRepository.Instance.GetCodeTableByGroup("LEAVE_TYPE");
+        IEnumerable<CodeTable> codes = null;
         List<LeaveReport> newHistory = new List<LeaveReport>();
         IEnumerable<LeavePlan> history = null;
+        IAdminFacade adminFacade = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                adminFacade = new AdminFacade();
+                codes = adminFacade.GetCodeTableByGroup("LEAVE_TYPE");
 
                 //Get this user
                 int currentUserId = UserSetting.Current.PersonId;

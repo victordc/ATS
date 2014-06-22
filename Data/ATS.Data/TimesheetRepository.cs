@@ -29,24 +29,24 @@ namespace ATS.Data
 
         #endregion
 
-        #region CodeTable
+        //#region CodeTable
 
-        public CodeTable GetCodeTableById(int codeTableId)
-        {
-            return CodeTable.GetById(codeTableId);
-        }
+        //public CodeTable GetCodeTableById(int codeTableId)
+        //{
+        //    return CodeTable.GetById(codeTableId);
+        //}
 
-        public IEnumerable<CodeTable> GetCodeTableByGroup(string codeGroup)
-        {
-            return CodeTable.GetByGroupCode(codeGroup);
-        }
+        //public IEnumerable<CodeTable> GetCodeTableByGroup(string codeGroup)
+        //{
+        //    return CodeTable.GetByGroupCode(codeGroup);
+        //}
 
-        public IEnumerable<CodeTable> GetCodeTables()
-        {
-            return CodeTable.GetAll();
-        }
+        //public IEnumerable<CodeTable> GetCodeTables()
+        //{
+        //    return CodeTable.GetAll();
+        //}
 
-        #endregion
+        //#endregion
 
         #region ObjectAccess
 
