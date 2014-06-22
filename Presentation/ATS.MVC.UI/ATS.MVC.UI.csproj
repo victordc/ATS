@@ -198,6 +198,7 @@
     <Compile Include="Webforms\LeaveCredits.aspx.designer.cs">
       <DependentUpon>LeaveCredits.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Webforms\LeaveReport.cs" />
     <Compile Include="Webforms\Report.aspx.cs">
       <DependentUpon>Report.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
