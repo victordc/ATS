@@ -4,7 +4,7 @@
     ViewBag.Title = "View Timesheet";
 }
 
-<h2>Reminder</h2>
+<h2>@ViewBag.Title</h2>
 
 <table class="table table-striped table-bordered table-hover">
     <tr>
@@ -37,6 +37,26 @@
 
     @foreach (var item in Model)
     {
+        string textToShow = "";
+        switch (item.Status)
+        {
+            case 0:
+                textToShow = "Draft";
+                break;
+            case 1:
+                textToShow = "Approved";
+                break;
+            case 2:
+                textToShow = "Submitted";
+                break;
+            case 3:
+                textToShow = "Rejected";
+                break;
+            default:
+                textToShow = "No Status Available";
+                break;
+        }
+        
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Person.PersonName)
@@ -55,7 +75,8 @@
                 @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                @Html.HiddenFor(modelItem => item.Status)
+                @textToShow
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Remarks)

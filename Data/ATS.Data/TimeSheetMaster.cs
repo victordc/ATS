@@ -55,7 +55,7 @@ namespace ATS.Data.Model
         {
             ATSCEEntities context = new ATSCEEntities();
             IEnumerable<TimeSheetMaster> timeSheetMasters = from master in context.TimeSheetMasters
-                                                            where master.ManagerId == supervisorId
+                                                            where master.ManagerId == supervisorId && master.Status == Convert.ToInt32(TimeSheetStatus.Submitted)
                                                             select master;
             return timeSheetMasters;
         }
@@ -71,8 +71,29 @@ namespace ATS.Data.Model
                     context.Entry(this.Person).State = EntityState.Unchanged;
                     context.Entry(this.Supervisor).State = EntityState.Unchanged;
                     foreach (TimeSheetDetail detail in this.TimeSheetDetail.ToList())
-                        context.Entry(detail).State = detail.TimeSheetDetailId <= 0 ? EntityState.Added : EntityState.Modified;
+                         context.Entry(detail).State = detail.TimeSheetDetailId <= 0 ? EntityState.Added : EntityState.Modified;
 
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("Record is not saved");
+            }
+
+            return result;
+        }
+
+        public string SaveMasterOnly()
+        {
+            string result = string.Empty;
+            try
+            {
+                using (var context = new ATSCEEntities())
+                {
+                    context.Entry(this).State = EntityState.Modified;
+                    context.Entry(this.Person).State = EntityState.Unchanged;
+                    context.Entry(this.Supervisor).State = EntityState.Unchanged;
                     context.SaveChanges();
                 }
             }

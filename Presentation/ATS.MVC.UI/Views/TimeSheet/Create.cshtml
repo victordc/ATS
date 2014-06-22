@@ -7,7 +7,9 @@
 
 <h2>@ViewBag.Title</h2>
 
-<form action="" method="post" enctype="multipart/form-data">
+@using (Html.BeginForm("Create", "TimeSheet", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
@@ -103,10 +105,10 @@
             }
             </table>
         <p>
-            <input type="submit" name="action:Save" value="Save" /> &nbsp;<input type="submit" name="action:Submit" value="Submit" />
+            <input type="submit" name="action:Submit" value="Submit" />
         </p>
     </fieldset>
-</form>
+}
 
 <div>
     @Html.ActionLink("Back to List", "Index")

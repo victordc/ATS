@@ -62,19 +62,18 @@ namespace ATS.MVC.UI.Controllers
             return View(master);
         }
 
-        public ActionResult ApproveLeave(int id)
+        [HttpPost]
+        public ActionResult StaffDetails(TimeSheetMaster master)
         {
-            TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
-            master.Status = Convert.ToInt32(TimeSheetStatus.Approved);
-            SaveTimeSheet(master);
-            return RedirectToAction("SupervisorEdit");
-        }
-
-        public ActionResult RejectLeave(int id)
-        {
-            TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
-            master.Status = Convert.ToInt32(TimeSheetStatus.Rejected);
-            SaveTimeSheet(master);
+            if(Request.Form["approve"] != null)
+            {
+                master.Status = Convert.ToInt32(TimeSheetStatus.Approved);
+            }
+            else if(Request.Form["reject"] != null)
+            {
+                master.Status = Convert.ToInt32(TimeSheetStatus.Rejected);
+            }
+            master.SaveMasterOnly();
             return RedirectToAction("SupervisorEdit");
         }
 
@@ -114,30 +113,19 @@ namespace ATS.MVC.UI.Controllers
             return View(master);
         }
 
-        //
-        // POST: /TimeSheet/Create
-        [MultipleButton(Name = "action", Argument = "Save")]
         [HttpPost]
-        public ActionResult Save(TimeSheetMaster master)
-        {
-            if (ModelState.IsValid)
-            {
-                SaveTimeSheet(master);
-                return RedirectToAction("Index");
-            }
-
-            return View(master);
-        }
-
-        [MultipleButton(Name = "action", Argument = "Submit")]
-        [HttpPost]
-        public ActionResult Submit(TimeSheetMaster master)
+        public ActionResult Create(TimeSheetMaster master)
         {
             if (ModelState.IsValid)
             {
                 master.Status = Convert.ToInt32(TimeSheetStatus.Submitted);
                 SaveTimeSheet(master);
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                
             }
 
             return View(master);
