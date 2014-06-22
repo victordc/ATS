@@ -14,5 +14,6 @@ namespace ATS.MVC.UI.Webforms
         public DateTime EndDate { get; set; }
         public double Duration { get; set; }
         public Nullable<bool> Admitted { get; set; }
+        public Nullable<double> Credit { get; set; }
     }
 }
