@@ -16,9 +16,7 @@ namespace ATS.Webforms.UI
         {
             if (!IsPostBack)
             {
-                IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans();
-                LeaveChart.DataSource = leaves.ToList();
-                LeaveChart.DataBind();
+
             }
         }
 
