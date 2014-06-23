@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using ATS.BLL;
 using ATS.Data.Model;
@@ -12,6 +13,7 @@ namespace ATS.Service
     {
 
         public MaintainPersonFacade personFacade = new MaintainPersonFacade();
+        public MaintainCompanyFacade companyFacade = new MaintainCompanyFacade();
 
         public PersonDTO GetPerson(int personId)
         {
@@ -32,6 +34,7 @@ namespace ATS.Service
                     adto.Role = "Agent";
                     dto.Agent = adto;
                 }
+                if (staff.Supervisor != null) dto.SupervisorName = staff.Supervisor.PersonName;
                 return dto;
             }
             else
@@ -43,46 +46,59 @@ namespace ATS.Service
                     adto.HomeAddress = staff.Agent.HomeAddress;
                     adto.Phone = staff.Agent.Phone;
                     adto.PersonName = staff.Agent.PersonName;
-                    adto.PersonId = staff.PersonId;
+                    adto.PersonId = staff.Agent.PersonId;
                     adto.Role = "Agent";
                     return adto;
                 }
             }
 
-            return null;
-            
+            ATSFault notfound = new ATSFault();
+            notfound.ErrorCode = "404";
+            notfound.ErrorMessage = "No Staff/Agent with ID: " + personId;
+            throw new FaultException<ATSFault>(notfound); 
+
         }
 
-        public PersonDTO[] GetSupervisedStaffs(int supervisorId)
+        public PersonDTO[] GetSupervisedStaffs(int companyId)
         {
-            Supervisor supervisor = personFacade.GetSupervisorById(supervisorId);
-            if (supervisor == null)
+            Company company = companyFacade.GetCompanyById(companyId);
+            if (company == null)
             {
-                //return soap exception??
-                return null; 
+                ATSFault notfound = new ATSFault();
+                notfound.ErrorCode = "404";
+                notfound.ErrorMessage = "Company With ID: " + companyId + " not existed";
+                throw new FaultException<ATSFault>(notfound); 
             }
-            IEnumerable<Staff> staffs = personFacade.GetSupervisedStaffs(supervisor);
             ICollection<StaffDTO> result = new List<StaffDTO>();
-            foreach (var staff in staffs)
+            IEnumerable<Supervisor> supervisors = personFacade.GetSupervisorsByCompany(company);
+            foreach (var supervisor in supervisors)
             {
-                StaffDTO dto = new StaffDTO();
-                dto.PersonId = staff.PersonId;
-                dto.PersonName = staff.PersonName;
-                dto.HomeAddress = staff.HomeAddress;
-                dto.Phone = staff.Phone;
-                if (staff.Agent != null)
+                
+                IEnumerable<Staff> staffs = personFacade.GetSupervisedStaffs(supervisor);
+                
+                foreach (var staff in staffs)
                 {
-                    AgentDTO adto = new AgentDTO();
-                    adto.HomeAddress = staff.Agent.HomeAddress;
-                    adto.Phone = staff.Agent.Phone;
-                    adto.PersonName = staff.Agent.PersonName;
-                    adto.PersonId = staff.PersonId;
-                    adto.Role = "Agent";
-                    dto.Agent = adto;
+                    StaffDTO dto = new StaffDTO();
+                    dto.PersonId = staff.PersonId;
+                    dto.PersonName = staff.PersonName;
+                    dto.HomeAddress = staff.HomeAddress;
+                    dto.Phone = staff.Phone;
+                    dto.SupervisorName = supervisor.PersonName;
+                    if (staff.Agent != null)
+                    {
+                        AgentDTO adto = new AgentDTO();
+                        adto.HomeAddress = staff.Agent.HomeAddress;
+                        adto.Phone = staff.Agent.Phone;
+                        adto.PersonName = staff.Agent.PersonName;
+                        adto.PersonId = staff.Agent.PersonId;
+                        adto.Role = "Agent";
+                        dto.Agent = adto;
+                    }
+                    result.Add(dto);
                 }
-                result.Add(dto);
+                
             }
-
+            
             return result.ToArray(); ;
         }
 

@@ -272,6 +272,11 @@ namespace ATS.Data
             return TimeSheetDetail.GetAll();
         }
 
+        public static IEnumerable<TimeSheetDetail> GetAllTimeSheetDetailsByMaster(TimeSheetMaster master)
+        {
+            return TimeSheetDetail.GetAllTimeSheetDetailsByMaster(master);
+        }
+
         //----------------------------------------------------------------------------------
 
         public static TimeSheetMaster GetTimeSheetMasterById(int TimeSheetMasterId)

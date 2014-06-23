@@ -12,11 +12,33 @@ namespace ATS.Service
     {
         
         [OperationContract]
+        [FaultContract(typeof(ATSFault))]
         PersonDTO GetPerson(int personId);
-
        
         [OperationContract]
-        PersonDTO[] GetSupervisedStaffs(int supervisorId);
+        [FaultContract(typeof(ATSFault))]
+        PersonDTO[] GetSupervisedStaffs(int companyId);
+    }
+
+    [DataContract]
+    public class ATSFault
+    {
+        private string errorCode;
+        private string errorMessage;
+
+        [DataMember]
+        public string ErrorCode
+        {
+            get { return errorCode; }
+            set { errorCode = value; }
+        }
+
+        public String ErrorMessage
+        {
+            get { return errorMessage; }
+            set { errorMessage = value; }
+        }
+
     }
 
     [DataContract(Name="Person")]
@@ -42,6 +64,9 @@ namespace ATS.Service
     {
         [DataMember]
         public AgentDTO Agent { get; set; }
+
+        [DataMember]
+        public string SupervisorName { get; set; }
         
     }
 

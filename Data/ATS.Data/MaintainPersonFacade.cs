@@ -130,11 +130,8 @@ namespace ATS.BLL
             return repository.GetSupervisors();
         }
 
-        public IEnumerable<Supervisor> GetSupervisorsByCompany(int companyId)
+        public IEnumerable<Supervisor> GetSupervisorsByCompany(Company company)
         {
-            //If has company repository
-            //Company company = companyRepository.GetCompanyById(companyId);
-            Company company = new Company();
             return repository.GetSupervisorsByCompany(company);
 
         }

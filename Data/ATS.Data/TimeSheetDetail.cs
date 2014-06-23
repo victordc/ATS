@@ -37,6 +37,17 @@ namespace ATS.Data.Model
             return context.TimeSheetDetails;
         }
 
+        public static IEnumerable<TimeSheetDetail> GetAllTimeSheetDetailsByMaster(TimeSheetMaster master)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            var query = from m in context.TimeSheetDetails
+                        where m.TimeSheetMasterId == master.TimeSheetMasterId
+                        select m;
+            IEnumerable<TimeSheetDetail> result = query.ToList<TimeSheetDetail>();
+            return result;
+        }
+
+
         public string Save()
         {
             string result = string.Empty;

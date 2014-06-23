@@ -42,6 +42,16 @@ namespace ATS.Data.Model
             return timeSheetMasters;
         }
 
+        public static TimeSheetMaster GetByPersonId(int personId, int year, int month)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            var timeSheetMasters = from master in context.TimeSheetMasters
+                                    where master.PersonId == personId && master.Month == month && master.Year == year
+                                    select master;
+            var timeSheetMaster = timeSheetMasters.FirstOrDefault<TimeSheetMaster>();
+            return timeSheetMaster;
+        }
+
         public static IEnumerable<TimeSheetMaster> GetAllByAgentId(int agentId)
         {
             ATSCEEntities context = new ATSCEEntities();

@@ -74,6 +74,11 @@ namespace ATS.Data.DAL
                                       where s.PersonId == personId
                                       select s;
             Staff staff = query.FirstOrDefault<Staff>();
+            if (staff != null)
+            {
+                context.Entry(staff).Reference(c => c.Agent).Load();
+                context.Entry(staff).Reference(c => c.Supervisor).Load();
+            }
             return staff;
             
         }
@@ -114,7 +119,7 @@ namespace ATS.Data.DAL
 
         public IEnumerable<Staff> GetStaffsBySupervisor(int supervisorId)
         {
-            IQueryable<Staff> query = from s in context.Persons.OfType<Staff>()
+            IQueryable<Staff> query = from s in context.Persons.Include("Agent").Include("Supervisor").OfType<Staff>()
                                            where s.SupervisorId == supervisorId
                                            select s;
             IEnumerable<Staff> staffs = query.ToList<Staff>();

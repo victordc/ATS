@@ -58,9 +58,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ILeaveService.cs" />
     <Compile Include="IPersonService.cs" />
+    <Compile Include="ITimesheetService.cs" />
+    <Compile Include="LeaveService.cs" />
     <Compile Include="PersonService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimesheetService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

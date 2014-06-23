@@ -111,6 +111,11 @@ namespace ATS.Data.DAL
             return TimeSheetMaster.GetAllByPersonId(PersonId);
         }
 
+        public static TimeSheetMaster GetTimeSheetsByPersonId(int PersonId, int year, int month)
+        {
+            return TimeSheetMaster.GetByPersonId(PersonId, year, month);
+        }
+
         public static IEnumerable<TimeSheetMaster> GetAllTimeSheetMasters()
         {
             return TimeSheetMaster.GetAll();
