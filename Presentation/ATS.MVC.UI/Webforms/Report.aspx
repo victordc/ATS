@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="Report" Language="C#" MasterPageFile="~/Webforms/Site.Master" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="ATS.Webforms.UI.Report" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="body">
-
     <asp:GridView ID="LeaveCategoryGridView" runat="server" AutoGenerateColumns="False"
         CssClass="table table-striped table-bordered table-hover" >
         <Columns>
