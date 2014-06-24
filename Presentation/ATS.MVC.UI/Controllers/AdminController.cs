@@ -1,4 +1,5 @@
-﻿using ATS.Data;
+﻿using ATS.BusinessFacade;
+using ATS.Data;
 using ATS.Data.Model;
 using ATS.MVC.UI.Common;
 using ATS.MVC.UI.Filters;
@@ -18,8 +19,18 @@ namespace ATS.MVC.UI.Controllers
     //[ATSAuthorizeAttribute]
     public class AdminController : BaseController
     {
+        #region Constructor
+
+        IAdminFacade adminFacade;
+        public AdminController() 
+        {
+            adminFacade = new AdminFacade();
+        }
+
+        #endregion
+
         #region Membership
-        
+
         [InitializeSimpleMembership]
         public ActionResult Index()
         {
@@ -44,7 +55,7 @@ namespace ATS.MVC.UI.Controllers
             ViewBag.Users = query.ToList().OrderBy(r=>r.UserId);
 
             // Get all ObjectAccesses
-            var obs = TimesheetRepository.Instance.GetAllObjectAccesses();
+            var obs = adminFacade.GetAllObjectAccesses();
             ViewBag.ObjectAccesses = obs;
 
             // Object Access
@@ -162,7 +173,7 @@ namespace ATS.MVC.UI.Controllers
             //3. Edit mode
             else
             {
-                var objectAccess = TimesheetRepository.Instance.GetObjectAccessById(objectAccessId);
+                var objectAccess = adminFacade.GetObjectAccessById(objectAccessId);
                 SelectList list = new SelectList(ViewBag.Roles, "RoleName", "RoleName", objectAccess.Role);
                 ViewBag.myList = list;
                 return View(objectAccess);
@@ -181,7 +192,8 @@ namespace ATS.MVC.UI.Controllers
                     {
                         model.UpdatedOn = DateTime.Now;
                         model.UpdatedBy = Helper.CurrentUserId;
-                        TimesheetRepository.Instance.SaveObjectAccess(model);
+                        model.EntityState = EntityState.Modified;
+                        adminFacade.SaveObjectAccess(model);
                     }
                     // Add mode
                     else
@@ -190,7 +202,8 @@ namespace ATS.MVC.UI.Controllers
                         model.Status = "A";
                         model.CreatedBy = Helper.CurrentUserId;
                         model.CreatedOn = DateTime.Now;
-                        TimesheetRepository.Instance.SaveObjectAccess(model);
+                        model.EntityState = EntityState.Added;
+                        adminFacade.SaveObjectAccess(model);
                     }
 
                     return RedirectToAction("Index", "Admin");
@@ -212,7 +225,8 @@ namespace ATS.MVC.UI.Controllers
             try
             {
                 ObjectAccess oa = new ObjectAccess { ObjectAccessId = objectAccessId };
-                TimesheetRepository.Instance.DeleteObjectAccess(oa);
+                oa.EntityState = EntityState.Deleted;
+                adminFacade.DeleteObjectAccess(oa);
                 return Json("Deleted Completed");
 
             }

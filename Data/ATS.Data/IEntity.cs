@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ATS.Data
+namespace ATS.Data.Model
 {
     public interface IEntity
     {

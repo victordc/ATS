@@ -11,7 +11,7 @@ using System.ComponentModel;
 namespace ATS.Data.Model
 {
     [MetadataType(typeof(ObjectAccessData))]
-    public partial class ObjectAccess
+    public partial class ObjectAccess : IEntity
     {
         #region Properties
 
@@ -26,6 +26,8 @@ namespace ATS.Data.Model
                 Role = value;
             }
         }
+
+        public EntityState EntityState { get; set; }
 
         #endregion
 
