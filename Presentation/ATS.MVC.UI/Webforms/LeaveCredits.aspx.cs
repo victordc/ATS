@@ -32,7 +32,7 @@ namespace ATS.Webforms.UI
                 int currentUserId = UserSetting.Current.PersonId;
 
                 //Get leaves and credits from CodeTable
-                this.history = TimesheetRepository.GetLeavePlans(currentUserId);
+                this.history = TimesheetRepository.GetLeavePlans(currentUserId, DateTime.Now.Year);
 
                 ReportBinder(currentUserId);
             }

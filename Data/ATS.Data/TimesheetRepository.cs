@@ -179,6 +179,11 @@ namespace ATS.Data
             return LeavePlan.GetAll(userId);
         }
 
+        public static IEnumerable<LeavePlan> GetLeavePlans(int userId, int year)
+        {
+            return LeavePlan.GetAll(userId, year);
+        }
+
         public static IEnumerable<LeavePlan> GetLeavePlans(int userId, int year, int month)
         {
             return LeavePlan.GetAll(userId, year, month);

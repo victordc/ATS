@@ -191,6 +191,7 @@
     <Compile Include="Webforms\Chart.aspx.designer.cs">
       <DependentUpon>Chart.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Webforms\ChartReport.cs" />
     <Compile Include="Webforms\LeaveCredits.aspx.cs">
       <DependentUpon>LeaveCredits.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -230,7 +231,6 @@
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
     <Content Include="Content\morris.css" />
-    <Content Include="Content\prettify.min.css" />
     <Content Include="Content\site.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -298,7 +298,6 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\chart.js" />
     <Content Include="Scripts\morris.js" />
-    <Content Include="Scripts\prettify.min.js" />
     <Content Include="Scripts\raphael-min.js" />
     <Content Include="Webforms\Chart.aspx" />
     <Content Include="Webforms\LeaveCredits.aspx" />
