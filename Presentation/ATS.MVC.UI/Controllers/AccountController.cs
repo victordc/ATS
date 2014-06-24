@@ -12,6 +12,7 @@ using ATS.MVC.UI.Filters;
 using ATS.MVC.UI.Models;
 using ATS.MVC.UI.Common;
 using ATS.Data;
+using ATS.BusinessFacade;
 
 namespace ATS.MVC.UI.Controllers
 {
@@ -21,6 +22,15 @@ namespace ATS.MVC.UI.Controllers
     {
         //
         // GET: /Account/Login
+        #region Constructor
+
+        IAdminFacade adminFacade;
+        public AccountController() 
+        {
+            adminFacade = new AdminFacade();
+        }
+
+        #endregion
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -40,7 +50,7 @@ namespace ATS.MVC.UI.Controllers
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 string roleName = Roles.GetRolesForUser(model.UserName).FirstOrDefault();
-                UserSetting.Current.Controllers = TimesheetRepository.Instance.GetControllers(roleName);
+                UserSetting.Current.Controllers = adminFacade.GetControllers(roleName).ToList();
                 UserSetting.Current.RoleName = roleName;
                 ATS.Data.Model.Person person = TimesheetRepository.Instance.GetPersonByUserName(model.UserName);
                 if (person != null)

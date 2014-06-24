@@ -1,4 +1,5 @@
-﻿using ATS.Data;
+﻿using ATS.BusinessFacade;
+using ATS.Data;
 using ATS.Data.Model;
 using ATS.MVC.UI.Filters;
 using System;
@@ -34,10 +35,11 @@ namespace ATS.MVC.UI.Common
                 var roles = (SimpleRoleProvider)Roles.Provider;
                 var userRoles = roles.GetRolesForUser(name);
 
-
+                IAdminFacade adminFacade = new AdminFacade();
                 for (int i = 0; i < userRoles.Count(); i++)
                 {
-                    IEnumerable<ObjectAccess> oAccessesByRole = TimesheetRepository.Instance.GetObjectAccessByRole(userRoles[i]);
+
+                    IEnumerable<ObjectAccess> oAccessesByRole = adminFacade.GetObjectAccessByRole(userRoles[i]);
                     bool isAccessToAction = Convert.ToBoolean(ConfigurationManager.AppSettings["IsCheckAccessToAction"]);
 
                     List<ObjectAccess> objAccessFilter = null;

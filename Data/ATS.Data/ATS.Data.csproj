@@ -118,6 +118,8 @@
     <Compile Include="Repository\GenericDataRepository.cs" />
     <Compile Include="Repository\ICodeTableRepository.cs" />
     <Compile Include="Repository\IGenericDataRepository.cs" />
+    <Compile Include="Repository\IObjectAccessRepository.cs" />
+    <Compile Include="Repository\ObjectAccessRepository.cs" />
     <Compile Include="TimeSheetMasterRepository.cs" />
     <Compile Include="CodeTable.cs" />
     <Compile Include="Company.cs" />
