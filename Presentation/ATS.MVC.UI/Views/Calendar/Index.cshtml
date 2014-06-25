@@ -4,52 +4,32 @@
     ViewBag.Title = "Index";
 }
 
-<div id="datepicker" style="font-size:150%">
-    <h3>My Leaves...</h3>
-    <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
-</div>
-<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        var beginDates = [];
-        var endDates = [];
-        var types = [];
-        @foreach (var item in Model)
-        {
-            @:beginDates.push("'@String.Format("{0:MM/dd/yyyy}",item.StartDate)'");
-            @:endDates.push("'@String.Format("{0:MM/dd/yyyy}",item.EndDate)'");
-            @:types.push("@(item.LeaveCategory.LeaveCategoryDesc)");
-        }
-
-        $("#datepicker").datepicker({
-            beforeShowDay: highlightDays,
-            onSelect:getDetails
-        });
-
-        function highlightDays(date) 
-        {
-            for (var i = 0; i < beginDates.length; i++) {
-                if ((new Date(beginDates[i]) <= date) && 
-                    (new Date(endDates[i]) >= date) ) {
-                    return [true, 'ui-state-active', types[i]];
-                }
-            }
-            return [false, ''];
-        }
-
-        function getDetails(date, cal)
-        { 
-            window.location.replace("/Calendar/MyDetail/" + cal.selectedYear + "/" + (cal.selectedMonth + 1));
-        }
-
-    });
-</script>
-
 <div>
     <br />
     <p>
         @Html.ActionLink("View Team Leaves", "Team", null, new { @class = "btn btn btn-primary" })
-        @Html.ActionLink("Report", "OpenReport", null, new { @class = "btn btn btn-primary" })
+        @Html.ActionLink("Go To Webforms Report", "OpenReport", null, new { @class = "btn btn btn-primary" })
     </p>
+    <br />
 </div>
+
+<link rel="stylesheet" href="~/Content/fullcalendar.css" />
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/fullcalendar.js"></script>
+<div id="calendar"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var leaves = [];
+        @foreach (var item in Model)
+        {
+            @:leaves.push({ start: "@String.Format("{0:yyyy-MM-dd}", item.StartDate)", end: "@String.Format("{0:yyyy-MM-dd}", item.EndDate)", title: "@item.Person.PersonName.ToString() @item.LeaveCategory.LeaveCategoryDesc", url: "@String.Format("/Calendar/MyDetail/{0}/{1}", item.StartDate.Year, item.StartDate.Month)" });
+        }
+
+        $('#calendar').fullCalendar({
+            events: leaves
+        })
+
+    });
+</script>

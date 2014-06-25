@@ -228,6 +228,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\chart.css" />
+    <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
     <Content Include="Content\morris.css" />
@@ -297,6 +298,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\fullcalendar.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\morris.js" />
     <Content Include="Scripts\raphael-min.js" />
     <Content Include="Webforms\Chart.aspx" />
