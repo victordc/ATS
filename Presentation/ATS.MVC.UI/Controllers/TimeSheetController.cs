@@ -73,6 +73,10 @@ namespace ATS.MVC.UI.Controllers
             {
                 master.Status = Convert.ToInt32(TimeSheetStatus.Rejected);
             }
+            if(master.Remarks == null)
+            {
+                master.Remarks = "nil";
+            }
             master.SaveMasterOnly();
             return RedirectToAction("SupervisorEdit");
         }
