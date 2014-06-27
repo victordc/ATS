@@ -45,13 +45,13 @@ namespace ATS.Data.ViewModel
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime TimeSheetDate { get; set; }
-        //[Required]
+        [Required]
         [DataType(DataType.Time)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh:mm}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
         public DateTime StartTime { get; set; }
         [Required]
         [DataType(DataType.Time)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh:mm}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
         public DateTime EndTime { get; set; }
         public float Hour { get; set; }
         public string Remarks { get; set; }

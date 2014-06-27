@@ -1,2 +1,4 @@
 obj\Debug\_WFServices.g.cs
 obj\Debug\AdmissionService.g.cs
+obj\Debug\SubmitInfo.g.cs
+obj\Debug\InterviewResultService.g.cs

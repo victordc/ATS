@@ -81,21 +81,30 @@
                             @Html.HiddenFor(model => Model.TimeSheetDetailViewModel[i].TimeSheetDate)
                         </td>
                         <td>
-                            @Html.LabelFor(model => Model.TimeSheetDetailViewModel[i].StartTime)
+                            @Html.DisplayFor(model => Model.TimeSheetDetailViewModel[i].StartTime)
                         </td>
                         <td>
-                            @Html.LabelFor(model => Model.TimeSheetDetailViewModel[i].EndTime)
+                            @Html.DisplayFor(model => Model.TimeSheetDetailViewModel[i].EndTime)
                         </td>
                         <td>@Html.DropDownListFor(model => Model.TimeSheetDetailViewModel[i].LeaveCategoryId, (SelectList)Model.TimeSheetDetailViewModel[i].LeaveCategories, "", new { disabled = "disabled" })</td>
                         <td>
-                            @Html.LabelFor(model => Model.TimeSheetDetailViewModel[i].Remarks)
+                            @Html.DisplayFor(model => Model.TimeSheetDetailViewModel[i].Remarks)
                         </td>
                         <td>
-                            @Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload1, new { type = "file" })
-                            <br />
-                            @Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload2, new { type = "file" })
-                            <br />
-                            @Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload3, new { type = "file" })
+                            @if(!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument1))
+                            {
+                                <a href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument1)" target="_blank">Download</a>
+                                <br />
+                            }
+                            @if(!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument2))
+                            {
+                                <a href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument2)" target="_blank">Download</a>
+                                <br />
+                            }
+                            @if(!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument3))
+                            {
+                                <a href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument3)" target="_blank">Download</a>
+                            }
                         </td>
                     </tr>
             }

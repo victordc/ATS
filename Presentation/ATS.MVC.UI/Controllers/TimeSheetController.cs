@@ -72,16 +72,20 @@ namespace ATS.MVC.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult StaffDetails(TimeSheetMaster master)
+        public ActionResult StaffDetails(TimeSheetMasterViewModel viewModel)
         {
             if(Request.Form["approve"] != null)
             {
-                master.Status = Convert.ToInt32(TimeSheetStatus.Approved);
+                viewModel.Status = Convert.ToInt32(TimeSheetStatus.Approved);
             }
             else if(Request.Form["reject"] != null)
             {
-                master.Status = Convert.ToInt32(TimeSheetStatus.Rejected);
+                viewModel.Status = Convert.ToInt32(TimeSheetStatus.Rejected);
             }
+
+            viewModel.Remarks = string.IsNullOrEmpty(viewModel.Remarks) ? string.Empty : viewModel.Remarks;
+
+            TimeSheetMaster master = Mapper.Map<TimeSheetMasterViewModel, TimeSheetMaster>(viewModel);
             master.SaveMasterOnly();
             return RedirectToAction("SupervisorEdit");
         }

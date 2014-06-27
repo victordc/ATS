@@ -310,6 +310,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\morris.js" />
     <Content Include="Scripts\raphael-min.js" />
+    <Content Include="Uploads\Student.txt" />
     <Content Include="Webforms\Chart.aspx" />
     <Content Include="Webforms\LeaveCredits.aspx" />
     <Content Include="Webforms\Report.aspx" />
@@ -425,6 +426,9 @@
     <Content Include="Webforms\Site.Master" />
     <Content Include="Views\TimeSheet\StaffDetails.cshtml" />
     <Content Include="Views\TimeSheet\SupervisorEdit.cshtml" />
+    <Content Include="Uploads\MTech Course Details v2.17.doc" />
+    <Content Include="Uploads\SecureDownloadManager.log" />
+    <Content Include="Uploads\SWOT_Analysis.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

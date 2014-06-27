@@ -1,1 +1,3 @@
 obj\Debug\AdmissionService.g.xaml
+obj\Debug\SubmitInfo.g.xaml
+obj\Debug\InterviewResultService.g.xaml

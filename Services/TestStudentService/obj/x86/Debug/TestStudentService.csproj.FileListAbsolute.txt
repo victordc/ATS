@@ -6,3 +6,11 @@ C:\NUS\ENet1\ATS\Services\TestStudentService\bin\Debug\WFServices.pdb
 C:\NUS\ENet1\ATS\Services\TestStudentService\obj\x86\Debug\TestStudentService.csprojResolveAssemblyReference.cache
 C:\NUS\ENet1\ATS\Services\TestStudentService\obj\x86\Debug\TestStudentService.exe
 C:\NUS\ENet1\ATS\Services\TestStudentService\obj\x86\Debug\TestStudentService.pdb
+C:\Users\vinay\Documents\GitHub\ATS\Services\TestStudentService\bin\Debug\TestStudentService.exe.config
+C:\Users\vinay\Documents\GitHub\ATS\Services\TestStudentService\bin\Debug\TestStudentService.exe
+C:\Users\vinay\Documents\GitHub\ATS\Services\TestStudentService\bin\Debug\TestStudentService.pdb
+C:\Users\vinay\Documents\GitHub\ATS\Services\TestStudentService\bin\Debug\WFServices.dll
+C:\Users\vinay\Documents\GitHub\ATS\Services\TestStudentService\bin\Debug\WFServices.pdb
+C:\Users\vinay\Documents\GitHub\ATS\Services\TestStudentService\obj\x86\Debug\TestStudentService.csprojResolveAssemblyReference.cache
+C:\Users\vinay\Documents\GitHub\ATS\Services\TestStudentService\obj\x86\Debug\TestStudentService.exe
+C:\Users\vinay\Documents\GitHub\ATS\Services\TestStudentService\obj\x86\Debug\TestStudentService.pdb

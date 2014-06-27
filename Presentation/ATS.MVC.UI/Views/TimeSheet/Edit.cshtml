@@ -92,6 +92,10 @@
                     <td>@Html.DropDownListFor(model => Model.TimeSheetDetailViewModel[i].LeaveCategoryId, (SelectList)Model.TimeSheetDetailViewModel[i].LeaveCategories,"")</td>
                     <td>@Html.EditorFor(model => Model.TimeSheetDetailViewModel[i].Remarks)</td>
                     <td>@Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload1, new { type = "file" })
+                        @if(!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument1))
+                        {
+                            <a href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument1)" target="_blank">Download</a>
+                        }
                         <br />
                         @Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload2, new { type = "file" })
                         <br />

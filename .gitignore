@@ -3,3 +3,7 @@ Shared/ATS.Framework/obj/Debug/ATS.Framework.csproj.FileListAbsolute.txt
 Presentation/ATS.Webforms.UI/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 *.cache
 ATS.v11.suo
+Presentation/ATS.MVC.UI/Uploads/Expose the service MetaData.docx
+*.pdf
+*.sdf
+*.dll
