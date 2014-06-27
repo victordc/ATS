@@ -24,6 +24,7 @@ namespace ATS.MVC.UI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+            AutoMapperConfig.ConfigureAutoMapper();
         }
 
         protected void Application_Error(object sender, EventArgs e)

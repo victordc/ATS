@@ -154,6 +154,8 @@ namespace ATS.Data.DAL
             master.Month = forCalendarMonth.Month;
             master.Year = forCalendarMonth.Year;
             master.Agent = staff.Agent;
+            master.ManagerId = staff.Supervisor.PersonId;
+            master.AgencyId = staff.Agent.PersonId;
             master.Status = Convert.ToInt32(TimeSheetStatus.Draft);
 
             IEnumerable<LeavePlan> leavePlan = TimesheetRepository.GetLeavePlans(staff.PersonId);

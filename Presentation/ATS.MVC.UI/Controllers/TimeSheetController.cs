@@ -11,6 +11,8 @@ using ATS.MVC.UI.Helpers;
 using ATS.MVC.UI.Common;
 using ATS.Framework;
 using System.Globalization;
+using AutoMapper;
+using ATS.Data.ViewModel;
 
 namespace ATS.MVC.UI.Controllers
 {
@@ -59,7 +61,14 @@ namespace ATS.MVC.UI.Controllers
         {
             TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
             ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
-            return View(master);
+
+            foreach (var item in master.TimeSheetDetail)
+            {
+                item.LeaveCategories = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", item.LeaveCategoryId);
+            }
+
+            TimeSheetMasterViewModel viewModel = Mapper.Map<TimeSheetMaster, TimeSheetMasterViewModel>(master);
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -72,10 +81,6 @@ namespace ATS.MVC.UI.Controllers
             else if(Request.Form["reject"] != null)
             {
                 master.Status = Convert.ToInt32(TimeSheetStatus.Rejected);
-            }
-            if(master.Remarks == null)
-            {
-                master.Remarks = "nil";
             }
             master.SaveMasterOnly();
             return RedirectToAction("SupervisorEdit");
@@ -107,22 +112,25 @@ namespace ATS.MVC.UI.Controllers
 
         //
         // GET: /TimeSheet/Create
-
+        [HttpGet]
         public ActionResult Create()
         {
             PersonRepository personRepository = new PersonRepository(new ATSCEEntities());
             Staff staff = personRepository.GetStaffByID(UserSetting.Current.PersonId);
             TimeSheetMaster master = TimeSheetMasterRepository.CreateTimeSheetMasterTemplate(DateTime.Today, staff);
             ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
-            return View(master);
+            TimeSheetMasterViewModel viewModel = Mapper.Map<TimeSheetMaster, TimeSheetMasterViewModel>(master);
+
+            return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Create(TimeSheetMaster master)
+        public ActionResult Create(TimeSheetMasterViewModel masterViewModel)
         {
             if (ModelState.IsValid)
             {
-                master.Status = Convert.ToInt32(TimeSheetStatus.Submitted);
+                masterViewModel.Status = Convert.ToInt32(TimeSheetStatus.Submitted);
+                TimeSheetMaster master = Mapper.Map<TimeSheetMasterViewModel, TimeSheetMaster>(masterViewModel);
                 SaveTimeSheet(master);
                 return RedirectToAction("Index");
             }
@@ -131,8 +139,8 @@ namespace ATS.MVC.UI.Controllers
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
                 
             }
-
-            return View(master);
+            ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
+            return View(masterViewModel);
         }
 
 
@@ -197,12 +205,9 @@ namespace ATS.MVC.UI.Controllers
             {
                 item.LeaveCategories = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", item.LeaveCategoryId);
             }
-            
-            if (master == null)
-            {
-                return HttpNotFound();
-            }
-            return View(master);
+
+            TimeSheetMasterViewModel viewModel = Mapper.Map<TimeSheetMaster, TimeSheetMasterViewModel>(master);
+            return View(viewModel);
         }
 
         //

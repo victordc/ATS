@@ -12,8 +12,6 @@ using System.Web;
 
 namespace ATS.Data.Model
 {
-
-
     public partial class TimeSheetMaster
     {
 
@@ -78,8 +76,8 @@ namespace ATS.Data.Model
                 using (var context = new ATSCEEntities())
                 {
                     context.Entry(this).State = this.TimeSheetMasterId <= 0 ? System.Data.EntityState.Added : System.Data.EntityState.Modified;
-                    context.Entry(this.Person).State = System.Data.EntityState.Unchanged;
-                    context.Entry(this.Supervisor).State = System.Data.EntityState.Unchanged;
+                    //context.Entry(this.Person).State = System.Data.EntityState.Unchanged;
+                    //context.Entry(this.Supervisor).State = System.Data.EntityState.Unchanged;
                     foreach (TimeSheetDetail detail in this.TimeSheetDetail.ToList())
                         context.Entry(detail).State = detail.TimeSheetDetailId <= 0 ? System.Data.EntityState.Added : System.Data.EntityState.Modified;
 
@@ -102,8 +100,8 @@ namespace ATS.Data.Model
                 using (var context = new ATSCEEntities())
                 {
                     context.Entry(this).State = System.Data.EntityState.Modified;
-                    context.Entry(this.Person).State = System.Data.EntityState.Unchanged;
-                    context.Entry(this.Supervisor).State = System.Data.EntityState.Unchanged;
+                    //context.Entry(this.Person).State = System.Data.EntityState.Unchanged;
+                    //context.Entry(this.Supervisor).State = System.Data.EntityState.Unchanged;
                     context.SaveChanges();
                 }
             }
