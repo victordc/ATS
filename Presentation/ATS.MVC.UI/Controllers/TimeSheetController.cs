@@ -135,7 +135,10 @@ namespace ATS.MVC.UI.Controllers
             {
                 masterViewModel.Status = Convert.ToInt32(TimeSheetStatus.Submitted);
                 TimeSheetMaster master = Mapper.Map<TimeSheetMasterViewModel, TimeSheetMaster>(masterViewModel);
-                SaveTimeSheet(master);
+                if(master.ValidateWhenCreate())
+                {
+                    SaveTimeSheet(master);
+                }
                 return RedirectToAction("Index");
             }
             else

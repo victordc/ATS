@@ -129,6 +129,28 @@ namespace ATS.Data.Model
             }
 
         }
+
+        public bool ValidateWhenCreate()
+        {
+            try
+            {
+                ATSCEEntities context = new ATSCEEntities();
+                var timeSheetMasters = from master in context.TimeSheetMasters
+                                                                where master.PersonId == this.PersonId && master.Month == this.Month && master.Year == this.Year
+                                                                select master;
+                var timeSheetMaster = timeSheetMasters.FirstOrDefault<TimeSheetMaster>();
+
+                if(timeSheetMaster == null)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 
 
