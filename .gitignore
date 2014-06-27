@@ -1,8 +1,5 @@
 *.pdb
-*.dll
-*.dll
 Shared/ATS.Framework/obj/Debug/ATS.Framework.csproj.FileListAbsolute.txt
 Presentation/ATS.Webforms.UI/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 *.cache
 ATS.v11.suo
-*.dll
