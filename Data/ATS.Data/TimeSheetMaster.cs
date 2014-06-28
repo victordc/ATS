@@ -157,8 +157,9 @@ namespace ATS.Data.Model
 
         public bool ValidateDate()
         {
-            DateTime period = new DateTime(this.Year, this.Month, 1).AddMonths(3);
-            if (period > DateTime.Now)
+            DateTime period = new DateTime(this.Year, this.Month, 1);
+            DateTime extendedPeriod = new DateTime(this.Year, this.Month, 1).AddMonths(3);
+            if (extendedPeriod > DateTime.Now && period <= DateTime.Today)
             {
                 return true;
             }

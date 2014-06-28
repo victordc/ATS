@@ -57,8 +57,8 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult SupervisorEdit()
         {
-            //var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMastersBySupervisorId(UserSetting.Current.PersonId);
-            var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMasters();
+            var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMastersBySupervisorId(UserSetting.Current.PersonId);
+            //var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMasters();
 
             return View(timeSheetMasters.ToList());
         }
@@ -166,12 +166,25 @@ namespace ATS.MVC.UI.Controllers
                 {
                     if(master.ValidateDate())
                     {
-                        SaveTimeSheet(master);
-                        return RedirectToAction("Index");
+                        bool isValid = true;
+                        foreach(TimeSheetDetail detail in master.TimeSheetDetail)
+                        {
+                            if(!detail.ValidateTime())
+                            {
+                                isValid = false;
+                                string error = "The start time is later than the end time for " + detail.StartTime.Date.ToString("d");
+                                ModelState.AddModelError("", error);
+                            }
+                        }
+                        if(isValid)
+                        {
+                            SaveTimeSheet(master);
+                            return RedirectToAction("Index");
+                        }
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Timesheet can only be created for the past 3 months");
+                        ModelState.AddModelError("", "Timesheet must only be created for the past 3 months");
                     }
                 }
                 else
@@ -266,8 +279,22 @@ namespace ATS.MVC.UI.Controllers
                     masterViewModel.Status = Convert.ToInt32(TimeSheetStatus.Submitted);
                 }
                 TimeSheetMaster master = Mapper.Map<TimeSheetMasterViewModel, TimeSheetMaster>(masterViewModel);
-                SaveTimeSheet(master);
-                return RedirectToAction("Index");
+
+                bool isValid = true;
+                foreach (TimeSheetDetail detail in master.TimeSheetDetail)
+                {
+                    if (!detail.ValidateTime())
+                    {
+                        isValid = false;
+                        string error = "The start time is later than the end time for " + detail.StartTime.Date.ToString();
+                        ModelState.AddModelError("", error);
+                    }
+                }
+                if (isValid)
+                {
+                    SaveTimeSheet(master);
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.LeaveCategories = TimeSheetMasterRepository.GetLeaveCategoriesList();

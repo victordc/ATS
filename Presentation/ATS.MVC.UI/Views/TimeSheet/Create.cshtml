@@ -39,22 +39,24 @@
         <tr>
             <td>
                 @Html.DisplayFor(model => model.PersonPersonName)
+                @Html.HiddenFor(model => model.PersonPersonName)
                 @Html.HiddenFor(model => model.PersonId)
             </td>
             <td>
                 @Html.DisplayFor(model => model.SupervisorPersonName)
+                @Html.HiddenFor(model => model.SupervisorPersonName)
                 @Html.HiddenFor(model => model.ManagerId)
             </td>
             <td>
                 @Html.DisplayFor(model => model.AgentPersonName)
+                @Html.HiddenFor(model => model.AgentPersonName)
                 @Html.HiddenFor(model => model.AgencyId)
             </td>
             <td>
-
-                @Html.DropDownListFor(model => model.Month, new SelectList(ViewBag.MonthList, "Value", "Text", Model.Month))
+                @Html.DropDownListFor(model => model.Month, new SelectList(ViewBag.MonthList, "Value", "Text", Model.Month), new { @onchange = "onMonthYearChange()" })
             </td>
             <td>
-                @Html.DropDownListFor(model => model.Year, new SelectList(ViewBag.YearList, "Value", "Text", Model.Year))
+                @Html.DropDownListFor(model => model.Year, new SelectList(ViewBag.YearList, "Value", "Text", Model.Year), new { @onchange = "onMonthYearChange()" })
             </td>
             <td>
                 @Html.HiddenFor(model => model.Status)
@@ -152,4 +154,12 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        function onMonthYearChange() {
+            var month = $("#Month").val();
+            var year = $("#Year").val();
+            window.location = "/TimeSheet/Create/" + year + "/" + month;
+        }
+    </script>
 }
