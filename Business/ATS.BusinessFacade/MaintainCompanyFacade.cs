@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ATS.Data.Model;
 using ATS.Data.DAL;
 
-namespace ATS.BLL
+namespace ATS.BusinessFacade
 {
     public class MaintainCompanyFacade
     {

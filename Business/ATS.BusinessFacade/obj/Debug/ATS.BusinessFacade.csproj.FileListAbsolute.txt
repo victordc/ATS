@@ -6,7 +6,6 @@ C:\NUS\Enterprise.Net1\ATS\Business\ATS.BusinessFacade\bin\Debug\EntityFramework
 C:\NUS\Enterprise.Net1\ATS\Business\ATS.BusinessFacade\bin\Debug\ATS.Framework.dll
 C:\NUS\Enterprise.Net1\ATS\Business\ATS.BusinessFacade\bin\Debug\log4net.dll
 C:\NUS\Enterprise.Net1\ATS\Business\ATS.BusinessFacade\bin\Debug\ATS.Data.pdb
-C:\NUS\Enterprise.Net1\ATS\Business\ATS.BusinessFacade\bin\Debug\EntityFramework.xml
 C:\NUS\Enterprise.Net1\ATS\Business\ATS.BusinessFacade\bin\Debug\ATS.Framework.pdb
 C:\NUS\Enterprise.Net1\ATS\Business\ATS.BusinessFacade\obj\Debug\ATS.BusinessFacade.csprojResolveAssemblyReference.cache
 C:\NUS\Enterprise.Net1\ATS\Business\ATS.BusinessFacade\obj\Debug\ATS.BusinessFacade.dll
