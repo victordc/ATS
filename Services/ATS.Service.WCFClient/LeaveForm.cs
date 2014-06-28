@@ -32,9 +32,10 @@ namespace ATS.Service.WCFClient
         private void button1_Click(object sender, EventArgs e)
         {
             LeaveServiceClient lsClient = new LeaveServiceClient();
+            int companyId = Convert.ToInt32(tbCompany.Text);
             int year = Convert.ToInt32(tbYear.Text);
             int month = Convert.ToInt32(tbMonth.Text);
-            var result = lsClient.GetLeaveSummary(1, year, month);
+            var result = lsClient.GetLeaveSummary(companyId, year, month);
             dataGridView1.Rows.Clear();
             foreach (LeaveSummary p in result)
             {

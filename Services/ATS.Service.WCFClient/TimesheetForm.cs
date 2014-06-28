@@ -27,9 +27,10 @@ namespace ATS.Service.WCFClient
         private void button1_Click(object sender, EventArgs e)
         {
             TimesheetServiceClient tsClient = new TimesheetServiceClient();
+            int companyId = Convert.ToInt32(tbCompany.Text);
             int year = Convert.ToInt32(tbYear.Text);
             int month = Convert.ToInt32(tbMonth.Text);
-            var result = tsClient.GetTimesheetSummary(1, year, month);
+            var result = tsClient.GetTimesheetSummary(companyId, year, month);
             dataGridView1.Rows.Clear();
             foreach (var p in result)
             {

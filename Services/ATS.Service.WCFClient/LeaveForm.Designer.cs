@@ -30,16 +30,18 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tbYear = new System.Windows.Forms.TextBox();
-            this.tbMonth = new System.Windows.Forms.TextBox();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StaffName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Approved = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Pending = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Reject = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbYear = new System.Windows.Forms.TextBox();
+            this.tbMonth = new System.Windows.Forms.TextBox();
+            this.tbCompany = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,50 +65,12 @@
             this.Pending,
             this.Reject,
             this.Total});
-            this.dataGridView1.Location = new System.Drawing.Point(26, 57);
+            this.dataGridView1.Location = new System.Drawing.Point(32, 93);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(547, 150);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Year";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(179, 21);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Month";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // tbYear
-            // 
-            this.tbYear.Location = new System.Drawing.Point(68, 17);
-            this.tbYear.Name = "tbYear";
-            this.tbYear.Size = new System.Drawing.Size(100, 20);
-            this.tbYear.TabIndex = 5;
-            this.tbYear.Text = "2014";
-            this.tbYear.TextChanged += new System.EventHandler(this.tbYear_TextChanged);
-            // 
-            // tbMonth
-            // 
-            this.tbMonth.Location = new System.Drawing.Point(231, 15);
-            this.tbMonth.Name = "tbMonth";
-            this.tbMonth.Size = new System.Drawing.Size(100, 20);
-            this.tbMonth.TabIndex = 6;
-            this.tbMonth.Text = "6";
-            this.tbMonth.TextChanged += new System.EventHandler(this.tbMonth_TextChanged);
             // 
             // ID
             // 
@@ -138,11 +102,68 @@
             this.Total.HeaderText = "Total";
             this.Total.Name = "Total";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(153, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Year";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(288, 20);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Month";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // tbYear
+            // 
+            this.tbYear.Location = new System.Drawing.Point(156, 48);
+            this.tbYear.Name = "tbYear";
+            this.tbYear.Size = new System.Drawing.Size(100, 20);
+            this.tbYear.TabIndex = 5;
+            this.tbYear.Text = "2014";
+            this.tbYear.TextChanged += new System.EventHandler(this.tbYear_TextChanged);
+            // 
+            // tbMonth
+            // 
+            this.tbMonth.Location = new System.Drawing.Point(291, 48);
+            this.tbMonth.Name = "tbMonth";
+            this.tbMonth.Size = new System.Drawing.Size(100, 20);
+            this.tbMonth.TabIndex = 6;
+            this.tbMonth.Text = "6";
+            this.tbMonth.TextChanged += new System.EventHandler(this.tbMonth_TextChanged);
+            // 
+            // tbCompany
+            // 
+            this.tbCompany.Location = new System.Drawing.Point(38, 48);
+            this.tbCompany.Name = "tbCompany";
+            this.tbCompany.Size = new System.Drawing.Size(86, 20);
+            this.tbCompany.TabIndex = 8;
+            this.tbCompany.Text = "1";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(35, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Company ID";
+            // 
             // LeaveForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 285);
+            this.Controls.Add(this.tbCompany);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.tbMonth);
             this.Controls.Add(this.tbYear);
             this.Controls.Add(this.label2);
@@ -172,5 +193,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Pending;
         private System.Windows.Forms.DataGridViewTextBoxColumn Reject;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;
+        private System.Windows.Forms.TextBox tbCompany;
+        private System.Windows.Forms.Label label3;
     }
 }

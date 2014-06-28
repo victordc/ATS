@@ -22,9 +22,10 @@ namespace ATS.Service.WCFClient
 
         private void button1_Click(object sender, EventArgs e)
         {
+            int companyId = Convert.ToInt32(tbCompany.Text);
             PersonServiceClient psClient = new PersonServiceClient();
-            var result = psClient.GetSupervisedStaffs(1);
-            
+            var result = psClient.GetSupervisedStaffs(companyId);
+            dataGridView1.Rows.Clear();
             foreach (Person p in result)
             {
 
@@ -67,10 +68,11 @@ namespace ATS.Service.WCFClient
 
         private void button2_Click(object sender, EventArgs e)
         {
+            int companyId = Convert.ToInt32(tbCompany.Text);
             try
             {
                 PersonServiceClient psClient = new PersonServiceClient();
-                var result = psClient.GetSupervisedStaffs(-1);
+                var result = psClient.GetSupervisedStaffs(companyId);
                 MessageBox.Show("No Error");
             }
             catch (FaultException<ATSFault> fe)
