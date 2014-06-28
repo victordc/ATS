@@ -34,8 +34,8 @@ namespace ATS.Data.Model
         {
             ATSCEEntities context = new ATSCEEntities();
             IEnumerable<TimeSheetMaster> timeSheetMasters = from master in context.TimeSheetMasters
-                                                       where master.PersonId == personId
-                                                       select master;
+                                                            where master.PersonId == personId
+                                                            select master;
             return timeSheetMasters;
         }
 
@@ -43,8 +43,8 @@ namespace ATS.Data.Model
         {
             ATSCEEntities context = new ATSCEEntities();
             var timeSheetMasters = from master in context.TimeSheetMasters
-                                    where master.PersonId == personId && master.Month == month && master.Year == year
-                                    select master;
+                                   where master.PersonId == personId && master.Month == month && master.Year == year
+                                   select master;
             var timeSheetMaster = timeSheetMasters.FirstOrDefault<TimeSheetMaster>();
             return timeSheetMaster;
         }
@@ -139,11 +139,11 @@ namespace ATS.Data.Model
             {
                 ATSCEEntities context = new ATSCEEntities();
                 var timeSheetMasters = from master in context.TimeSheetMasters
-                                                                where master.PersonId == this.PersonId && master.Month == this.Month && master.Year == this.Year
-                                                                select master;
+                                       where master.PersonId == this.PersonId && master.Month == this.Month && master.Year == this.Year
+                                       select master;
                 var timeSheetMaster = timeSheetMasters.FirstOrDefault<TimeSheetMaster>();
 
-                if(timeSheetMaster == null)
+                if (timeSheetMaster == null)
                 {
                     return true;
                 }
@@ -153,6 +153,17 @@ namespace ATS.Data.Model
             {
                 return false;
             }
+        }
+
+        public bool ValidateDate()
+        {
+            DateTime period = new DateTime(this.Year, this.Month, 1);
+            DateTime extendedPeriod = new DateTime(this.Year, this.Month, 1).AddMonths(3);
+            if (extendedPeriod > DateTime.Now && period <= DateTime.Today)
+            {
+                return true;
+            }
+            return false;
         }
     }
 

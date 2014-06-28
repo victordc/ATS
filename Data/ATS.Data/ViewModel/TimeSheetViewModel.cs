@@ -30,8 +30,6 @@ namespace ATS.Data.ViewModel
         public string PersonUserName { get; set; }
         [DisplayName("Manager")]
         public string SupervisorPersonName { get; set; }
-        [DisplayName("Company")]
-        public string CompanyCompanyDescription { get; set; }
         [DisplayName("Agent Name")]
         public string AgentPersonName { get; set; }
     }

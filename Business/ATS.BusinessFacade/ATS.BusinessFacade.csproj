@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="IAdminFacade.cs" />
     <Compile Include="AdminFacade.cs" />
+    <Compile Include="MaintainCompanyFacade.cs" />
+    <Compile Include="MaintainPersonFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

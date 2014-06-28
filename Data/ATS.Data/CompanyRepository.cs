@@ -7,7 +7,7 @@ using ATS.Data.Model;
 
 namespace ATS.Data.DAL
 {
-    class CompanyRepository
+    public class CompanyRepository
     {
         private ATSCEEntities context;
 

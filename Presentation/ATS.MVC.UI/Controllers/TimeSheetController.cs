@@ -31,6 +31,7 @@ namespace ATS.MVC.UI.Controllers
         {
             //do something for the to address
             TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
+            Person person = null;
             string subject = "";
             string message = "";
 
@@ -38,21 +39,26 @@ namespace ATS.MVC.UI.Controllers
             {
                 subject = "Reminder to submit timesheet for month of " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(master.Month);
                 message = "Please submit your timesheet to your supervisor as soon as possible. From your friendly agent";
+                person = TimesheetRepository.GetPersonById(master.PersonId);
             }
             else if (master.Status == Convert.ToInt32(TimeSheetStatus.Submitted))
             {
                 subject = "Reminder to approve timesheet for month of " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(master.Month);
                 message = "Please evaluate the timesheet from your staff as soon as possible. From your friendly agent";
+                person = TimesheetRepository.GetPersonById(master.Supervisor.PersonId);
             }
             //send email
-            EmailManager.SendReminder("nusissdotnetagent01@gmail.com", "nusissdotnet", "vinaykasireddy@gmail.com", subject, message);
+            if (person != null)
+            {
+                EmailManager.SendReminder("nusissdotnetagent01@gmail.com", "nusissdotnet", person.Email, subject, message);
+            }
             return RedirectToAction("Reminder");
         }
 
         public ActionResult SupervisorEdit()
         {
-            //var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMastersBySupervisorId(UserSetting.Current.PersonId);
-            var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMasters();
+            var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMastersBySupervisorId(UserSetting.Current.PersonId);
+            //var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMasters();
 
             return View(timeSheetMasters.ToList());
         }
@@ -74,11 +80,11 @@ namespace ATS.MVC.UI.Controllers
         [HttpPost]
         public ActionResult StaffDetails(TimeSheetMasterViewModel viewModel)
         {
-            if(Request.Form["approve"] != null)
+            if (Request.Form["approve"] != null)
             {
                 viewModel.Status = Convert.ToInt32(TimeSheetStatus.Approved);
             }
-            else if(Request.Form["reject"] != null)
+            else if (Request.Form["reject"] != null)
             {
                 viewModel.Status = Convert.ToInt32(TimeSheetStatus.Rejected);
             }
@@ -106,8 +112,6 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Details(int id)
         {
             TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
-            ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
-
             foreach (var item in master.TimeSheetDetail)
             {
                 item.LeaveCategories = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", item.LeaveCategoryId);
@@ -117,16 +121,27 @@ namespace ATS.MVC.UI.Controllers
             return View(viewModel);
         }
 
-        //
-        // GET: /TimeSheet/Create
+        
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(int year = 0, int month = 0)
         {
+            DateTime currentDateTime;
+            if(year == 0 && month == 0)
+            {
+                currentDateTime = DateTime.Today;
+            }
+            else
+            {
+                currentDateTime = new DateTime(year, month, 1);
+            }
+             
             PersonRepository personRepository = new PersonRepository(new ATSCEEntities());
             Staff staff = personRepository.GetStaffByID(UserSetting.Current.PersonId);
-            TimeSheetMaster master = TimeSheetMasterRepository.CreateTimeSheetMasterTemplate(DateTime.Today, staff);
+            TimeSheetMaster master = TimeSheetMasterRepository.CreateTimeSheetMasterTemplate(currentDateTime, staff);
             ViewBag.LeaveCategories = TimeSheetMasterRepository.GetLeaveCategoriesList();
             ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
+            ViewBag.YearList = TimeSheetMasterRepository.GetYearList();
+            ViewBag.MonthList = TimeSheetMasterRepository.GetMonthList();
             TimeSheetMasterViewModel viewModel = Mapper.Map<TimeSheetMaster, TimeSheetMasterViewModel>(master);
 
             return View(viewModel);
@@ -146,18 +161,42 @@ namespace ATS.MVC.UI.Controllers
                     masterViewModel.Status = Convert.ToInt32(TimeSheetStatus.Submitted);
                 }
                 TimeSheetMaster master = Mapper.Map<TimeSheetMasterViewModel, TimeSheetMaster>(masterViewModel);
-                if(master.ValidateWhenCreate())
+
+                if (master.ValidateWhenCreate())
                 {
-                    SaveTimeSheet(master);
-                    return RedirectToAction("Index");
+                    if(master.ValidateDate())
+                    {
+                        bool isValid = true;
+                        foreach(TimeSheetDetail detail in master.TimeSheetDetail)
+                        {
+                            if(!detail.ValidateTime())
+                            {
+                                isValid = false;
+                                string error = "The start time is later than the end time for " + detail.StartTime.Date.ToString("d");
+                                ModelState.AddModelError("", error);
+                            }
+                        }
+                        if(isValid)
+                        {
+                            SaveTimeSheet(master);
+                            return RedirectToAction("Index");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Timesheet must only be created for the past 3 months");
+                    }
                 }
                 else
-                    ModelState.AddModelError("", "The time sheet has already been created for this month.");
+                    ModelState.AddModelError("", "The timesheet has already been created for this month.");
             }
             else
-                ModelState.AddModelError("", "errors in the details. please correct and resubmit.");
+                ModelState.AddModelError("", "Errors in the details. Please correct and resubmit.");
+
             ViewBag.LeaveCategories = TimeSheetMasterRepository.GetLeaveCategoriesList();
             ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
+            ViewBag.YearList = TimeSheetMasterRepository.GetYearList();
+            ViewBag.MonthList = TimeSheetMasterRepository.GetMonthList();
             return View(masterViewModel);
         }
 
@@ -166,49 +205,49 @@ namespace ATS.MVC.UI.Controllers
         {
             PersonRepository personRepository = new PersonRepository(new ATSCEEntities());
 
-                master.Remarks = string.IsNullOrEmpty(master.Remarks) ? string.Empty : master.Remarks;
-                foreach (var item in master.TimeSheetDetail)
+            master.Remarks = string.IsNullOrEmpty(master.Remarks) ? string.Empty : master.Remarks;
+            foreach (var item in master.TimeSheetDetail)
+            {
+                var uploadDir = "~/uploads";
+                var filePath = string.Empty;
+                var fileUrl = string.Empty;
+
+
+                if (item.SupportDocumentUpload1 != null && item.SupportDocumentUpload1.ContentLength >= 0)
                 {
-                    var uploadDir = "~/uploads";
-                    var filePath = string.Empty;
-                    var fileUrl = string.Empty;
-                    
+                    filePath = Path.Combine(Server.MapPath(uploadDir), item.SupportDocumentUpload1.FileName);
+                    fileUrl = Path.Combine(uploadDir, item.SupportDocumentUpload1.FileName);
+                    item.SupportDocumentUpload1.SaveAs(filePath);
+                    item.SupportDocument1 = fileUrl;
 
-                    if (item.SupportDocumentUpload1 != null && item.SupportDocumentUpload1.ContentLength >= 0)
-                    {
-                        filePath = Path.Combine(Server.MapPath(uploadDir), item.SupportDocumentUpload1.FileName);
-                        fileUrl = Path.Combine(uploadDir, item.SupportDocumentUpload1.FileName);
-                        item.SupportDocumentUpload1.SaveAs(filePath);
-                        item.SupportDocument1 = fileUrl;
-
-                        filePath = string.Empty;
-                        fileUrl = string.Empty;
-                    }
-
-                    if (item.SupportDocumentUpload2 != null && item.SupportDocumentUpload2.ContentLength >= 0)
-                    {
-                        filePath = Path.Combine(Server.MapPath(uploadDir), item.SupportDocumentUpload2.FileName);
-                        fileUrl = Path.Combine(uploadDir, item.SupportDocumentUpload2.FileName);
-                        item.SupportDocumentUpload2.SaveAs(filePath);
-                        item.SupportDocument2 = fileUrl;
-
-                        filePath = string.Empty;
-                        fileUrl = string.Empty;
-                    }
-
-                    if (item.SupportDocumentUpload3 != null && item.SupportDocumentUpload3.ContentLength >= 0)
-                    {
-                        filePath = Path.Combine(Server.MapPath(uploadDir), item.SupportDocumentUpload3.FileName);
-                        fileUrl = Path.Combine(uploadDir, item.SupportDocumentUpload3.FileName);
-                        item.SupportDocumentUpload3.SaveAs(filePath);
-                        item.SupportDocument3 = fileUrl;
-
-                        filePath = string.Empty;
-                        fileUrl = string.Empty;
-                    }
+                    filePath = string.Empty;
+                    fileUrl = string.Empty;
                 }
-                
-                master.Save();
+
+                if (item.SupportDocumentUpload2 != null && item.SupportDocumentUpload2.ContentLength >= 0)
+                {
+                    filePath = Path.Combine(Server.MapPath(uploadDir), item.SupportDocumentUpload2.FileName);
+                    fileUrl = Path.Combine(uploadDir, item.SupportDocumentUpload2.FileName);
+                    item.SupportDocumentUpload2.SaveAs(filePath);
+                    item.SupportDocument2 = fileUrl;
+
+                    filePath = string.Empty;
+                    fileUrl = string.Empty;
+                }
+
+                if (item.SupportDocumentUpload3 != null && item.SupportDocumentUpload3.ContentLength >= 0)
+                {
+                    filePath = Path.Combine(Server.MapPath(uploadDir), item.SupportDocumentUpload3.FileName);
+                    fileUrl = Path.Combine(uploadDir, item.SupportDocumentUpload3.FileName);
+                    item.SupportDocumentUpload3.SaveAs(filePath);
+                    item.SupportDocument3 = fileUrl;
+
+                    filePath = string.Empty;
+                    fileUrl = string.Empty;
+                }
+            }
+
+            master.Save();
         }
 
         //
@@ -240,8 +279,22 @@ namespace ATS.MVC.UI.Controllers
                     masterViewModel.Status = Convert.ToInt32(TimeSheetStatus.Submitted);
                 }
                 TimeSheetMaster master = Mapper.Map<TimeSheetMasterViewModel, TimeSheetMaster>(masterViewModel);
-                SaveTimeSheet(master);
-                return RedirectToAction("Index");
+
+                bool isValid = true;
+                foreach (TimeSheetDetail detail in master.TimeSheetDetail)
+                {
+                    if (!detail.ValidateTime())
+                    {
+                        isValid = false;
+                        string error = "The start time is later than the end time for " + detail.StartTime.Date.ToString();
+                        ModelState.AddModelError("", error);
+                    }
+                }
+                if (isValid)
+                {
+                    SaveTimeSheet(master);
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.LeaveCategories = TimeSheetMasterRepository.GetLeaveCategoriesList();

@@ -13,6 +13,14 @@ namespace ATS.MVC.UI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //timesheet
+            routes.MapRoute(
+                name: "TimeSheetRoute",
+                url: "TimeSheet/Create/{year}/{month}",
+                defaults: new { controller = "TimeSheet", action = "Create", year = "", month = "" },
+                constraints: new { month = @"^(0?[1-9]|1[012])$" }
+            );
+
             routes.MapRoute(
                 name: "CalendarRoute",
                 url: "{controller}/{action}/{year}/{month}",
@@ -26,7 +34,7 @@ namespace ATS.MVC.UI
              "Reports/{reportname}",                // URL
              "~/Webforms/{reportname}.aspx"   // File
              );
-            
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

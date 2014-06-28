@@ -24,7 +24,7 @@
         var leaves = [];
         @foreach (var item in Model)
         {
-            @:leaves.push({ start: "@String.Format("{0:yyyy-MM-dd}", item.StartDate)", end: "@String.Format("{0:yyyy-MM-dd}", item.EndDate)", title: "@item.Person.PersonName.ToString() @item.LeaveCategory.LeaveCategoryDesc", url: "@String.Format("/Calendar/MyDetail/{0}/{1}", item.StartDate.Year, item.StartDate.Month)" });
+            @:leaves.push({ start: "@String.Format("{0:yyyy-MM-dd}", item.StartDate)", end: "@String.Format("{0:yyyy-MM-dd}", item.EndDate.AddHours(24))", title: "@item.Person.PersonName.ToString() @item.LeaveCategory.LeaveCategoryDesc", url: "@String.Format("/Calendar/MyDetail/{0}/{1}", item.StartDate.Year, item.StartDate.Month)" });
         }
 
         $('#calendar').fullCalendar({

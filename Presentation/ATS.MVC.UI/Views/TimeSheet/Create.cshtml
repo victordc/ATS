@@ -16,43 +16,78 @@
         <tr>
             <td>
                 @Html.DisplayNameFor(model => model.PersonPersonName)
-                @Html.DisplayFor(model => model.PersonPersonName)
-                @Html.HiddenFor(model => model.PersonId)
             </td>
             <td>
                 @Html.DisplayNameFor(model => model.SupervisorPersonName)
-                @Html.DisplayFor(model => model.SupervisorPersonName)
-                @Html.HiddenFor(model => model.ManagerId)
             </td>
             <td>
-                @Html.DisplayNameFor(model => model.CompanyCompanyDescription)
-                @Html.DisplayFor(model => model.CompanyCompanyDescription)
-                @Html.DisplayFor(model => model.AgentPersonName)
-                @Html.HiddenFor(model => model.AgencyId)
+                @Html.DisplayNameFor(model => model.AgentPersonName)
             </td>
             <td>
                 @Html.DisplayNameFor(model => model.Month)
-                @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Month)
-                @Html.HiddenFor(model => model.Month)
             </td>
             <td>
                 @Html.DisplayNameFor(model => model.Year)
-                @Html.DisplayFor(model => model.Year)
-                @Html.HiddenFor(model => model.Year)
             </td>
             <td>
                 @Html.DisplayNameFor(model => model.Status)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.Remarks)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.PersonPersonName)
+                @Html.HiddenFor(model => model.PersonPersonName)
+                @Html.HiddenFor(model => model.PersonId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SupervisorPersonName)
+                @Html.HiddenFor(model => model.SupervisorPersonName)
+                @Html.HiddenFor(model => model.ManagerId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.AgentPersonName)
+                @Html.HiddenFor(model => model.AgentPersonName)
+                @Html.HiddenFor(model => model.AgencyId)
+            </td>
+            <td>
+                @Html.DropDownListFor(model => model.Month, new SelectList(ViewBag.MonthList, "Value", "Text", Model.Month), new { @onchange = "onMonthYearChange()" })
+            </td>
+            <td>
+                @Html.DropDownListFor(model => model.Year, new SelectList(ViewBag.YearList, "Value", "Text", Model.Year), new { @onchange = "onMonthYearChange()" })
+            </td>
+            <td>
                 @Html.HiddenFor(model => model.Status)
-                @Html.DropDownListFor(model => model.Status, new SelectList(ViewBag.StatusList, "Value", "Text"),new { disabled = "disabled" })
+                @switch (Model.Status)
+                {
+                    case 0:
+                        ViewBag.Status = "Draft";
+                        break;
+                    case 1:
+                        ViewBag.Status = "Approved";
+                        break;
+                    case 2:
+                        ViewBag.Status = "Submitted";
+                        break;
+                    case 3:
+                        ViewBag.Status = "Rejected";
+                        break;
+                    default:
+                        ViewBag.Status = "No Status Available";
+                        break;
+                }
+                @ViewBag.Status
             </td>
             <td>
                 @Html.HiddenFor(model => model.Remarks)
             </td>
         </tr>
     </table>
-    
+
     <fieldset>
-        <legend>TimeSheetDetail</legend>
+        <legend>Timesheet Details</legend>
         <table class="table table-striped table-bordered table-hover">
             <tr>
                 <th>
@@ -74,46 +109,57 @@
 
                 <th></th>
             </tr>
-            @for (int i = 0; i < Model.TimeSheetDetailViewModel.Count; i++ )
+            @for (int i = 0; i < Model.TimeSheetDetailViewModel.Count; i++)
             {
-                
+
                 <tr>
-                    <td>@Html.DisplayFor(model => Model.TimeSheetDetailViewModel[i].TimeSheetDate)
-                        @Html.HiddenFor(model => Model.TimeSheetDetailViewModel[i].TimeSheetDate)
-                    </td>
                     <td>
-                        @Html.EditorFor(model => Model.TimeSheetDetailViewModel[i].StartTime)
-                        @Html.ValidationMessageFor(model => Model.TimeSheetDetailViewModel[i].StartTime)
-                    </td>
-                    <td>
-                        @Html.EditorFor(model => Model.TimeSheetDetailViewModel[i].EndTime)
-                        @Html.ValidationMessageFor(model => Model.TimeSheetDetailViewModel[i].EndTime)
-                    </td>
-                    <td>
-                        @Html.DropDownListFor(model => Model.TimeSheetDetailViewModel[i].LeaveCategoryId, new SelectList(ViewBag.LeaveCategories, "Value", "Text", Model.TimeSheetDetailViewModel[i].LeaveCategoryId))</td>
+                        @Html.DisplayFor(model => Model.TimeSheetDetailViewModel[i].TimeSheetDate)
+                    @Html.HiddenFor(model => Model.TimeSheetDetailViewModel[i].TimeSheetDate)
+                </td>
+                <td>
+                    @Html.EditorFor(model => Model.TimeSheetDetailViewModel[i].StartTime)
+                    @Html.ValidationMessageFor(model => Model.TimeSheetDetailViewModel[i].StartTime)
+                </td>
+                <td>
+                    @Html.EditorFor(model => Model.TimeSheetDetailViewModel[i].EndTime)
+                    @Html.ValidationMessageFor(model => Model.TimeSheetDetailViewModel[i].EndTime)
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => Model.TimeSheetDetailViewModel[i].LeaveCategoryId, new SelectList(ViewBag.LeaveCategories, "Value", "Text", Model.TimeSheetDetailViewModel[i].LeaveCategoryId))
+                </td>
 
-                    <td>@Html.EditorFor(model => Model.TimeSheetDetailViewModel[i].Remarks)</td>
-                    <td>@Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload1, new { type = "file" })
-                        <br />
-                        @Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload2, new { type = "file" })
-                        <br />
-                        @Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload3, new { type = "file" })
-                    </td>
+                <td>@Html.EditorFor(model => Model.TimeSheetDetailViewModel[i].Remarks)</td>
+                <td>
+                    @Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload1, new { type = "file" })
+                <br />
+                @Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload2, new { type = "file" })
+                <br />
+                @Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload3, new { type = "file" })
+            </td>
 
-                </tr>
+        </tr>
             }
-            </table>
+        </table>
         <p>
-            <input type="submit" name="save" value="Save" style="color:blue" />
-            <input type="submit" name="submit" value="Submit" style="color:purple" />
+            <input type="submit" value="Save" name="save" class="btn btn-info" />
+            <input type="submit" value="Submit" name="submit" class="btn btn-info" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        function onMonthYearChange() {
+            var month = $("#Month").val();
+            var year = $("#Year").val();
+            window.location = "/TimeSheet/Create/" + year + "/" + month;
+        }
+    </script>
 }

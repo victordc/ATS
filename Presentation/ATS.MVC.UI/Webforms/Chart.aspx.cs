@@ -27,7 +27,7 @@ namespace ATS.Webforms.UI
             {
                 //Get this user
                 int currentUserId = UserSetting.Current.PersonId;
-                history = TimesheetRepository.GetLeavePlans(currentUserId, DateTime.Now.Year);
+                history = TimesheetRepository.GetAdmittedLeavePlans(currentUserId, DateTime.Now.Year);
 
                 //Get leaves and credits from CodeTable
                 categories = TimesheetRepository.GetLeaveCategories();
@@ -53,7 +53,7 @@ namespace ATS.Webforms.UI
             foreach (LeavePlan lp in history)
             {
                 cr = new ChartReport();
-                if (lp.PersonId == id && lp.Admitted == true)
+                if (lp.PersonId == id)
                 {
                     cr.StartDate = lp.StartDate.ToString("yyyy-MM-dd");
                     double duration = lp.Duration;

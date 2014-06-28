@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table table-striped table-bordered table-hover">
     <tr>
@@ -32,7 +32,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Remarks)
         </th>
-        <th></th>
+        <th>
+            Actions
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -79,16 +81,18 @@
                 @Html.DisplayFor(modelItem => item.Remarks)
             </td>
             <td>
+
                 @if (item.Status == Convert.ToInt32(ATS.Data.DAL.TimeSheetStatus.Draft) || item.Status == Convert.ToInt32(ATS.Data.DAL.TimeSheetStatus.Rejected))
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id=item.TimeSheetMasterId })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.TimeSheetMasterId })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.TimeSheetMasterId }, new { @class = "btn btn-primary" })
+                    <span>&nbsp;</span>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TimeSheetMasterId }, new { @class = "btn btn-primary" })
+                    <span>&nbsp;</span>
                 }
-                    
-                    @Html.ActionLink("View", "Details", new { id = item.TimeSheetMasterId })
+                @Html.ActionLink("View", "Details", new { id = item.TimeSheetMasterId }, new { @class = "btn btn-primary" })
+
             </td>
         </tr>
     }
 
 </table>
-

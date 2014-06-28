@@ -183,7 +183,6 @@
     <Compile Include="Controllers\LeavePlanController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\TimeSheetController.cs" />
-    <Compile Include="Controllers\TimeSheetMasterController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -412,11 +411,6 @@
     <Content Include="Views\TimeSheet\Edit.cshtml" />
     <Content Include="Views\TimeSheet\Delete.cshtml" />
     <Content Include="Views\LeavePlan\Supervise.cshtml" />
-    <Content Include="Views\TimeSheetMaster\Index.cshtml" />
-    <Content Include="Views\TimeSheetMaster\Details.cshtml" />
-    <Content Include="Views\TimeSheetMaster\Create.cshtml" />
-    <Content Include="Views\TimeSheetMaster\Edit.cshtml" />
-    <Content Include="Views\TimeSheetMaster\Delete.cshtml" />
     <Content Include="Views\Calendar\Team.cshtml" />
     <Content Include="Views\Calendar\MyDetail.cshtml" />
     <Content Include="Views\Calendar\TeamDetail.cshtml" />

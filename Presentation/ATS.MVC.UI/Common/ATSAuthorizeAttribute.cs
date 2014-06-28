@@ -11,7 +11,15 @@ namespace ATS.MVC.UI.Common
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             if (httpContext == null) throw new ArgumentNullException("httpContext");
-            if (httpContext.User.Identity.IsAuthenticated == false) return false;
+            string controlName = httpContext.Request.RequestContext.RouteData.Values["controller"].ToString();
+
+            if (controlName == "Home" || controlName == "Account")
+            {
+                return true;
+            }
+
+            if (httpContext.User.Identity.IsAuthenticated == false) 
+                return false;
             try
             {
                 //string controllName = httpContext.Request.RequestContext.RouteData.Values["controller"].ToString();

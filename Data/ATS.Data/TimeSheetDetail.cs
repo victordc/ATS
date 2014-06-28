@@ -92,5 +92,14 @@ namespace ATS.Data.Model
             }
 
         }
+
+        public bool ValidateTime()
+        {
+            if(this.StartTime <= this.EndTime)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

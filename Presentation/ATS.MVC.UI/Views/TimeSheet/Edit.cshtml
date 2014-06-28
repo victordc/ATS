@@ -15,37 +15,76 @@
         <tr>
             <td>
                 @Html.HiddenFor(model => model.TimeSheetMasterId)
-                @Html.DisplayFor(model => model.PersonPersonName)
+                @Html.DisplayNameFor(model => model.PersonPersonName)
                 @Html.HiddenFor(model => model.PersonId)
             </td>
             <td>
                 @Html.DisplayNameFor(model => model.SupervisorPersonName)
-                @Html.DisplayFor(model => model.SupervisorPersonName)
                 @Html.HiddenFor(model => model.ManagerId)
             </td>
             <td>
-                @Html.DisplayNameFor(model => model.CompanyCompanyDescription)
-                @Html.DisplayFor(model => model.CompanyCompanyDescription)
-                @Html.DisplayFor(model => model.AgentPersonName)
+                @Html.DisplayNameFor(model => model.AgentPersonName)
                 @Html.HiddenFor(model => model.AgencyId)
             </td>
             <td>
                 @Html.DisplayNameFor(model => model.Month)
-                @Html.DisplayFor(model => model.Month)
                 @Html.HiddenFor(model => model.Month)
             </td>
             <td>
                 @Html.DisplayNameFor(model => model.Year)
-                @Html.DisplayFor(model => model.Year)
                 @Html.HiddenFor(model => model.Year)
             </td>
             <td>
                 @Html.DisplayNameFor(model => model.Status)
                 @Html.HiddenFor(model => model.Status)
-                @Html.DropDownListFor(model => model.Status, new SelectList(ViewBag.StatusList, "Value", "Text"),new { disabled = "disabled" })
             </td>
             <td>
+                @Html.DisplayNameFor(model => model.Remarks)
                 @Html.HiddenFor(model => model.Remarks)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.PersonPersonName)
+                @Html.HiddenFor(model => model.PersonPersonName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SupervisorPersonName)
+                @Html.HiddenFor(model => model.SupervisorPersonName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.AgentPersonName)
+                @Html.HiddenFor(model => model.AgentPersonName)
+            </td>
+            <td>
+                @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Month)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Year)
+            </td>
+            <td>
+                @Html.HiddenFor(model => model.Status)
+                @switch (Model.Status)
+                {
+                    case 0:
+                        ViewBag.Status = "Draft";
+                        break;
+                    case 1:
+                        ViewBag.Status = "Approved";
+                        break;
+                    case 2:
+                        ViewBag.Status = "Submitted";
+                        break;
+                    case 3:
+                        ViewBag.Status = "Rejected";
+                        break;
+                    default:
+                        ViewBag.Status = "No Status Available";
+                        break;
+                }
+                @ViewBag.Status
+            </td>
+            <td>
             </td>
         </tr>
     </table>
@@ -92,37 +131,61 @@
                     <td>@Html.DropDownListFor(model => Model.TimeSheetDetailViewModel[i].LeaveCategoryId, new SelectList(ViewBag.LeaveCategories, "Value", "Text", Model.TimeSheetDetailViewModel[i].LeaveCategoryId))</td>
                     <td>@Html.EditorFor(model => Model.TimeSheetDetailViewModel[i].Remarks)</td>
                     <td>@Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload1, new { type = "file" })
-                        @if(!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument1))
+                        @if (!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument1))
                         {
-                            <a href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument1)" target="_blank">Download</a>
+                            string iddocumentupload1 = @Html.IdFor(model => Model.TimeSheetDetailViewModel[i].SupportDocument1).ToString();
+                            string documentlinkid1 = "downloaddocument" + @iddocumentupload1;
+                            string deletelinkid1 = "deletelinkid" + @iddocumentupload1;
+                            <a id="@documentlinkid1" href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument1)" target="_blank">Download</a>
+                            <a href="javascript:deleteFile(@iddocumentupload1, @documentlinkid1, @deletelinkid1);" id="@deletelinkid1">Delete</a>
+                            @Html.HiddenFor(model => Model.TimeSheetDetailViewModel[i].SupportDocument1)
                         }
                         <br />
                         @Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload2, new { type = "file" })
-                        @if(!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument2))
+                        @if (!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument2))
                         {
-                            <a href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument2)" target="_blank">Download</a>
+                            string iddocumentupload2 = @Html.IdFor(model => Model.TimeSheetDetailViewModel[i].SupportDocument2).ToString();
+                            string documentlinkid2 = "downloaddocument" + @iddocumentupload2;
+                            string deletelinkid2 = "deletelinkid" + @iddocumentupload2;
+                            <a id="@documentlinkid2" href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument2)" target="_blank">Download</a>
+                            <a href="javascript:deleteFile(@iddocumentupload2, @documentlinkid2, @deletelinkid2);" id="@deletelinkid2">Delete</a>
+                            @Html.HiddenFor(model => Model.TimeSheetDetailViewModel[i].SupportDocument2)
                         }
                         <br />
                         @Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload3, new { type = "file" })
-                        @if(!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument3))
+                        @if (!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument3))
                         {
-                            <a href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument3)" target="_blank">Download</a>
+                            string iddocumentupload3 = @Html.IdFor(model => Model.TimeSheetDetailViewModel[i].SupportDocument3).ToString();
+                            string documentlinkid3 = "downloaddocument" + @iddocumentupload3;
+                            string deletelinkid3 = "deletelinkid" + @iddocumentupload3;
+                            <a id="@documentlinkid3" href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument3)" target="_blank">Download</a>
+                            <a href="javascript:deleteFile(@iddocumentupload3, @documentlinkid3, @deletelinkid3);" id="@deletelinkid3">Delete</a>
+                            @Html.HiddenFor(model => Model.TimeSheetDetailViewModel[i].SupportDocument3)
                         }
                     </td>
                 </tr>
             }
         </table>
         <p>
-            <input type="submit" name="save" value="Save" style="color:blue" />
-            <input type="submit" name="submit" value="Submit" style="color:purple" />
+            <input type="submit" name="save" value="Save" class="btn btn-info" />
+            <input type="submit" name="submit" value="Submit" class="btn btn-info" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        function deleteFile(iddocumentupload, documentlinkid, deletelinkid) {
+            $('#' + iddocumentupload.id).val("");
+            $('#' + documentlinkid.id).hide();
+            $('#' + deletelinkid.id).hide();;
+        }
+
+        
+    </script>
 }
