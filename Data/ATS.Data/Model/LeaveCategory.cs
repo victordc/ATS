@@ -21,6 +21,7 @@ namespace ATS.Data.Model
     
         public int LeaveCategoryId { get; set; }
         public string LeaveCategoryDesc { get; set; }
+        public int LeaveCategoryLimit { get; set; }
     
         public virtual ICollection<LeavePlan> LeavePlans { get; set; }
     }
