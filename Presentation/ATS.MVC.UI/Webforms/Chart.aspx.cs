@@ -61,8 +61,9 @@ namespace ATS.Webforms.UI
                     {
                         if (ct.LeaveCategoryDesc.ToLower() == lp.LeaveCategory.LeaveCategoryDesc.ToLower())
                         {
-                            ct.LeaveCategoryLimit = Convert.ToInt32(Convert.ToDouble(ct.LeaveCategoryLimit) - duration);
+                            ct.LeaveCategoryLimit = Convert.ToInt32(ct.LeaveCategoryLimit - duration);
                         }
+                        //Populate object
                         if (ct.LeaveCategoryDesc.ToLower() == "mc") { cr.MC = Convert.ToDouble(ct.LeaveCategoryLimit); }
                         else if (ct.LeaveCategoryDesc.ToLower() == "annual") { cr.Annual = Convert.ToDouble(ct.LeaveCategoryLimit); }
                         else if (ct.LeaveCategoryDesc.ToLower() == "exams") { cr.Exams = Convert.ToDouble(ct.LeaveCategoryLimit); }
