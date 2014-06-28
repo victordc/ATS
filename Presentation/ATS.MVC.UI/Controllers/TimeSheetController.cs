@@ -94,6 +94,7 @@ namespace ATS.MVC.UI.Controllers
             TimeSheetMaster master = Mapper.Map<TimeSheetMasterViewModel, TimeSheetMaster>(viewModel);
 
             Person person = TimesheetRepository.GetPersonById(master.PersonId);
+            Person agent = TimesheetRepository.GetPersonById((int)master.AgencyId);
             string subject = "";
             string message = "";
 
@@ -110,7 +111,7 @@ namespace ATS.MVC.UI.Controllers
             //send email
             if (person != null)
             {
-                EmailManager.SendReminder("nusissdotnetagent01@gmail.com", "nusissdotnet", person.Email, master.Agent.Email, subject, message);
+                EmailManager.SendReminder("nusissdotnetagent01@gmail.com", "nusissdotnet", person.Email, agent.Email, subject, message);
             }
 
             master.SaveMasterOnly();
