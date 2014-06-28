@@ -46,11 +46,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LeaveDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LeaveDetailForm.Designer.cs">
+      <DependentUpon>LeaveDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LeaveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LeaveForm.Designer.cs">
+      <DependentUpon>LeaveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PersonDetailForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PersonDetailForm.Designer.cs">
       <DependentUpon>PersonDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\LeaveClient\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\TimesheetClient\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\WCFPerson\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -65,6 +93,27 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimesheetDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimesheetDetailForm.Designer.cs">
+      <DependentUpon>TimesheetDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimesheetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimesheetForm.Designer.cs">
+      <DependentUpon>TimesheetForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="LeaveDetailForm.resx">
+      <DependentUpon>LeaveDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LeaveForm.resx">
+      <DependentUpon>LeaveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PersonDetailForm.resx">
       <DependentUpon>PersonDetailForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -80,6 +129,12 @@
     <EmbeddedResource Include="StaffForm.resx">
       <DependentUpon>StaffForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TimesheetDetailForm.resx">
+      <DependentUpon>TimesheetDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimesheetForm.resx">
+      <DependentUpon>TimesheetForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -89,6 +144,38 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\LeaveClient\ATS.Service.WCFClient.LeaveClient.Leave.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LeaveClient\ATS.Service.WCFClient.LeaveClient.LeaveSummary.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LeaveClient\ATS.Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LeaveClient\service.wsdl" />
+    <None Include="Service References\LeaveClient\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LeaveClient\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TimesheetClient\ATS.Service.WCFClient.TimesheetClient.TimeSheet.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimesheetClient\ATS.Service.WCFClient.TimesheetClient.TimesheetSummary.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimesheetClient\ATS.Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TimesheetClient\service.wsdl" />
+    <None Include="Service References\TimesheetClient\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TimesheetClient\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\WCFPerson\ATS.Service.WCFClient.WCFPerson.Person.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -110,6 +197,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\LeaveClient\" />
+    <WCFMetadataStorage Include="Service References\TimesheetClient\" />
     <WCFMetadataStorage Include="Service References\WCFPerson\" />
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +209,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\WCFPerson\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LeaveClient\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LeaveClient\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LeaveClient\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TimesheetClient\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TimesheetClient\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TimesheetClient\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

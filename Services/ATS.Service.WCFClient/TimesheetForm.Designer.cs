@@ -1,6 +1,6 @@
 ﻿namespace ATS.Service.WCFClient
 {
-    partial class StaffForm
+    partial class TimesheetForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,111 +28,144 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.tbMonth = new System.Windows.Forms.TextBox();
+            this.tbYear = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StaffName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Supervisor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Agent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WorkingHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
+            // tbMonth
+            // 
+            this.tbMonth.Location = new System.Drawing.Point(242, 37);
+            this.tbMonth.Name = "tbMonth";
+            this.tbMonth.Size = new System.Drawing.Size(100, 20);
+            this.tbMonth.TabIndex = 12;
+            this.tbMonth.Text = "6";
+            // 
+            // tbYear
+            // 
+            this.tbYear.Location = new System.Drawing.Point(79, 39);
+            this.tbYear.Name = "tbYear";
+            this.tbYear.Size = new System.Drawing.Size(100, 20);
+            this.tbYear.TabIndex = 11;
+            this.tbYear.Text = "2014";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(190, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Month";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(34, 39);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Year";
+            // 
             // dataGridView1
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
             this.StaffName,
-            this.Phone,
             this.Supervisor,
-            this.Agent});
-            this.dataGridView1.Location = new System.Drawing.Point(27, 77);
+            this.Agent,
+            this.WorkingHours,
+            this.Status});
+            this.dataGridView1.Location = new System.Drawing.Point(37, 79);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(542, 150);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.Size = new System.Drawing.Size(652, 150);
+            this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(58, 37);
+            this.button1.Location = new System.Drawing.Point(417, 34);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Show Staffs";
+            this.button1.Size = new System.Drawing.Size(122, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Timesheet Report";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(309, 37);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Show Fault";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // ID
             // 
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
             // 
             // StaffName
             // 
             this.StaffName.HeaderText = "Staff Name";
             this.StaffName.Name = "StaffName";
-            this.StaffName.ReadOnly = true;
-            // 
-            // Phone
-            // 
-            this.Phone.HeaderText = "Phone";
-            this.Phone.Name = "Phone";
-            this.Phone.ReadOnly = true;
             // 
             // Supervisor
             // 
             this.Supervisor.HeaderText = "Supervisor";
             this.Supervisor.Name = "Supervisor";
-            this.Supervisor.ReadOnly = true;
             // 
             // Agent
             // 
             this.Agent.HeaderText = "Agent";
             this.Agent.Name = "Agent";
-            this.Agent.ReadOnly = true;
             // 
-            // StaffForm
+            // WorkingHours
+            // 
+            this.WorkingHours.HeaderText = "Working Hours";
+            this.WorkingHours.Name = "WorkingHours";
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            // 
+            // TimesheetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(648, 329);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(751, 262);
+            this.Controls.Add(this.tbMonth);
+            this.Controls.Add(this.tbYear);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
-            this.Name = "StaffForm";
-            this.Load += new System.EventHandler(this.StaffForm_Load);
+            this.Controls.Add(this.button1);
+            this.Name = "TimesheetForm";
+            this.Text = "TimesheetForm";
+            this.Load += new System.EventHandler(this.TimesheetForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
+        private System.Windows.Forms.TextBox tbMonth;
+        private System.Windows.Forms.TextBox tbYear;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn StaffName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
         private System.Windows.Forms.DataGridViewTextBoxColumn Supervisor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Agent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WorkingHours;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
     }
 }
-
