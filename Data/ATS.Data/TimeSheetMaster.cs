@@ -60,9 +60,10 @@ namespace ATS.Data.Model
 
         public static IEnumerable<TimeSheetMaster> GetAllBySupervisorId(int supervisorId)
         {
+            int submitid = Convert.ToInt32(TimeSheetStatus.Submitted);
             ATSCEEntities context = new ATSCEEntities();
             IEnumerable<TimeSheetMaster> timeSheetMasters = from master in context.TimeSheetMasters
-                                                            where master.ManagerId == supervisorId && master.Status == Convert.ToInt32(TimeSheetStatus.Submitted)
+                                                            where master.ManagerId == supervisorId && master.Status == submitid
                                                             select master;
             return timeSheetMasters;
         }
