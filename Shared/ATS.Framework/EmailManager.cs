@@ -33,7 +33,7 @@ namespace ATS.Framework
             }
         }
 
-        public static void SendReminder(string from, string password, string to, string subject, string message)
+        public static void SendReminder(string from, string password, string to, string ccEmail, string subject, string message)
         {
             var loginInfo = new NetworkCredential(from, password);
             var msg = new MailMessage();
@@ -41,6 +41,8 @@ namespace ATS.Framework
 
             msg.From = new MailAddress(from);
             msg.To.Add(new MailAddress(to));
+            if(!string.IsNullOrEmpty(ccEmail))
+                msg.CC.Add(new MailAddress(ccEmail));
             msg.Subject = subject;
             msg.Body = message;
             msg.IsBodyHtml = true;

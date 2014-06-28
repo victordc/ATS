@@ -175,8 +175,8 @@ namespace ATS.Data.DAL
             for (int i = 1; i <= DateTime.DaysInMonth(forCalendarMonth.Year, forCalendarMonth.Month); i++)
             {
                 TimeSheetDetail detail = new TimeSheetDetail();
-                detail.StartTime = new DateTime(forCalendarMonth.Year, forCalendarMonth.Month, i);
-                detail.EndTime = new DateTime(forCalendarMonth.Year, forCalendarMonth.Month, i);
+                detail.StartTime = new DateTime(forCalendarMonth.Year, forCalendarMonth.Month, i, 8, 0, 0);
+                detail.EndTime = new DateTime(forCalendarMonth.Year, forCalendarMonth.Month, i, 18, 0, 0);
 
                 int leave = 0;
 
@@ -197,6 +197,7 @@ namespace ATS.Data.DAL
                 }
                 else
                 {
+                    detail.LeaveCategoryId = leave;
                     detail.LeaveCategories = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", leave);
 
                 }
