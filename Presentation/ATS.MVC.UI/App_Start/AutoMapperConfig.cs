@@ -26,7 +26,8 @@ namespace ATS.MVC.UI
                 cfg.CreateMap<TimeSheetDetailViewModel, TimeSheetDetail>()
                     .ForMember(dest => dest.TimeSheetMaster, opt => opt.MapFrom(src => src.TimeSheetMaster))
                     .ForMember(dest => dest.StartTime, opt => opt.MapFrom(src => new DateTime(src.TimeSheetDate.Year, src.TimeSheetDate.Month, src.TimeSheetDate.Day, src.StartTime.Hour, src.StartTime.Minute, src.StartTime.Second)))
-                    .ForMember(dest => dest.EndTime, opt => opt.MapFrom(src => new DateTime(src.TimeSheetDate.Year, src.TimeSheetDate.Month, src.TimeSheetDate.Day, src.EndTime.Hour, src.EndTime.Minute, src.EndTime.Second)));
+                    .ForMember(dest => dest.EndTime, opt => opt.MapFrom(src => new DateTime(src.TimeSheetDate.Year, src.TimeSheetDate.Month, src.TimeSheetDate.Day, src.EndTime.Hour, src.EndTime.Minute, src.EndTime.Second)))
+                    .ForMember(dest => dest.Hour, opt => opt.MapFrom(src => (src.EndTime - src.StartTime).TotalHours));
             });
         }
     }
