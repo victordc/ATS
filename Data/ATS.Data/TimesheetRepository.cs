@@ -97,6 +97,11 @@ namespace ATS.Data
             return LeavePlan.GetAll(userId);
         }
 
+        public static IEnumerable<LeavePlan> GetUnrejectedLeavePlans(int userId)
+        {
+            return LeavePlan.GetAllUnrejected(userId);
+        }
+
         public static IEnumerable<LeavePlan> GetLeavePlans(int userId, int year)
         {
             return LeavePlan.GetAll(userId, year);
@@ -113,6 +118,11 @@ namespace ATS.Data
         }
 
 
+        public static IEnumerable<LeavePlan> GetUnrejectedLeavePlansForTeam(int userId)
+        {
+            return LeavePlan.GetAllUnrejectedLeavePlansForTeam(userId);
+        }
+        
         public static IEnumerable<LeavePlan> GetLeavePlansForTeam(int userId)
         {
             return LeavePlan.GetAllLeavePlansForTeam(userId);

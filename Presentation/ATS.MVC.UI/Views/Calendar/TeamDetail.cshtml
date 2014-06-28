@@ -25,6 +25,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Duration)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Admitted)
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -37,13 +40,16 @@
                 @Html.DisplayFor(modelItem => item.LeaveCategory.LeaveCategoryDesc)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
+                @item.StartDate.ToShortDateString()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
+                @item.EndDate.ToShortDateString()
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @item.Admitted
             </td>
         </tr>
     }
