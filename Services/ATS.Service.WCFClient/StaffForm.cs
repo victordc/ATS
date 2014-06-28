@@ -75,8 +75,9 @@ namespace ATS.Service.WCFClient
             }
             catch (FaultException<ATSFault> fe)
             {
-                
-                MessageBox.Show("Received Error: " + fe.Detail.ErrorCode);
+                MessageBox.Show("Error" + Environment.NewLine 
+                    + "CODE:    " + fe.Detail.ErrorCode + Environment.NewLine
+                    + "MESSAGE: " + fe.Detail.ErrorMessage);
             }
         }
     }

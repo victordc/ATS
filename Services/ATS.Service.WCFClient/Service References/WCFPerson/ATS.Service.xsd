@@ -9,16 +9,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Person" nillable="true" type="tns:Person" />
-  <xs:complexType name="Agent">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Person">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Role" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="Agent" nillable="true" type="tns:Agent" />
   <xs:complexType name="Staff">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Person">
@@ -30,9 +20,20 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="Staff" nillable="true" type="tns:Staff" />
+  <xs:complexType name="Agent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Person">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Role" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Agent" nillable="true" type="tns:Agent" />
   <xs:complexType name="ATSFault">
     <xs:sequence>
       <xs:element minOccurs="0" name="ErrorCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ATSFault" nillable="true" type="tns:ATSFault" />
