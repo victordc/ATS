@@ -266,9 +266,13 @@ namespace ATS.MVC.UI.Controllers
 
         public ActionResult AddCompany()
         {
-            if (Setting.Current.SetupCompany.Company != null)
-                return View(Setting.Current.SetupCompany.Company);
-            return View();
+            //Comment setup company using mvc
+            //if (Setting.Current.SetupCompany.Company != null)
+            //    return View(Setting.Current.SetupCompany.Company);
+            //return View();
+
+            // Using webform page controller pattern
+            return Redirect("http://localhost:8080/SetupCompany/Default.aspx");
         }
 
         [HttpPost]
