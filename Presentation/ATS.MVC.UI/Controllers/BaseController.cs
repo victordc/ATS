@@ -1,4 +1,5 @@
 ﻿using ATS.Framework;
+using ATS.MVC.UI.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ATS.MVC.UI.Controllers
 {
+    [ATSAuthorizeAttribute]
     public class BaseController : Controller
     {
         //
