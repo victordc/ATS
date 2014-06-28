@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ATS.Service" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ATS.Service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfLeaveSummary">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LeaveSummary" nillable="true" type="tns:LeaveSummary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLeaveSummary" nillable="true" type="tns:ArrayOfLeaveSummary" />
+  <xs:complexType name="LeaveSummary">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApprovedDuration" type="xs:double" />
+      <xs:element minOccurs="0" name="PendingDuration" type="xs:double" />
+      <xs:element minOccurs="0" name="RejectDuration" type="xs:double" />
+      <xs:element minOccurs="0" name="StaffID" type="xs:int" />
+      <xs:element minOccurs="0" name="StaffName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalDuration" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LeaveSummary" nillable="true" type="tns:LeaveSummary" />
+  <xs:complexType name="ArrayOfLeave">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Leave" nillable="true" type="tns:Leave" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLeave" nillable="true" type="tns:ArrayOfLeave" />
+  <xs:complexType name="Leave">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Duration" type="xs:double" />
+      <xs:element minOccurs="0" name="FromDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LeaveCategory" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ToDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Leave" nillable="true" type="tns:Leave" />
+</xs:schema>

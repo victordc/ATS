@@ -16,7 +16,7 @@ namespace ATS.Service.WCFClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new StaffForm());
+            Application.Run(new MainForm());
         }
     }
 }

@@ -22,6 +22,8 @@ namespace ATS.Service
     public class TimesheetSummary
     {
         [DataMember]
+        public int StaffID { get; set; }
+        [DataMember]
         public string StaffName { get; set; }
         [DataMember]
         public string SupervisorName { get; set; }

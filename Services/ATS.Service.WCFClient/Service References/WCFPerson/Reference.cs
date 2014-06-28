@@ -17,8 +17,8 @@ namespace ATS.Service.WCFClient.WCFPerson {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Person", Namespace="http://schemas.datacontract.org/2004/07/ATS.Service")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(ATS.Service.WCFClient.WCFPerson.Agent))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(ATS.Service.WCFClient.WCFPerson.Staff))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(ATS.Service.WCFClient.WCFPerson.Agent))]
     public partial class Person : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -110,29 +110,6 @@ namespace ATS.Service.WCFClient.WCFPerson {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Agent", Namespace="http://schemas.datacontract.org/2004/07/ATS.Service")]
-    [System.SerializableAttribute()]
-    public partial class Agent : ATS.Service.WCFClient.WCFPerson.Person {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string RoleField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Role {
-            get {
-                return this.RoleField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.RoleField, value) != true)) {
-                    this.RoleField = value;
-                    this.RaisePropertyChanged("Role");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Staff", Namespace="http://schemas.datacontract.org/2004/07/ATS.Service")]
     [System.SerializableAttribute()]
     public partial class Staff : ATS.Service.WCFClient.WCFPerson.Person {
@@ -172,6 +149,29 @@ namespace ATS.Service.WCFClient.WCFPerson {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Agent", Namespace="http://schemas.datacontract.org/2004/07/ATS.Service")]
+    [System.SerializableAttribute()]
+    public partial class Agent : ATS.Service.WCFClient.WCFPerson.Person {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RoleField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Role {
+            get {
+                return this.RoleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RoleField, value) != true)) {
+                    this.RoleField = value;
+                    this.RaisePropertyChanged("Role");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ATSFault", Namespace="http://schemas.datacontract.org/2004/07/ATS.Service")]
     [System.SerializableAttribute()]
     public partial class ATSFault : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -181,6 +181,9 @@ namespace ATS.Service.WCFClient.WCFPerson {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ErrorCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ErrorMessageField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -201,6 +204,19 @@ namespace ATS.Service.WCFClient.WCFPerson {
                 if ((object.ReferenceEquals(this.ErrorCodeField, value) != true)) {
                     this.ErrorCodeField = value;
                     this.RaisePropertyChanged("ErrorCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ErrorMessage {
+            get {
+                return this.ErrorMessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ErrorMessageField, value) != true)) {
+                    this.ErrorMessageField = value;
+                    this.RaisePropertyChanged("ErrorMessage");
                 }
             }
         }

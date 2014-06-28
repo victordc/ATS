@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ATS.Service" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ATS.Service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfTimesheetSummary">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TimesheetSummary" nillable="true" type="tns:TimesheetSummary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTimesheetSummary" nillable="true" type="tns:ArrayOfTimesheetSummary" />
+  <xs:complexType name="TimesheetSummary">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AgentInCharge" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StaffID" type="xs:int" />
+      <xs:element minOccurs="0" name="StaffName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SupervisorName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkingHours" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TimesheetSummary" nillable="true" type="tns:TimesheetSummary" />
+  <xs:complexType name="ArrayOfTimeSheet">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TimeSheet" nillable="true" type="tns:TimeSheet" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTimeSheet" nillable="true" type="tns:ArrayOfTimeSheet" />
+  <xs:complexType name="TimeSheet">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EndTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Hour" type="xs:double" />
+      <xs:element minOccurs="0" name="StartTime" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TimeSheet" nillable="true" type="tns:TimeSheet" />
+</xs:schema>

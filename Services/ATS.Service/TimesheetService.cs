@@ -34,6 +34,7 @@ namespace ATS.Service
                 foreach (var staff in staffs)
                 {
                     TimesheetSummary summary = new TimesheetSummary();
+                    summary.StaffID = staff.PersonId;
                     summary.StaffName = staff.PersonName;
                     summary.SupervisorName = (staff.Supervisor != null) ? staff.Supervisor.PersonName : "";
                     summary.AgentInCharge = (staff.Agent != null) ? staff.Agent.PersonName : "";

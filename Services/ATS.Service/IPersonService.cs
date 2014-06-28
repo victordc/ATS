@@ -33,6 +33,7 @@ namespace ATS.Service
             set { errorCode = value; }
         }
 
+        [DataMember]
         public String ErrorMessage
         {
             get { return errorMessage; }

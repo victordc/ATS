@@ -34,6 +34,7 @@ namespace ATS.Service
                 foreach (var staff in staffs)
                 {
                     LeaveSummary summary = new LeaveSummary();
+                    summary.StaffID = staff.PersonId;
                     summary.StaffName = staff.PersonName;
                     summary.ApprovedDuration = 0;
                     summary.RejectDuration = 0;
