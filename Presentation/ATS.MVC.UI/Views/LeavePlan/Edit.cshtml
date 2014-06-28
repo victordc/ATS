@@ -91,13 +91,15 @@
             $('#EndDate').datepicker();
 
             
-            var sss = $('#StartDate').val().split(' ')[0].split('/');
-            var eee = $('#EndDate').val().split(' ')[0].split('/');
+            var sss =  new Date($('#StartDate').val().split(' ')[0]);
+            var eee = new Date($('#EndDate').val().split(' ')[0]);
 
-            $('#StartDate').val(sss[1] + "/" + sss[0] + "/" + sss[2]);
-            $('#EndDate').val(eee[1] + "/" + eee[0] + "/" + eee[2]);
+            //$('#StartDate').val(sss[1] + "/" + sss[0] + "/" + sss[2]);
+            //$('#EndDate').val(eee[1] + "/" + eee[0] + "/" + eee[2]);
 
-            //$('#LeaveCategoryId').val('1');
+
+            $('#StartDate').val(sss.toLocaleDateString());
+            $('#EndDate').val(eee.toLocaleDateString());
 
 
             $("#StartDate").change(function () {
@@ -172,11 +174,10 @@
                 request = $.ajax({
                     type: 'POST',
                     url: '/LeavePlan/Edit',
-                    //data: form.serialize(),
                     data: {
                         LeaveCategoryId: ctg,
-                        StartDate: stt.getDate() + "/" + (stt.getMonth() + 1) + "/" + stt.getFullYear(),
-                        EndDate: end.getDate() + "/" + (end.getMonth() + 1) + "/" + end.getFullYear(),
+                        StartDate: stt.toLocaleDateString(),
+                        EndDate: end.toLocaleDateString(),
                         Duration: dr,
                         LeavePlanId: lpid
                     },
