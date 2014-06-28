@@ -161,16 +161,25 @@ namespace ATS.MVC.UI.Controllers
                     masterViewModel.Status = Convert.ToInt32(TimeSheetStatus.Submitted);
                 }
                 TimeSheetMaster master = Mapper.Map<TimeSheetMasterViewModel, TimeSheetMaster>(masterViewModel);
+
                 if (master.ValidateWhenCreate())
                 {
-                    SaveTimeSheet(master);
-                    return RedirectToAction("Index");
+                    if(master.ValidateDate())
+                    {
+                        SaveTimeSheet(master);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Timesheet can only be created for the past 3 months");
+                    }
                 }
                 else
-                    ModelState.AddModelError("", "The time sheet has already been created for this month.");
+                    ModelState.AddModelError("", "The timesheet has already been created for this month.");
             }
             else
-                ModelState.AddModelError("", "errors in the details. please correct and resubmit.");
+                ModelState.AddModelError("", "Errors in the details. Please correct and resubmit.");
+
             ViewBag.LeaveCategories = TimeSheetMasterRepository.GetLeaveCategoriesList();
             ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
             ViewBag.YearList = TimeSheetMasterRepository.GetYearList();
