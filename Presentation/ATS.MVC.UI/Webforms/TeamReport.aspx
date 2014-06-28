@@ -5,10 +5,10 @@
                 CssClass="table table-striped table-bordered table-hover" AutoGenerateColumns="False" >
         <Columns>
             <asp:BoundField DataField="LeavePlanId" HeaderText="LeavePlanId" ReadOnly="True" SortExpression="LeavePlanId" />
-            <asp:BoundField DataField="PersonId" HeaderText="PersonId" SortExpression="PersonId" />
+            <asp:BoundField DataField="Person.PersonName" HeaderText="Name" SortExpression="Person.PersonName" />
             <asp:BoundField DataField="LeaveCategoryId" HeaderText="LeaveCategoryId" SortExpression="LeaveCategoryId" />
-            <asp:BoundField DataField="StartDate" HeaderText="StartDate" SortExpression="StartDate" />
-            <asp:BoundField DataField="EndDate" HeaderText="EndDate" SortExpression="EndDate" />
+            <asp:BoundField DataField="StartDate" HeaderText="StartDate" SortExpression="StartDate" DataFormatString="{0:MM/dd/yyyy}" />
+            <asp:BoundField DataField="EndDate" HeaderText="EndDate" SortExpression="EndDate" DataFormatString="{0:MM/dd/yyyy}"/>
             <asp:BoundField DataField="Duration" HeaderText="Duration" SortExpression="Duration" />
             <asp:CheckBoxField DataField="Admitted" HeaderText="Admitted" SortExpression="Admitted" />
         </Columns>
