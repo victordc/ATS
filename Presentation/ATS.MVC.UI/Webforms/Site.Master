@@ -21,11 +21,11 @@
                     <div class="navbar-inner">
                         <div class="container">
                             <ul class="nav">
+                                <li><a href="/Calendar">Back to Calendar</a></li>
                                 <li><a href="Report">My Report</a></li>
                                 <li><a href="Chart">Chart</a></li>
                                 <li><a href="LeaveCredits">Leave Credits</a></li>
                                 <li><a href="TeamReport">Team Report</a></li>
-                                <li><a href="/Calendar">Back to Calendar</a></li>
                             </ul>
                         </div>
                     </div>

@@ -9,7 +9,7 @@
             <asp:BoundField DataField="LeaveCategoryLimit" HeaderText="Yearly Entitlement" SortExpression="LeaveCategoryLimit" />
         </Columns>
     </asp:GridView>
-    <h3>Leave Availment</h3>
+    <h3>Leave History</h3>
     <asp:GridView ID="CreditsGridView" runat="server" AutoGenerateColumns="False"
         CssClass="table table-striped table-bordered table-hover">
         <Columns>

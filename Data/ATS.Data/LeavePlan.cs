@@ -71,6 +71,15 @@ namespace ATS.Data.Model
                 .Where(l => l.PersonId == userId && l.StartDate <= yearEnd && l.EndDate >= yearStart);
         }
 
+        public static IEnumerable<LeavePlan> GetAllAdmitted(int userId, int year)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            DateTime yearStart = new DateTime(year, 1, 1);
+            DateTime yearEnd = new DateTime(year, 12, 31);
+            return context.LeavePlans.Include(l => l.LeaveCategory).Include(l => l.Person)
+                .Where(l => l.PersonId == userId && l.StartDate <= yearEnd && l.EndDate >= yearStart && l.Admitted== true);
+        }
+
         public static IEnumerable<LeavePlan> GetAll(int userId, int year, int month)
         {
             ATSCEEntities context = new ATSCEEntities();

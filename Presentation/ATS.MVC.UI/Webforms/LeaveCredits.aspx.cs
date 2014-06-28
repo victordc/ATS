@@ -30,7 +30,7 @@ namespace ATS.Webforms.UI
                 int currentUserId = UserSetting.Current.PersonId;
 
                 //Get leaves and credits from CodeTable
-                this.history = TimesheetRepository.GetLeavePlans(currentUserId, DateTime.Now.Year);
+                this.history = TimesheetRepository.GetAdmittedLeavePlans(currentUserId, DateTime.Now.Year);
 
                 ReportBinder(currentUserId);
             }
@@ -48,7 +48,7 @@ namespace ATS.Webforms.UI
                 LeaveReport lr = new LeaveReport();
                 List<LeaveCategory> cd = categories.ToList();
 
-                    if (lp.PersonId == id && lp.Admitted == true)
+                    if (lp.PersonId == id)
                     {
                         lr.LeavePlanId = lp.LeavePlanId;
                         lr.LeaveType = lp.LeaveCategory.LeaveCategoryDesc;
