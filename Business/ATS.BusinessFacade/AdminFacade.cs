@@ -152,6 +152,7 @@ namespace ATS.BusinessFacade
                         supervisor.UserName = item.UserName;
                         supervisor.Email = item.Email;
                         supervisor.Phone = "98765432"; //TODO: hardcoded 
+                        supervisor.CompanyId = setupCompany.Company.CompanyId;
 
                         supervisor.Save();
                     }
