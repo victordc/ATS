@@ -15,37 +15,73 @@
         <tr>
             <td>
                 @Html.HiddenFor(model => model.TimeSheetMasterId)
-                @Html.DisplayFor(model => model.PersonPersonName)
+                @Html.DisplayNameFor(model => model.PersonPersonName)
                 @Html.HiddenFor(model => model.PersonId)
             </td>
             <td>
                 @Html.DisplayNameFor(model => model.SupervisorPersonName)
-                @Html.DisplayFor(model => model.SupervisorPersonName)
                 @Html.HiddenFor(model => model.ManagerId)
             </td>
             <td>
-                @Html.DisplayNameFor(model => model.CompanyCompanyDescription)
-                @Html.DisplayFor(model => model.CompanyCompanyDescription)
-                @Html.DisplayFor(model => model.AgentPersonName)
+                @Html.DisplayNameFor(model => model.AgentPersonName)
                 @Html.HiddenFor(model => model.AgencyId)
             </td>
             <td>
                 @Html.DisplayNameFor(model => model.Month)
-                @Html.DisplayFor(model => model.Month)
                 @Html.HiddenFor(model => model.Month)
             </td>
             <td>
                 @Html.DisplayNameFor(model => model.Year)
-                @Html.DisplayFor(model => model.Year)
                 @Html.HiddenFor(model => model.Year)
             </td>
             <td>
                 @Html.DisplayNameFor(model => model.Status)
                 @Html.HiddenFor(model => model.Status)
-                @Html.DropDownListFor(model => model.Status, new SelectList(ViewBag.StatusList, "Value", "Text"),new { disabled = "disabled" })
             </td>
             <td>
+                @Html.DisplayNameFor(model => model.Remarks)
                 @Html.HiddenFor(model => model.Remarks)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.PersonPersonName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SupervisorPersonName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.AgentPersonName)
+            </td>
+            <td>
+                @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Month)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Year)
+            </td>
+            <td>
+                @Html.HiddenFor(model => model.Status)
+                @switch (Model.Status)
+                {
+                    case 0:
+                        ViewBag.Status = "Draft";
+                        break;
+                    case 1:
+                        ViewBag.Status = "Approved";
+                        break;
+                    case 2:
+                        ViewBag.Status = "Submitted";
+                        break;
+                    case 3:
+                        ViewBag.Status = "Rejected";
+                        break;
+                    default:
+                        ViewBag.Status = "No Status Available";
+                        break;
+                }
+                @ViewBag.Status
+            </td>
+            <td>
             </td>
         </tr>
     </table>
@@ -113,14 +149,14 @@
             }
         </table>
         <p>
-            <input type="submit" name="save" value="Save" style="color:blue" />
-            <input type="submit" name="submit" value="Submit" style="color:purple" />
+            <input type="submit" name="save" value="Save" class="btn btn-info" />
+            <input type="submit" name="submit" value="Submit" class="btn btn-info" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
 </div>
 
 @section Scripts {

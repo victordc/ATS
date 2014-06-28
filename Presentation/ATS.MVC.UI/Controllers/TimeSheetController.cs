@@ -31,6 +31,7 @@ namespace ATS.MVC.UI.Controllers
         {
             //do something for the to address
             TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
+            Person person = null;
             string subject = "";
             string message = "";
 
@@ -38,14 +39,19 @@ namespace ATS.MVC.UI.Controllers
             {
                 subject = "Reminder to submit timesheet for month of " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(master.Month);
                 message = "Please submit your timesheet to your supervisor as soon as possible. From your friendly agent";
+                person = TimesheetRepository.GetPersonById(master.PersonId);
             }
             else if (master.Status == Convert.ToInt32(TimeSheetStatus.Submitted))
             {
                 subject = "Reminder to approve timesheet for month of " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(master.Month);
                 message = "Please evaluate the timesheet from your staff as soon as possible. From your friendly agent";
+                person = TimesheetRepository.GetPersonById(master.Supervisor.PersonId);
             }
             //send email
-            EmailManager.SendReminder("nusissdotnetagent01@gmail.com", "nusissdotnet", "vinaykasireddy@gmail.com", subject, message);
+            if(person != null)
+            {
+                EmailManager.SendReminder("nusissdotnetagent01@gmail.com", "nusissdotnet", person.Email, subject, message);
+            }
             return RedirectToAction("Reminder");
         }
 
@@ -106,8 +112,6 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Details(int id)
         {
             TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
-            ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
-
             foreach (var item in master.TimeSheetDetail)
             {
                 item.LeaveCategories = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", item.LeaveCategoryId);
