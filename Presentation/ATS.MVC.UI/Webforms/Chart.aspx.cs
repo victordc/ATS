@@ -15,8 +15,8 @@ namespace ATS.Webforms.UI
 {
     public partial class Chart : System.Web.UI.Page
     {
-        //Get leaves and credits from CodeTable
-        IEnumerable<CodeTable> codes = null;
+        //Get leaves and credits tables
+        IEnumerable<LeaveCategory> categories = null;
         IEnumerable<LeavePlan> history = null; 
         List<ChartReport> newHistory = new List<ChartReport>();
         public string JsonResult;
@@ -30,7 +30,7 @@ namespace ATS.Webforms.UI
                 history = TimesheetRepository.GetLeavePlans(currentUserId, DateTime.Now.Year);
 
                 //Get leaves and credits from CodeTable
-                codes = CodeTable.GetByGroupCode("LEAVE_TYPE"); 
+                categories = TimesheetRepository.GetLeaveCategories();
 
                 ReportBinder(currentUserId);
             }
@@ -40,12 +40,13 @@ namespace ATS.Webforms.UI
             //First LeaveDetail entry at start of year with full eligibility
             ChartReport cr = new ChartReport();
             cr.StartDate = new DateTime(DateTime.Now.Year, 1, 1).ToString("yyyy-MM-dd");
-            List<CodeTable> cd = codes.ToList(); 
-            foreach (CodeTable ct in cd)
+            List<LeaveCategory> cd = categories.ToList();
+            foreach (LeaveCategory ct in cd)
             {
-                if (ct.Code.ToLower() == "mc") { cr.MC = Convert.ToDouble(ct.CodeDesc); }
-                else if (ct.Code.ToLower() == "annual") { cr.Annual = Convert.ToDouble(ct.CodeDesc); }
-                else if (ct.Code.ToLower() == "exams") { cr.Exams = Convert.ToDouble(ct.CodeDesc); }
+                if (ct.LeaveCategoryDesc.ToLower() == "mc") { cr.MC = Convert.ToDouble(ct.LeaveCategoryLimit); }
+                else if (ct.LeaveCategoryDesc.ToLower() == "annual") { cr.Annual = Convert.ToDouble(ct.LeaveCategoryLimit); }
+                else if (ct.LeaveCategoryDesc.ToLower() == "exams") { cr.Exams = Convert.ToDouble(ct.LeaveCategoryLimit); }
+                else if (ct.LeaveCategoryDesc.ToLower() == "business") { cr.Business = Convert.ToDouble(ct.LeaveCategoryLimit); }
             }
             this.newHistory.Add(cr);
 
@@ -56,15 +57,16 @@ namespace ATS.Webforms.UI
                 {
                     cr.StartDate = lp.StartDate.ToString("yyyy-MM-dd");
                     double duration = lp.Duration;
-                    foreach (CodeTable ct in cd)
+                    foreach (LeaveCategory ct in cd)
                     {
-                        if (ct.Code.ToLower() == lp.LeaveCategory.LeaveCategoryDesc.ToLower())
+                        if (ct.LeaveCategoryDesc.ToLower() == lp.LeaveCategory.LeaveCategoryDesc.ToLower())
                         {
-                            ct.CodeDesc = Convert.ToString(Convert.ToDouble(ct.CodeDesc) - duration);
+                            ct.LeaveCategoryLimit = Convert.ToInt32(Convert.ToDouble(ct.LeaveCategoryLimit) - duration);
                         }
-                        if (ct.Code.ToLower() == "mc") { cr.MC = Convert.ToDouble(ct.CodeDesc); }
-                        else if (ct.Code.ToLower() == "annual") { cr.Annual = Convert.ToDouble(ct.CodeDesc); }
-                        else if (ct.Code.ToLower() == "exams") { cr.Exams = Convert.ToDouble(ct.CodeDesc); }
+                        if (ct.LeaveCategoryDesc.ToLower() == "mc") { cr.MC = Convert.ToDouble(ct.LeaveCategoryLimit); }
+                        else if (ct.LeaveCategoryDesc.ToLower() == "annual") { cr.Annual = Convert.ToDouble(ct.LeaveCategoryLimit); }
+                        else if (ct.LeaveCategoryDesc.ToLower() == "exams") { cr.Exams = Convert.ToDouble(ct.LeaveCategoryLimit); }
+                        else if (ct.LeaveCategoryDesc.ToLower() == "business") { cr.Business = Convert.ToDouble(ct.LeaveCategoryLimit); }
                     }    
                     this.newHistory.Add(cr);
                 }
