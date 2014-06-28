@@ -175,11 +175,10 @@
                 request = $.ajax({
                     type: 'POST',
                     url: '/LeavePlan/Create',
-                    //data: form.serialize(),
                     data: {
                         LeaveCategoryId: ctg,
-                        StartDate: stt.getDate() + "/" + (stt.getMonth() + 1) + "/" + stt.getFullYear(),
-                        EndDate: end.getDate() + "/" + (end.getMonth() + 1) + "/" + end.getFullYear(),
+                        StartDate: stt.toLocaleDateString(),
+                        EndDate: end.toLocaleDateString(),
                         Duration: dr,
                         PersonId: lpid
                     },
