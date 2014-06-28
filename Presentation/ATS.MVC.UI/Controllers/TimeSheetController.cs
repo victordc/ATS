@@ -108,13 +108,15 @@ namespace ATS.MVC.UI.Controllers
                 subject = "Timesheet for month of " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(master.Month) + " Rejected";
                 message = "Please note that your timesheet has been rejected by your supervisor.";
             }
+            //save changes
+            master.SaveMasterOnly();
+
             //send email
             if (person != null)
             {
                 EmailManager.SendReminder("nusissdotnetagent01@gmail.com", "nusissdotnet", person.Email, agent.Email, subject, message);
             }
 
-            master.SaveMasterOnly();
             return RedirectToAction("SupervisorEdit");
         }
 
