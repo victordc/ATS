@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Webforms/Site.Master" AutoEventWireup="true" CodeBehind="LeaveCredits.aspx.cs" Inherits="ATS.Webforms.UI.LeaveCredits" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="body">
+    <h3>Leave Entitlement</h3>
     <asp:GridView ID="CodeGridView" runat="server" AutoGenerateColumns="False"
         CssClass="table table-striped table-bordered table-hover" >
         <Columns>
@@ -9,6 +10,7 @@
             <asp:BoundField DataField="CodeDesc" HeaderText="Eligiblity" SortExpression="CodeDesc" />
         </Columns>
     </asp:GridView>
+    <h3>Leave Availment</h3>
     <asp:GridView ID="CreditsGridView" runat="server" AutoGenerateColumns="False"
         CssClass="table table-striped table-bordered table-hover">
         <Columns>

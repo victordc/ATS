@@ -7,6 +7,7 @@
     <script src="../Scripts/chart.js"></script>
     <link href="../Content/chart.css" rel="stylesheet" />
     <link href="../Content/morris.css" rel="stylesheet" />
+    <h3>Leave History</h3>
     <div id="graph"></div>
     <script type="text/javascript">
         var newHistory = <%=JsonResult %>;
