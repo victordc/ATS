@@ -182,8 +182,8 @@ namespace ATS.Data.DAL
 
                 foreach (LeavePlan plan in monthLeavePlan)
                 {
-                    if (plan.StartDate == detail.StartTime || plan.EndDate == detail.EndTime ||
-                        (plan.StartDate < detail.StartTime && plan.EndDate > detail.EndTime))
+                    if (plan.StartDate.Date == detail.StartTime.Date || plan.EndDate.Date == detail.EndTime.Date ||
+                        (plan.StartDate.Date < detail.StartTime.Date && plan.EndDate.Date > detail.EndTime.Date))
                     {
                         leave = plan.LeaveCategory.LeaveCategoryId;
                         break;
