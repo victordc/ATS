@@ -63,13 +63,6 @@
             @Html.ValidationMessageFor(model => model.HomeAddress)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SupervisorId)
-        </div>
-        <div class="editor-field">
-              @Html.DropDownList("SupervisorId", String.Empty)
-            @Html.ValidationMessageFor(model => model.SupervisorId)
-        </div>
         
         <p>
             <input type="submit" value="Create" class="btn btn-primary"/>
