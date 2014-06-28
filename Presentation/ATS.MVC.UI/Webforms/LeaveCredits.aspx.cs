@@ -16,7 +16,7 @@ namespace ATS.Webforms.UI
     public partial class LeaveCredits : System.Web.UI.Page
     {
         //Get leaves and credits from CodeTable
-        IEnumerable<CodeTable> codes = null;
+        IEnumerable<LeaveCategory> categories = null;
         List<LeaveReport> newHistory = new List<LeaveReport>();
         IEnumerable<LeavePlan> history = null;
         IAdminFacade adminFacade = null;
@@ -25,8 +25,7 @@ namespace ATS.Webforms.UI
         {
             if (!IsPostBack)
             {
-                adminFacade = new AdminFacade();
-                codes = adminFacade.GetCodeTableByGroup("LEAVE_TYPE");
+                categories = TimesheetRepository.GetLeaveCategories();
 
                 //Get this user
                 int currentUserId = UserSetting.Current.PersonId;
@@ -41,13 +40,13 @@ namespace ATS.Webforms.UI
         private void ReportBinder(int id)
         {
             //Bind leave eligibility first
-            CodeGridView.DataSource = codes.ToList();
-            CodeGridView.DataBind();
+            LeaveCategoryGridView.DataSource = categories.ToList();
+            LeaveCategoryGridView.DataBind();
             
             foreach (LeavePlan lp in history)
             {
                 LeaveReport lr = new LeaveReport();
-                List<CodeTable> cd = codes.ToList();
+                List<LeaveCategory> cd = categories.ToList();
 
                     if (lp.PersonId == id && lp.Admitted == true)
                     {
@@ -59,11 +58,11 @@ namespace ATS.Webforms.UI
                         lr.Duration = lp.Duration;
                         lr.Admitted = lp.Admitted;
                         //Get leave credits
-                        var cr = cd.FirstOrDefault(x => x.Code.ToLower() == lp.LeaveCategory.LeaveCategoryDesc.ToLower());
+                        var cr = cd.FirstOrDefault(x => x.LeaveCategoryDesc.ToLower() == lp.LeaveCategory.LeaveCategoryDesc.ToLower());
                         //Decrement by this duration
-                        lr.Credit = Convert.ToDouble(cr.CodeDesc) - lr.Duration;
+                        lr.Credit = Convert.ToDouble(cr.LeaveCategoryLimit) - lr.Duration;
                         //Update new credits
-                        cr.CodeDesc = lr.Credit.ToString();
+                        cr.LeaveCategoryLimit = Convert.ToInt32(lr.Credit);
                         this.newHistory.Add(lr);
                     }
             }

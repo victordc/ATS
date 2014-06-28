@@ -13,13 +13,13 @@ namespace ATS.Webforms.UI {
     public partial class LeaveCredits {
         
         /// <summary>
-        /// CodeGridView control.
+        /// LeaveCategoryGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView CodeGridView;
+        protected global::System.Web.UI.WebControls.GridView LeaveCategoryGridView;
         
         /// <summary>
         /// CreditsGridView control.

@@ -2,12 +2,11 @@
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="body">
     <h3>Leave Entitlement</h3>
-    <asp:GridView ID="CodeGridView" runat="server" AutoGenerateColumns="False"
+    <asp:GridView ID="LeaveCategoryGridView" runat="server" AutoGenerateColumns="False"
         CssClass="table table-striped table-bordered table-hover" >
         <Columns>
-            <asp:BoundField DataField="CodeTableId" HeaderText="CodeTable Id" ReadOnly="True" SortExpression="CodeTableId" />
-            <asp:BoundField DataField="Code" HeaderText="LeaveType" SortExpression="Code" />
-            <asp:BoundField DataField="CodeDesc" HeaderText="Eligiblity" SortExpression="CodeDesc" />
+            <asp:BoundField DataField="LeaveCategoryDesc" HeaderText="Leave Type" ReadOnly="True" SortExpression="LeaveCategoryDesc" />
+            <asp:BoundField DataField="LeaveCategoryLimit" HeaderText="Entitlement Per Year" SortExpression="LeaveCategoryLimit" />
         </Columns>
     </asp:GridView>
     <h3>Leave Availment</h3>
