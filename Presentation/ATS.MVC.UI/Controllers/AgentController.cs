@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using ATS.Data.DAL;
 using ATS.Data.Model;
-using ATS.BLL;
+using ATS.BusinessFacade;
 using WebMatrix.WebData;
 using System.Web.Security;
 using ATS.MVC.UI.Filters;
@@ -73,7 +73,7 @@ namespace ATS.MVC.UI.Controllers
                 if (ModelState.IsValid)
                 {
                     personFacade.InsertAgent(agent);
-                    WebSecurity.CreateUserAndAccount(agent.UserName, "password");
+                    WebSecurity.CreateUserAndAccount(agent.UserName, "p@ssword1");
                     Roles.AddUserToRole(agent.UserName, "Agent");
                     return RedirectToAction("Details", new { id = agent.PersonId });
                 }
