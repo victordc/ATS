@@ -234,6 +234,91 @@ namespace ATS.Data.DAL
             return items;
         }
 
+        public static List<SelectListItem> GetMonthList()
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            items.Add(new SelectListItem
+            {
+                Text = "Jan",
+                Value = "1"
+            });
+            items.Add(new SelectListItem
+            {
+                Text = "Feb",
+                Value = "2"
+            });
+            items.Add(new SelectListItem
+            {
+                Text = "Mar",
+                Value = "3",
+            });
+            items.Add(new SelectListItem
+            {
+                Text = "Apr",
+                Value = "4"
+            });
+            items.Add(new SelectListItem
+            {
+                Text = "May",
+                Value = "5"
+            });
+            items.Add(new SelectListItem
+            {
+                Text = "June",
+                Value = "6"
+            });
+            items.Add(new SelectListItem
+            {
+                Text = "Jul",
+                Value = "7"
+            });
+            items.Add(new SelectListItem
+            {
+                Text = "Aug",
+                Value = "8"
+            });
+            items.Add(new SelectListItem
+            {
+                Text = "Sep",
+                Value = "9"
+            });
+            items.Add(new SelectListItem
+            {
+                Text = "Oct",
+                Value = "10"
+            });
+            items.Add(new SelectListItem
+            {
+                Text = "Nov",
+                Value = "11"
+            });
+            items.Add(new SelectListItem
+            {
+                Text = "Dec",
+                Value = "12"
+            });
+
+            return items;
+        }
+
+        public static List<SelectListItem> GetYearList()
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            items.Add(new SelectListItem
+            {
+                Text = (DateTime.Today.Year - 1).ToString(),
+                Value = (DateTime.Today.Year - 1).ToString()
+            });
+            items.Add(new SelectListItem
+            {
+                Text = (DateTime.Today.Year).ToString(),
+                Value = (DateTime.Today.Year).ToString()
+            });
+
+            return items;
+        }
 
         public static List<SelectListItem> GetLeaveCategoriesList()
         {

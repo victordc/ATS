@@ -50,12 +50,11 @@
                 @Html.HiddenFor(model => model.AgencyId)
             </td>
             <td>
-                @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Month)
-                @Html.HiddenFor(model => model.Month)
+
+                @Html.DropDownListFor(model => model.Month, new SelectList(ViewBag.MonthList, "Value", "Text", Model.Month))
             </td>
             <td>
-                @Html.DisplayFor(model => model.Year)
-                @Html.HiddenFor(model => model.Year)
+                @Html.DropDownListFor(model => model.Year, new SelectList(ViewBag.YearList, "Value", "Text", Model.Year))
             </td>
             <td>
                 @Html.HiddenFor(model => model.Status)
