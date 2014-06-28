@@ -73,7 +73,7 @@ namespace ATS.MVC.UI.Controllers
                 if (ModelState.IsValid)
                 {
                     personFacade.InsertSupervisor(supervisor);
-                    WebSecurity.CreateUserAndAccount(supervisor.UserName, "password");
+                    WebSecurity.CreateUserAndAccount(supervisor.UserName, "p@ssword1");
                     Roles.AddUserToRole(supervisor.UserName, "Supervisor");
                     return RedirectToAction("Details", new { id = supervisor.PersonId });
                 }

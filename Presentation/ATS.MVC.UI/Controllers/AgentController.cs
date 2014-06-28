@@ -73,7 +73,7 @@ namespace ATS.MVC.UI.Controllers
                 if (ModelState.IsValid)
                 {
                     personFacade.InsertAgent(agent);
-                    WebSecurity.CreateUserAndAccount(agent.UserName, "password");
+                    WebSecurity.CreateUserAndAccount(agent.UserName, "p@ssword1");
                     Roles.AddUserToRole(agent.UserName, "Agent");
                     return RedirectToAction("Details", new { id = agent.PersonId });
                 }

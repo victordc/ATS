@@ -102,7 +102,7 @@ namespace ATS.MVC.UI.Controllers
                 if (ModelState.IsValid)
                 {
                     personFacade.InsertStaff(staff);
-                    WebSecurity.CreateUserAndAccount(staff.UserName, "password");
+                    WebSecurity.CreateUserAndAccount(staff.UserName, "p@ssword1");
                     Roles.AddUserToRole(staff.UserName, "Staff");
                     return RedirectToAction("Details", new { id = staff.PersonId});
                 }
