@@ -92,6 +92,27 @@ namespace ATS.MVC.UI.Controllers
             viewModel.Remarks = string.IsNullOrEmpty(viewModel.Remarks) ? string.Empty : viewModel.Remarks;
 
             TimeSheetMaster master = Mapper.Map<TimeSheetMasterViewModel, TimeSheetMaster>(viewModel);
+
+            Person person = TimesheetRepository.GetPersonById(master.PersonId);
+            string subject = "";
+            string message = "";
+
+            if (master.Status == Convert.ToInt32(TimeSheetStatus.Approved))
+            {
+                subject = "Timesheet for month of " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(master.Month) + " Approved";
+                message = "Please note that your timesheet has been approved by your supervisor.";
+            }
+            else if (master.Status == Convert.ToInt32(TimeSheetStatus.Rejected))
+            {
+                subject = "Timesheet for month of " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(master.Month) + " Rejected";
+                message = "Please note that your timesheet has been rejected by your supervisor.";
+            }
+            //send email
+            if (person != null)
+            {
+                EmailManager.SendReminder("nusissdotnetagent01@gmail.com", "nusissdotnet", person.Email, subject, message);
+            }
+
             master.SaveMasterOnly();
             return RedirectToAction("SupervisorEdit");
         }
@@ -102,8 +123,7 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Index()
         {
             var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetsByPersonId(UserSetting.Current.PersonId);
-            //var timeSheetMasters = TimeSheetMasterRepository.GetAllTimeSheetMasters();
-            return View(timeSheetMasters.ToList());
+            return View(timeSheetMasters.ToList().OrderByDescending(x => x.Month));
         }
 
         //
@@ -172,7 +192,7 @@ namespace ATS.MVC.UI.Controllers
                             if(!detail.ValidateTime())
                             {
                                 isValid = false;
-                                string error = "The start time is later than the end time for " + detail.StartTime.Date.ToString("d");
+                                string error = "The start time is later than the end time for " + detail.StartTime.Date.ToString("dd/MM/yyyy");
                                 ModelState.AddModelError("", error);
                             }
                         }
