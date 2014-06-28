@@ -79,6 +79,7 @@
           </Key>
           <Property Name="LeaveCategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="LeaveCategoryDesc" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LeaveCategoryLimit" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="LeavePlan">
           <Key>
@@ -373,6 +374,7 @@
           <Property Type="Int32" Name="LeaveCategoryId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="LeaveCategoryDesc" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LeavePlans" Relationship="ATSCEModel.LeaveCategory__LeavePlan" FromRole="LeaveCategory" ToRole="LeavePlan" />
+          <Property Type="Int32" Name="LeaveCategoryLimit" Nullable="false" />
         </EntityType>
         <EntityType Name="LeavePlan">
           <Key>
@@ -654,6 +656,7 @@
           <EntitySetMapping Name="LeaveCategories">
             <EntityTypeMapping TypeName="ATSCEModel.LeaveCategory">
               <MappingFragment StoreEntitySet="LeaveCategories">
+                <ScalarProperty Name="LeaveCategoryLimit" ColumnName="LeaveCategoryLimit" />
                 <ScalarProperty Name="LeaveCategoryDesc" ColumnName="LeaveCategoryDesc" />
                 <ScalarProperty Name="LeaveCategoryId" ColumnName="LeaveCategoryId" />
               </MappingFragment>
