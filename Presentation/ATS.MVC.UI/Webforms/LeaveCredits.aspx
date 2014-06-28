@@ -5,8 +5,8 @@
     <asp:GridView ID="LeaveCategoryGridView" runat="server" AutoGenerateColumns="False"
         CssClass="table table-striped table-bordered table-hover" >
         <Columns>
-            <asp:BoundField DataField="LeaveCategoryDesc" HeaderText="Leave Type" ReadOnly="True" SortExpression="LeaveCategoryDesc" />
-            <asp:BoundField DataField="LeaveCategoryLimit" HeaderText="Entitlement Per Year" SortExpression="LeaveCategoryLimit" />
+            <asp:BoundField DataField="LeaveCategoryDesc" HeaderText="Leave Type" SortExpression="LeaveCategoryDesc" />
+            <asp:BoundField DataField="LeaveCategoryLimit" HeaderText="Yearly Entitlement" SortExpression="LeaveCategoryLimit" />
         </Columns>
     </asp:GridView>
     <h3>Leave Availment</h3>
