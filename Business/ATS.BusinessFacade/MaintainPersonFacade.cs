@@ -5,7 +5,7 @@ using System.Text;
 using ATS.Data.DAL;
 using ATS.Data.Model;
 
-namespace ATS.BLL
+namespace ATS.BusinessFacade
 {
     
     public class MaintainPersonFacade

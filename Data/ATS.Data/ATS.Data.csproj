@@ -68,7 +68,6 @@
     <Compile Include="Agent.cs" />
     <Compile Include="CompanyRepository.cs" />
     <Compile Include="IEntity.cs" />
-    <Compile Include="MaintainCompanyFacade.cs" />
     <Compile Include="Model\Agent.cs">
       <DependentUpon>ATSCEModel.tt</DependentUpon>
     </Compile>
@@ -126,7 +125,6 @@
     <Compile Include="IPersonRepository.cs" />
     <Compile Include="LeaveCategoroy.cs" />
     <Compile Include="LeavePlan.cs" />
-    <Compile Include="MaintainPersonFacade.cs" />
     <Compile Include="Model\ATSCEModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
