@@ -14,7 +14,7 @@ namespace ATS.Data
 
         private static TimesheetRepository _instance;
 
-        public static TimesheetRepository Instance 
+        public static TimesheetRepository Instance
         {
             get
             {
@@ -102,6 +102,11 @@ namespace ATS.Data
             return LeavePlan.GetAll(userId, year);
         }
 
+        public static IEnumerable<LeavePlan> GetAdmittedLeavePlans(int userId, int year)
+        {
+            return LeavePlan.GetAllAdmitted(userId, year);
+        }
+
         public static IEnumerable<LeavePlan> GetLeavePlans(int userId, int year, int month)
         {
             return LeavePlan.GetAll(userId, year, month);
@@ -128,7 +133,7 @@ namespace ATS.Data
             return LeavePlan.CheckOverLap(leavePlan);
         }
 
-        public static bool RemoveLeavePlan(int leavePlanId) 
+        public static bool RemoveLeavePlan(int leavePlanId)
         {
             return LeavePlan.Delete(leavePlanId);
         }
@@ -146,6 +151,15 @@ namespace ATS.Data
         public static IEnumerable<LeavePlan> AdmitReject(int LeavePlanId, bool AdmitReject)
         {
             return LeavePlan.AdmitOrRejectLeaves(LeavePlanId, AdmitReject);
+        }
+
+        public static LeaveCategory getLeaveCategoryById(int id)
+        {
+            return LeaveCategory.getById(id);
+        }
+        public static int getTotalRemainingLeaveDays(LeavePlan leaveplan)
+        {
+            return LeavePlan.getTotalRemainingLeaveDays(leaveplan);
         }
         //--------------------------------------------------------------------------------
         #endregion
@@ -221,7 +235,7 @@ namespace ATS.Data
         /// </summary>
         /// <param name="setupCompany"></param>
         /// <returns></returns>
-        public int SetupCompany(SetupCompany setupCompany) 
+        public int SetupCompany(SetupCompany setupCompany)
         {
             int result = -1;
             try
@@ -237,7 +251,7 @@ namespace ATS.Data
                         Supervisor supervisor = new Supervisor();
                         supervisor.PersonName = item.FullName;
                         supervisor.UserName = item.UserName;
-                        
+
                         supervisor.Save();
                     }
 

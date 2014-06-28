@@ -15,5 +15,11 @@ namespace ATS.Data.Model
             return context.LeaveCategories;       
         }
 
+        public static LeaveCategory getById(int id)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            return context.LeaveCategories.Where(c=>c.LeaveCategoryId == id).FirstOrDefault();
+        }
+
     }
 }

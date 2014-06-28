@@ -14,6 +14,8 @@
     <fieldset>
         <legend>LeavePlan</legend>
 
+        @Html.HiddenFor(model => model.LeavePlanId)
+        
         <div class="editor-label">
             @*@Html.LabelFor(model => model.PersonId, "Person", new { @class = "control-label" })*@
         </div>
@@ -108,6 +110,13 @@
 
                 var duration = Date.bizdays(dateStart, dateEnd);
 
+                if (duration == 0) {
+                    $('#EndDate').val($('#StartDate').val());
+                    if (dateStart.getDay() % 6 ) {
+                        duration = 1;
+                    }
+                }
+
                 $('#Duration').val(duration);
 
             });
@@ -118,6 +127,13 @@
                 var dateEnd = new Date($('#EndDate').val());
 
                 var duration = Date.bizdays(dateStart, dateEnd);
+
+                if (duration == 0) {
+                    $('#EndDate').val($('#StartDate').val())
+                    if (dateStart.getDay() % 6) {
+                        duration = 1;
+                    }
+                }
 
                 $('#Duration').val(duration);
 
@@ -154,6 +170,7 @@
                 var end = new Date($('#EndDate').val());
                 var dr = $('#Duration').val();
                 var ctg = $('#LeaveCategoryId').val();
+                var lpid = $('#PersonId').val();
 
                 request = $.ajax({
                     type: 'POST',
@@ -163,7 +180,8 @@
                         LeaveCategoryId: ctg,
                         StartDate: stt.getDate() + "/" + (stt.getMonth() + 1) + "/" + stt.getFullYear(),
                         EndDate: end.getDate() + "/" + (end.getMonth() + 1) + "/" + end.getFullYear(),
-                        Duration: dr
+                        Duration: dr,
+                        PersonId: lpid
                     },
                     success: function (response) {
                         $("#info").html(response);
