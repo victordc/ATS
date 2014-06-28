@@ -40,7 +40,7 @@ namespace ATS.Webforms.UI
                     foreach (LeavePlan lp in llp)
                     {
                         LeaveReport lr = new LeaveReport(); 
-                        if (lp.PersonId == id || id==0)
+                        if (lp.PersonId == id)
                         {
                             lr.LeavePlanId = lp.LeavePlanId; 
                             lr.LeaveType = lc.LeaveCategoryDesc;
