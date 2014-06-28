@@ -57,6 +57,10 @@ namespace ATS.MVC.UI.Controllers
         [HttpPost]
         public string Create(LeavePlan leaveplan)
         {
+            DateTime start = new DateTime(leaveplan.StartDate.Year, leaveplan.StartDate.Month, leaveplan.StartDate.Day);
+            DateTime end = new DateTime(leaveplan.EndDate.Year, leaveplan.EndDate.Month, leaveplan.EndDate.Day);
+            DateTime today = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
             if (leaveplan.StartDate < DateTime.Now || leaveplan.EndDate < DateTime.Now)
             {
                 return "Start and End Dates can not be in the past. Please correct.";
