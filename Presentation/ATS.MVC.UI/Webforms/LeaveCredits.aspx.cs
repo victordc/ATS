@@ -19,7 +19,6 @@ namespace ATS.Webforms.UI
         IEnumerable<LeaveCategory> categories = null;
         List<LeaveReport> newHistory = new List<LeaveReport>();
         IEnumerable<LeavePlan> history = null;
-        IAdminFacade adminFacade = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -43,6 +42,7 @@ namespace ATS.Webforms.UI
             LeaveCategoryGridView.DataSource = categories.ToList();
             LeaveCategoryGridView.DataBind();
             
+            //Tabulate leave history
             foreach (LeavePlan lp in history)
             {
                 LeaveReport lr = new LeaveReport();
@@ -69,6 +69,11 @@ namespace ATS.Webforms.UI
 
             CreditsGridView.DataSource = newHistory;
             CreditsGridView.DataBind();
+
+            if (!newHistory.Any())
+            {
+                AvailmentLabel.Text = "No leave approved yet for this year.";
+            }
         }
 
     }

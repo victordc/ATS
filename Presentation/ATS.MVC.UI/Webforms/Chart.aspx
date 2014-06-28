@@ -15,8 +15,8 @@
             element: 'graph',
             data: newHistory,
             xkey: 'StartDate',
-            ykeys: ['MC','Annual','Exams'],
-            labels: ['MC','Annual','Exams']
+            ykeys: ['MC','Annual','Exams', 'Business'],
+            labels: ['MC','Annual','Exams', 'Business']
         });
     </script>
 </asp:Content>

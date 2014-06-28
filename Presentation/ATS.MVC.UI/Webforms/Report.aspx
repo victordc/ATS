@@ -13,4 +13,5 @@
             <asp:CheckBoxField DataField="Admitted" HeaderText="Approved" SortExpression="Admitted" />
         </Columns>
     </asp:GridView>
+    <asp:Label runat="server" ID="ReportLabel" Text=""></asp:Label>
 </asp:Content>

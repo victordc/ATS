@@ -33,6 +33,7 @@ namespace ATS.Webforms.UI
 
         private void ReportBinder(int id)
         {
+            //Tabulate leave history
             foreach (LeaveCategory lc in history)
             {
                     List<LeavePlan> llp = lc.LeavePlans.ToList();
@@ -54,6 +55,12 @@ namespace ATS.Webforms.UI
             }
             LeaveCategoryGridView.DataSource = newHistory;
             LeaveCategoryGridView.DataBind();
+
+            if (!newHistory.Any())
+            {
+                ReportLabel.Text = "No leave approved yet for this year.";
+            }
+
         }
 
     }

@@ -37,6 +37,11 @@ namespace ATS.Webforms.UI
             }
             LeavesGridView.DataSource = leaves.ToList();
             LeavesGridView.DataBind();
+
+            if (!leaves.Any())
+            {
+                TeamReportLabel.Text = "No leave approved yet for this year.";
+            }
         }
     }
 }

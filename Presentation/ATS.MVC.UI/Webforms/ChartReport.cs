@@ -12,5 +12,6 @@ namespace ATS.MVC.UI.Webforms
         public double MC { get; set; }
         public double Annual { get; set; }
         public double Exams { get; set; }
+        public double Business { get; set; }
     }
 }
