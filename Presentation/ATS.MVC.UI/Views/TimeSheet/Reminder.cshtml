@@ -37,34 +37,53 @@
 
     @foreach (var item in Model)
     {
+        string textToShow = "";
+        switch (item.Status)
+        {
+            case 0:
+                textToShow = "Draft";
+                break;
+            case 1:
+                textToShow = "Approved";
+                break;
+            case 2:
+                textToShow = "Submitted";
+                break;
+            case 3:
+                textToShow = "Rejected";
+                break;
+            default:
+                textToShow = "No Status Available";
+                break;
+        }
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PersonId)
+                @Html.DisplayFor(modelItem => item.Person.PersonName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ManagerId)
+                @Html.DisplayFor(modelItem => item.Supervisor.PersonName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AgencyId)
+                @Html.DisplayFor(modelItem => item.Agent.PersonName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Month)
+                @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Month)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                @textToShow
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Remarks)
             </td>
             <td>
-                @if(item.Status == 1)
+                @if (item.Status == Convert.ToInt32(ATS.Data.DAL.TimeSheetStatus.Draft))
                 {
                     @Html.ActionLink("Send Reminder To Staff", "SendReminder", new { id = item.TimeSheetMasterId }, new { @class = "btn btn-mini btn-primary" })
                 }
-                else if(item.Status == 2)
+                else if (item.Status == Convert.ToInt32(ATS.Data.DAL.TimeSheetStatus.Submitted))
                 {
                     @Html.ActionLink("Send Reminder To Supervisor", "SendReminder", new { id = item.TimeSheetMasterId }, new { @class = "btn btn-mini btn-info" })
                 }

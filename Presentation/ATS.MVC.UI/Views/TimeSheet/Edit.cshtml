@@ -89,7 +89,7 @@
                         @Html.EditorFor(model => Model.TimeSheetDetailViewModel[i].EndTime)
                         @Html.ValidationMessageFor(model => Model.TimeSheetDetailViewModel[i].EndTime)
                     </td>
-                    <td>@Html.DropDownListFor(model => Model.TimeSheetDetailViewModel[i].LeaveCategoryId, (SelectList)Model.TimeSheetDetailViewModel[i].LeaveCategories,"")</td>
+                    <td>@Html.DropDownListFor(model => Model.TimeSheetDetailViewModel[i].LeaveCategoryId, new SelectList(ViewBag.LeaveCategories, "Value", "Text", Model.TimeSheetDetailViewModel[i].LeaveCategoryId))</td>
                     <td>@Html.EditorFor(model => Model.TimeSheetDetailViewModel[i].Remarks)</td>
                     <td>@Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload1, new { type = "file" })
                         @if(!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument1))
@@ -98,14 +98,23 @@
                         }
                         <br />
                         @Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload2, new { type = "file" })
+                        @if(!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument2))
+                        {
+                            <a href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument2)" target="_blank">Download</a>
+                        }
                         <br />
                         @Html.TextBoxFor(model => Model.TimeSheetDetailViewModel[i].SupportDocumentUpload3, new { type = "file" })
+                        @if(!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument3))
+                        {
+                            <a href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument3)" target="_blank">Download</a>
+                        }
                     </td>
                 </tr>
             }
         </table>
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" name="save" value="Save" style="color:blue" />
+            <input type="submit" name="submit" value="Submit" style="color:purple" />
         </p>
     </fieldset>
 }

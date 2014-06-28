@@ -1,88 +1,121 @@
-﻿@model ATS.Data.Model.TimeSheetDetail
+﻿@model  ATS.Data.ViewModel.TimeSheetMasterViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "View Timesheet";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("Details", "TimeSheet", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
 
-<fieldset>
-    <legend>TimeSheetDetail</legend>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.TimeSheetMasterId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TimeSheetMasterId)
-    </div>
+    <table class="table table-striped table-bordered table-hover">
+        <tr>
+            <td>
+                @Html.HiddenFor(model => model.TimeSheetMasterId)
+                @Html.DisplayFor(model => model.PersonPersonName)
+                @Html.HiddenFor(model => model.PersonId)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.SupervisorPersonName)
+                @Html.DisplayFor(model => model.SupervisorPersonName)
+                @Html.HiddenFor(model => model.ManagerId)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.CompanyCompanyDescription)
+                @Html.DisplayFor(model => model.CompanyCompanyDescription)
+                @Html.DisplayFor(model => model.AgentPersonName)
+                @Html.HiddenFor(model => model.AgencyId)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.Month)
+                @Html.DisplayFor(model => model.Month)
+                @Html.HiddenFor(model => model.Month)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.Year)
+                @Html.DisplayFor(model => model.Year)
+                @Html.HiddenFor(model => model.Year)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.Status)
+                @Html.HiddenFor(model => model.Status)
+                @Html.DropDownListFor(model => model.Status, new SelectList(ViewBag.StatusList, "Value", "Text"), new { disabled = "disabled" })
+            </td>
+        </tr>
+    </table>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.CalendarYearId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.CalendarYearId)
-    </div>
+    <fieldset>
+        <legend>TimeSheetDetail</legend>
+        <table class="table table-striped table-bordered table-hover">
+            <tr>
+                <th>
+                    @Html.Label("Date", new { @class = "control-label" })
+                </th>
+                <th>
+                    @Html.Label("Start Time", new { @class = "control-label" })
+                </th>
+                <th>
+                    @Html.Label("End Time", new { @class = "control-label" })
+                </th>
+                <th>@Html.Label("Leave Category", new { @class = "control-label" })</th>
+                <th>
+                    @Html.Label("Remarks", new { @class = "control-label" })
+                </th>
+                <th>
+                    @Html.Label("Supporting Documents", new { @class = "control-label" })
+                </th>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.LeaveCategoryId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.LeaveCategoryId)
-    </div>
+                <th></th>
+            </tr>
+            @for (int i = 0; i < Model.TimeSheetDetailViewModel.Count; i++)
+            {
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.StartTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.StartTime)
-    </div>
+                <tr>
+                    <td>
+                        @Html.HiddenFor(model => Model.TimeSheetDetailViewModel[i].TimeSheetMasterId)
+                        @Html.HiddenFor(model => Model.TimeSheetDetailViewModel[i].TimeSheetDetailId)
+                        @Html.DisplayFor(model => Model.TimeSheetDetailViewModel[i].TimeSheetDate)
+                        @Html.HiddenFor(model => Model.TimeSheetDetailViewModel[i].TimeSheetDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => Model.TimeSheetDetailViewModel[i].StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => Model.TimeSheetDetailViewModel[i].EndTime)
+                    </td>
+                    <td>@Html.DropDownListFor(model => Model.TimeSheetDetailViewModel[i].LeaveCategoryId, (SelectList)Model.TimeSheetDetailViewModel[i].LeaveCategories, "", new { disabled = "disabled" })</td>
+                    <td>
+                        @Html.DisplayFor(model => Model.TimeSheetDetailViewModel[i].Remarks)
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument1))
+                        {
+                            <a href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument1)" target="_blank">Download</a>
+                            <br />
+                        }
+                        @if (!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument2))
+                        {
+                            <a href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument2)" target="_blank">Download</a>
+                            <br />
+                        }
+                        @if (!string.IsNullOrEmpty(Model.TimeSheetDetailViewModel[i].SupportDocument3))
+                        {
+                            <a href="@Url.Content(Model.TimeSheetDetailViewModel[i].SupportDocument3)" target="_blank">Download</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </fieldset>
+}
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.EndTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EndTime)
-    </div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Hour)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Hour)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Remarks)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Remarks)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.SupportDocument1)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SupportDocument1)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.SupportDocument2)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SupportDocument2)
-    </div>
-
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.SupportDocument3)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SupportDocument3)
-    </div>
-</fieldset>
-<p>
-    @if (Model.TimeSheetMaster.Status == Convert.ToInt32(ATS.Data.DAL.TimeSheetStatus.Draft) || Model.TimeSheetMaster.Status == Convert.ToInt32(ATS.Data.DAL.TimeSheetStatus.Rejected))
-    {
-        @Html.ActionLink("Edit", "Edit", new { id=Model.TimeSheetDetailId })
-        @Html.ActionLink("Back to List", "Index")
-    }
-</p>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

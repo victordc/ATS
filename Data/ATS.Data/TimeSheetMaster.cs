@@ -16,7 +16,6 @@ namespace ATS.Data.Model
     {
 
         public IEnumerable<SelectListItem> ActionsList { get; set; }
-        public virtual Agent Agent { get; set; }
 
 
         public static TimeSheetMaster GetById(int TimeSheetMasterId)
@@ -117,10 +116,14 @@ namespace ATS.Data.Model
         {
             try
             {
-                ATSCEEntities context = new ATSCEEntities();
-                TimeSheetMaster master = context.TimeSheetMasters.Find(id);
-                context.TimeSheetMasters.Remove(master);
-                context.SaveChanges();
+                using (var context = new ATSCEEntities())
+                {
+                    TimeSheetMaster master = context.TimeSheetMasters.Find(id);
+                    foreach (TimeSheetDetail detail in master.TimeSheetDetail.ToList())
+                        context.Entry(detail).State = System.Data.EntityState.Deleted;
+                    context.Entry(master).State = System.Data.EntityState.Deleted;
+                    context.SaveChanges();
+                }
                 return true;
             }
             catch (Exception)
@@ -142,9 +145,9 @@ namespace ATS.Data.Model
 
                 if(timeSheetMaster == null)
                 {
-                    return false;
+                    return true;
                 }
-                return true;
+                return false;
             }
             catch (Exception)
             {
