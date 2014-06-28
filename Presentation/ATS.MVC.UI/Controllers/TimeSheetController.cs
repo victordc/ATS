@@ -50,7 +50,7 @@ namespace ATS.MVC.UI.Controllers
             //send email
             if (person != null)
             {
-                EmailManager.SendReminder("nusissdotnetagent01@gmail.com", "nusissdotnet", person.Email, subject, message);
+                EmailManager.SendReminder("nusissdotnetagent01@gmail.com", "nusissdotnet", person.Email, master.Agent.Email, subject, message);
             }
             return RedirectToAction("Reminder");
         }
@@ -110,7 +110,7 @@ namespace ATS.MVC.UI.Controllers
             //send email
             if (person != null)
             {
-                EmailManager.SendReminder("nusissdotnetagent01@gmail.com", "nusissdotnet", person.Email, subject, message);
+                EmailManager.SendReminder("nusissdotnetagent01@gmail.com", "nusissdotnet", person.Email, master.Agent.Email, subject, message);
             }
 
             master.SaveMasterOnly();

@@ -197,6 +197,7 @@ namespace ATS.Data.DAL
                 }
                 else
                 {
+                    detail.LeaveCategoryId = leave;
                     detail.LeaveCategories = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", leave);
 
                 }
