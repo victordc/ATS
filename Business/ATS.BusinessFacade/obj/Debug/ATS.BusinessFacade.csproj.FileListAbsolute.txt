@@ -11,3 +11,15 @@ C:\NUS\Enterprise.Net1\ATS\Business\ATS.BusinessFacade\bin\Debug\ATS.Framework.p
 C:\NUS\Enterprise.Net1\ATS\Business\ATS.BusinessFacade\obj\Debug\ATS.BusinessFacade.csprojResolveAssemblyReference.cache
 C:\NUS\Enterprise.Net1\ATS\Business\ATS.BusinessFacade\obj\Debug\ATS.BusinessFacade.dll
 C:\NUS\Enterprise.Net1\ATS\Business\ATS.BusinessFacade\obj\Debug\ATS.BusinessFacade.pdb
+D:\MyInfo\NUS\ATS\Business\ATS.BusinessFacade\bin\Debug\Database\ATSCE.sdf
+D:\MyInfo\NUS\ATS\Business\ATS.BusinessFacade\bin\Debug\ATS.BusinessFacade.dll
+D:\MyInfo\NUS\ATS\Business\ATS.BusinessFacade\bin\Debug\ATS.BusinessFacade.pdb
+D:\MyInfo\NUS\ATS\Business\ATS.BusinessFacade\bin\Debug\ATS.Data.dll
+D:\MyInfo\NUS\ATS\Business\ATS.BusinessFacade\bin\Debug\EntityFramework.dll
+D:\MyInfo\NUS\ATS\Business\ATS.BusinessFacade\bin\Debug\ATS.Framework.dll
+D:\MyInfo\NUS\ATS\Business\ATS.BusinessFacade\bin\Debug\log4net.dll
+D:\MyInfo\NUS\ATS\Business\ATS.BusinessFacade\bin\Debug\ATS.Data.pdb
+D:\MyInfo\NUS\ATS\Business\ATS.BusinessFacade\bin\Debug\ATS.Framework.pdb
+D:\MyInfo\NUS\ATS\Business\ATS.BusinessFacade\obj\Debug\ATS.BusinessFacade.csprojResolveAssemblyReference.cache
+D:\MyInfo\NUS\ATS\Business\ATS.BusinessFacade\obj\Debug\ATS.BusinessFacade.dll
+D:\MyInfo\NUS\ATS\Business\ATS.BusinessFacade\obj\Debug\ATS.BusinessFacade.pdb
