@@ -22,4 +22,5 @@
             <asp:BoundField DataField="Credit" HeaderText="Remaining Balance" SortExpression="Credit" />
         </Columns>
     </asp:GridView>
+    <asp:Label runat="server" ID="AvailmentLabel" AssociatedControlID="AvailmentLabel"></asp:Label>
 </asp:Content>
