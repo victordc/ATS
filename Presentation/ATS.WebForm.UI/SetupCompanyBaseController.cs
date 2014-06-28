@@ -3,6 +3,7 @@ using ATS.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 using System.Web.Security;
 using WebMatrix.WebData;
@@ -12,13 +13,20 @@ namespace ATS.WebForm.UI
 {
     public class SetupCompanyBaseController : System.Web.UI.Page
     {
-        // Navigator keeps the flow map for the reservation 
+        // Navigator keeps the flow map for the setup company 
         // The key is the "currentpage.aspx" string the value is the "nextpage.aspx"
         private Dictionary<string, string> navigator;
         private Dictionary<string, string> revertNavigator;
 
         // The current page 'id' would be set in this variable by the deriving page
         protected string currentPage;
+
+        protected enum UserRole
+        { 
+            Supervisor,
+            Agent,
+            Staff
+        }
 
         // The reservation facade is a Business Interface providing services for accessing BLL functionality 
         protected IAdminFacade adminFacade;
@@ -43,12 +51,6 @@ namespace ATS.WebForm.UI
             revertNavigator.Add("AddSupervisors.aspx", "AddCompany.aspx");
             revertNavigator.Add("AddAgents.aspx", "AddSupervisors.aspx");
             revertNavigator.Add("AddStaffs.aspx", "AddAgents.aspx");
-
-
-            //navigator.Add("SpecifyItinerary.aspx", "SelectFlight.aspx");
-            //navigator.Add("SelectFlight.aspx", "SpecifyPassenger.aspx");
-            //navigator.Add("SpecifyPassenger.aspx", "ConfirmBooking.aspx");
-            //navigator.Add("ConfirmBooking.aspx", "Default.aspx");
 
             adminFacade = new AdminFacade();
 
@@ -75,32 +77,86 @@ namespace ATS.WebForm.UI
         // Set up company.
         protected void ConfirmSetupPage()
         {
-            //1. Create user account for supervisor/agent/staff
-            for (int i = 0; i < setupCompany.Supervisors.Count; i++)
+            try
             {
-                CreateUserAccount(setupCompany.Supervisors[i]);
-            }
-            for (int i = 0; i < setupCompany.Agents.Count; i++)
-            {
-                CreateUserAccount(setupCompany.Agents[i]);
-            }
-            for (int i = 0; i < setupCompany.Staffs.Count; i++)
-            {
-                CreateUserAccount(setupCompany.Staffs[i]);
-            }
+                // sql ce cannot support multiple connection string.
+                //using (TransactionScope scope = new TransactionScope())
+                //{
+                    //1. Create user account for supervisor/agent/staff
+                    for (int i = 0; i < setupCompany.Supervisors.Count; i++)
+                    {
+                        CreateUserAccount(setupCompany.Supervisors[i]);
+                    }
+                    for (int i = 0; i < setupCompany.Agents.Count; i++)
+                    {
+                        CreateUserAccount(setupCompany.Agents[i]);
+                    }
+                    for (int i = 0; i < setupCompany.Staffs.Count; i++)
+                    {
+                        CreateUserAccount(setupCompany.Staffs[i]);
+                    }
 
-            adminFacade.SetupCompany(setupCompany); 
+                    //2. Setup company, insert staff/agent/supervior to database
+                    adminFacade.SetupCompany(setupCompany);
+
+                    //scope.Complete();
+                //}
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+            
             
             Response.Redirect(navigator[currentPage]);
         }
 
-        //[InitializeSimpleMembership]
         private int CreateUserAccount(RegisterModel model)
         {
-            WebSecurity.CreateUserAndAccount(model.UserName, "p@ssword");
-            //Membership.CreateUser(model.UserName, "p@ssword1");
+            WebSecurity.CreateUserAndAccount(model.UserName, "p@ssword1");
             Roles.AddUserToRole(model.UserName, model.RoleName);
             return 1;
+        }
+
+        protected bool DoesUserNameExist(string userName, UserRole role)
+        {
+            var user = Membership.GetUser(userName);
+            if (user != null)
+                return true;
+
+            switch (role)
+            {
+                case UserRole.Supervisor:
+                    if (setupCompany.Supervisors != null)
+                    {
+                        var query = setupCompany.Supervisors.Where(r => r.UserName == userName).FirstOrDefault();
+                        if (query != null)
+                            return true;
+                    }
+                    break;
+                case UserRole.Agent:
+                    if (setupCompany.Agents != null)
+                    {
+                        var query = setupCompany.Agents.Where(r => r.UserName == userName).FirstOrDefault();
+                        if (query != null)
+                            return true;
+                    }
+                    break;
+                case UserRole.Staff:
+                    if (setupCompany.Staffs != null)
+                    {
+                        var query = setupCompany.Staffs.Where(r => r.UserName == userName).FirstOrDefault();
+                        if (query != null)
+                            return true;
+                    }
+                    break;
+                    break;
+                default:
+                    break;
+            }
+            
+
+            return false;
         }
     }
 }

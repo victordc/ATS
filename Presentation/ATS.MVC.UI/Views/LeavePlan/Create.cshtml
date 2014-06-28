@@ -70,21 +70,36 @@
         $(document).ready(function () {
 
 
+            //Date.bizdays = function (d1, d2) {
+            //    var bd = 0, dd, incr = d1.getDate();
+            //    while (d1 < d2) {
+            //        d1.setDate(++incr);
+            //        dd = d1.getDay();
+            //        if (dd % 6)++bd;
+            //    }
+            //    return bd;
+            //}
+
+
             Date.bizdays = function (d1, d2) {
-                var bd = 0, dd, incr = d1.getDate();
-                while (d1 < d2) {
-                    d1.setDate(++incr);
-                    dd = d1.getDay();
-                    if (dd % 6)++bd;
+                var bd = 0;
+                var dd = 0;
+                var next = d1;
+                while (next <= d2) {
+                    dd = next.getDay();
+                    if (dd % 6) { ++bd; }
+                    next = new Date(next.getTime() + 86400000);
                 }
                 return bd;
             }
+
+
 
             $('#StartDate').datepicker();
             $('#EndDate').datepicker();
 
             $('#LeaveCategoryId').val('1');
-            
+
 
             $("#StartDate").change(function () {
 
@@ -135,10 +150,21 @@
                 $("#Progress").show();
                 $("#info").hide();
 
+                var stt = new Date($('#StartDate').val());
+                var end = new Date($('#EndDate').val());
+                var dr = $('#Duration').val();
+                var ctg = $('#LeaveCategoryId').val();
+
                 request = $.ajax({
                     type: 'POST',
                     url: '/LeavePlan/Create',
-                    data: form.serialize(),
+                    //data: form.serialize(),
+                    data: {
+                        LeaveCategoryId: ctg,
+                        StartDate: stt.getDate() + "/" + (stt.getMonth() + 1) + "/" + stt.getFullYear(),
+                        EndDate: end.getDate() + "/" + (end.getMonth() + 1) + "/" + end.getFullYear(),
+                        Duration: dr
+                    },
                     success: function (response) {
                         $("#info").html(response);
                     }

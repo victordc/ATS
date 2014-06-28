@@ -32,19 +32,36 @@ namespace ATS.WebForm.UI
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            if (setupCompany.Agents == null)
+            if (IsValid)
             {
-                setupCompany.Agents = new List<RegisterModel>();
-            }
-            RegisterModel agn = new RegisterModel()
-            {
-                UserName = UserName.Text,
-                RoleName = "Agent",
-                Email = Email.Text
-            };
+                if (setupCompany.Agents == null)
+                {
+                    setupCompany.Agents = new List<RegisterModel>();
+                }
+                RegisterModel agn = new RegisterModel()
+                {
+                    UserName = UserName.Text,
+                    RoleName = "Agent",
+                    Email = Email.Text
+                };
 
-            setupCompany.Agents.Add(agn);
-            BindData();
+                setupCompany.Agents.Add(agn);
+                BindData();
+            }
+        }
+
+        protected void ServerValidation(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                // Test whether the value entered into the text box is even.
+                args.IsValid = !DoesUserNameExist(args.Value, UserRole.Agent);
+            }
+
+            catch (Exception ex)
+            {
+                args.IsValid = false;
+            }
         }
 
         private void BindData()

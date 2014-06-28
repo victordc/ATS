@@ -23,7 +23,7 @@ namespace ATS.MVC.UI.Controllers
             ViewBag.UserRole = UserSetting.Current.RoleName;
             //int currentUserId = 1;
             var leavePlans = TimesheetRepository.GetLeavePlans(currentUserId);
-            
+
             return View(leavePlans.ToList());
         }
 
@@ -89,6 +89,7 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Edit(int id = 0)
         {
             LeavePlan leaveplan = TimesheetRepository.GetLeavePlanById(id);
+            
             if (leaveplan == null)
             {
                 return HttpNotFound();

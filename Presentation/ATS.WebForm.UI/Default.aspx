@@ -9,9 +9,10 @@
       autogeneratecolumns="False"
       emptydatatext="No data available." 
       allowpaging="false" 
-      runat="server" DataKeyNames="UserName">
+      runat="server" DataKeyNames="UserName"
+       CssClass="table table-striped table-bordered table-hover" >
         <Columns>
-            <asp:BoundField DataField="UserName" HeaderText="Agent name" HeaderStyle-HorizontalAlign="Left" 
+            <asp:BoundField DataField="UserName" HeaderText="User name" HeaderStyle-HorizontalAlign="Left" 
                 InsertVisible="False" ReadOnly="True" SortExpression="UserName" />
             <asp:BoundField DataField="RoleName" HeaderText="Role" 
                 SortExpression="RoleName" />
