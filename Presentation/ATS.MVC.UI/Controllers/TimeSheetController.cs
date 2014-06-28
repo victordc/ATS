@@ -106,12 +106,15 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Details(int id)
         {
             TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
-            var detail = master.TimeSheetDetail;
-            if (detail == null)
+            ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
+
+            foreach (var item in master.TimeSheetDetail)
             {
-                return HttpNotFound();
+                item.LeaveCategories = new SelectList(TimesheetRepository.GetLeaveCategories(), "LeaveCategoryId", "LeaveCategoryDesc", item.LeaveCategoryId);
             }
-            return View(detail.ToList());
+
+            TimeSheetMasterViewModel viewModel = Mapper.Map<TimeSheetMaster, TimeSheetMasterViewModel>(master);
+            return View(viewModel);
         }
 
         //
@@ -122,6 +125,7 @@ namespace ATS.MVC.UI.Controllers
             PersonRepository personRepository = new PersonRepository(new ATSCEEntities());
             Staff staff = personRepository.GetStaffByID(UserSetting.Current.PersonId);
             TimeSheetMaster master = TimeSheetMasterRepository.CreateTimeSheetMasterTemplate(DateTime.Today, staff);
+            ViewBag.LeaveCategories = TimeSheetMasterRepository.GetLeaveCategoriesList();
             ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
             TimeSheetMasterViewModel viewModel = Mapper.Map<TimeSheetMaster, TimeSheetMasterViewModel>(master);
 
@@ -133,19 +137,26 @@ namespace ATS.MVC.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                masterViewModel.Status = Convert.ToInt32(TimeSheetStatus.Submitted);
+                if (Request.Form["save"] != null)
+                {
+                    masterViewModel.Status = Convert.ToInt32(TimeSheetStatus.Draft);
+                }
+                else if (Request.Form["submit"] != null)
+                {
+                    masterViewModel.Status = Convert.ToInt32(TimeSheetStatus.Submitted);
+                }
                 TimeSheetMaster master = Mapper.Map<TimeSheetMasterViewModel, TimeSheetMaster>(masterViewModel);
                 if(master.ValidateWhenCreate())
                 {
                     SaveTimeSheet(master);
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
+                else
+                    ModelState.AddModelError("", "The time sheet has already been created for this month.");
             }
             else
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
-                
-            }
+                ModelState.AddModelError("", "errors in the details. please correct and resubmit.");
+            ViewBag.LeaveCategories = TimeSheetMasterRepository.GetLeaveCategoriesList();
             ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
             return View(masterViewModel);
         }
@@ -206,6 +217,44 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Edit(int id = 0)
         {
             TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
+            TimeSheetMasterViewModel viewModel = Mapper.Map<TimeSheetMaster, TimeSheetMasterViewModel>(master);
+            ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
+            ViewBag.LeaveCategories = TimeSheetMasterRepository.GetLeaveCategoriesList();
+            return View(viewModel);
+        }
+
+        //
+        // POST: /TimeSheet/Edit/5
+
+        [HttpPost]
+        public ActionResult Edit(TimeSheetMasterViewModel masterViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Request.Form["save"] != null)
+                {
+                    masterViewModel.Status = Convert.ToInt32(TimeSheetStatus.Draft);
+                }
+                else if (Request.Form["submit"] != null)
+                {
+                    masterViewModel.Status = Convert.ToInt32(TimeSheetStatus.Submitted);
+                }
+                TimeSheetMaster master = Mapper.Map<TimeSheetMasterViewModel, TimeSheetMaster>(masterViewModel);
+                SaveTimeSheet(master);
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.LeaveCategories = TimeSheetMasterRepository.GetLeaveCategoriesList();
+            ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
+            return View(masterViewModel);
+        }
+
+        //
+        // GET: /TimeSheet/Delete/5
+
+        public ActionResult Delete(int id = 0)
+        {
+            TimeSheetMaster master = TimeSheetMasterRepository.GetTimeSheetMasterById(id);
             ViewBag.StatusList = TimeSheetMasterRepository.GetStatusList();
 
             foreach (var item in master.TimeSheetDetail)
@@ -218,41 +267,18 @@ namespace ATS.MVC.UI.Controllers
         }
 
         //
-        // POST: /TimeSheet/Edit/5
+        // POST: /TimeSheet/Delete/5
 
         [HttpPost]
-        public ActionResult Edit(TimeSheetMaster master)
+        public ActionResult Delete(TimeSheetMaster master)
         {
-            TimeSheetMaster newMaster = master;
             if (ModelState.IsValid)
             {
-                SaveTimeSheet(master);
+                TimeSheetMaster.Delete(master.TimeSheetMasterId);
                 return RedirectToAction("Index");
             }
             return View(master);
-        }
 
-        //
-        // GET: /TimeSheet/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            TimeSheetDetail detail = TimeSheetMasterRepository.GetTimeSheetDetailById(id);
-            if (detail == null)
-            {
-                return HttpNotFound();
-            }
-            return View(detail);
-        }
-
-        //
-        // POST: /TimeSheet/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            TimeSheetDetail.Delete(id);
-            return RedirectToAction("Index");
         }
     }
 }

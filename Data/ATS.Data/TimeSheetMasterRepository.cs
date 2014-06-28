@@ -148,7 +148,6 @@ namespace ATS.Data.DAL
             TimeSheetMaster master = new TimeSheetMaster();
             master.PersonId = staff.PersonId;
             master.Person = staff;
-            master.Company = staff.Supervisor.Company;
             master.Supervisor = staff.Supervisor;
             master.AgencyId = staff.AgentId;
             master.Month = forCalendarMonth.Month;
@@ -235,5 +234,25 @@ namespace ATS.Data.DAL
             return items;
         }
 
+
+        public static List<SelectListItem> GetLeaveCategoriesList()
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem
+            {
+                Text = "",
+                Value = ""
+            });
+            foreach (var item in TimesheetRepository.GetLeaveCategories())
+            {
+                items.Add(new SelectListItem
+                {
+                    Text = item.LeaveCategoryDesc,
+                    Value = item.LeaveCategoryId.ToString()
+                }); 
+            }
+
+            return items;
+        }
     }
 }

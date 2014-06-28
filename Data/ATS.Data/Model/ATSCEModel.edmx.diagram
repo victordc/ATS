@@ -42,6 +42,7 @@
         <EntityTypeShape EntityType="ATSCEModel.webpages_OAuthMembership" Width="1.5" PointX="13.25" PointY="8.125" />
         <EntityTypeShape EntityType="ATSCEModel.webpages_Roles" Width="1.5" PointX="5.125" PointY="7.375" />
         <AssociationConnector Association="ATSCEModel.webpages_UsersInRoles" />
+        <AssociationConnector Association="ATSCEModel.AgentTimeSheetMaster" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

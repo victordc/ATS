@@ -29,8 +29,8 @@ namespace ATS.Data.Model
         public string Remarks { get; set; }
     
         public virtual Person Person { get; set; }
-        public virtual Company Company { get; set; }
         public virtual Supervisor Supervisor { get; set; }
         public virtual ICollection<TimeSheetDetail> TimeSheetDetail { get; set; }
+        public virtual Agent Agent { get; set; }
     }
 }

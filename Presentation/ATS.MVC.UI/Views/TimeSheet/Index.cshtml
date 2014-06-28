@@ -67,7 +67,7 @@
                 @Html.DisplayFor(modelItem => item.Agent.PersonName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Month)
+                @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Month)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Year)
@@ -79,8 +79,13 @@
                 @Html.DisplayFor(modelItem => item.Remarks)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.TimeSheetMasterId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.TimeSheetMasterId })
+                @if (item.Status == Convert.ToInt32(ATS.Data.DAL.TimeSheetStatus.Draft) || item.Status == Convert.ToInt32(ATS.Data.DAL.TimeSheetStatus.Rejected))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id=item.TimeSheetMasterId })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TimeSheetMasterId })
+                }
+                    
+                    @Html.ActionLink("View", "Details", new { id = item.TimeSheetMasterId })
             </td>
         </tr>
     }

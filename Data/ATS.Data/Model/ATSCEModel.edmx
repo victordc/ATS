@@ -79,6 +79,7 @@
           </Key>
           <Property Name="LeaveCategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="LeaveCategoryDesc" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LeaveCategoryLimit" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="LeavePlan">
           <Key>
@@ -339,6 +340,10 @@
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="UserProfile" EntitySet="UserProfiles" />
           </AssociationSet>
+          <AssociationSet Name="AgentTimeSheetMaster" Association="ATSCEModel.AgentTimeSheetMaster">
+            <End Role="Agent" EntitySet="Persons" />
+            <End Role="TimeSheetMaster" EntitySet="TimeSheetMasters" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CodeTable">
           <Key>
@@ -373,6 +378,7 @@
           <Property Type="Int32" Name="LeaveCategoryId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="LeaveCategoryDesc" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LeavePlans" Relationship="ATSCEModel.LeaveCategory__LeavePlan" FromRole="LeaveCategory" ToRole="LeavePlan" />
+          <Property Type="Int32" Name="LeaveCategoryLimit" Nullable="false" />
         </EntityType>
         <EntityType Name="LeavePlan">
           <Key>
@@ -506,9 +512,9 @@
           <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="Remarks" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Person" Relationship="ATSCEModel.TimeSheetMasterPerson" FromRole="TimeSheetMaster" ToRole="Person" />
-          <NavigationProperty Name="Company" Relationship="ATSCEModel.TimeSheetMasterCompany" FromRole="TimeSheetMaster" ToRole="Company" />
           <NavigationProperty Name="Supervisor" Relationship="ATSCEModel.TimeSheetMasterSupervisor" FromRole="TimeSheetMaster" ToRole="Supervisor" />
           <NavigationProperty Name="TimeSheetDetail" Relationship="ATSCEModel.TimeSheetMasterTimeSheetDetail" FromRole="TimeSheetMaster" ToRole="TimeSheetDetail" />
+          <NavigationProperty Name="Agent" Relationship="ATSCEModel.AgentTimeSheetMaster" FromRole="TimeSheetMaster" ToRole="Agent" />
         </EntityType>
         <Association Name="TimeSheetMasterTimeSheetDetail">
           <End Type="ATSCEModel.TimeSheetMaster" Role="TimeSheetMaster" Multiplicity="1" />
@@ -618,6 +624,18 @@
           <End Type="ATSCEModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
           <End Type="ATSCEModel.UserProfile" Role="UserProfile" Multiplicity="*" />
         </Association>
+        <Association Name="AgentTimeSheetMaster">
+          <End Type="ATSCEModel.Agent" Role="Agent" Multiplicity="0..1" />
+          <End Type="ATSCEModel.TimeSheetMaster" Role="TimeSheetMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="TimeSheetMaster">
+              <PropertyRef Name="AgencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -654,6 +672,7 @@
           <EntitySetMapping Name="LeaveCategories">
             <EntityTypeMapping TypeName="ATSCEModel.LeaveCategory">
               <MappingFragment StoreEntitySet="LeaveCategories">
+                <ScalarProperty Name="LeaveCategoryLimit" ColumnName="LeaveCategoryLimit" />
                 <ScalarProperty Name="LeaveCategoryDesc" ColumnName="LeaveCategoryDesc" />
                 <ScalarProperty Name="LeaveCategoryId" ColumnName="LeaveCategoryId" />
               </MappingFragment>

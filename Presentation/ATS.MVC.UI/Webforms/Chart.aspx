@@ -7,6 +7,7 @@
     <script src="../Scripts/chart.js"></script>
     <link href="../Content/chart.css" rel="stylesheet" />
     <link href="../Content/morris.css" rel="stylesheet" />
+    <h3>Leave History</h3>
     <div id="graph"></div>
     <script type="text/javascript">
         var newHistory = <%=JsonResult %>;
@@ -14,8 +15,8 @@
             element: 'graph',
             data: newHistory,
             xkey: 'StartDate',
-            ykeys: ['MC','Annual','Exams'],
-            labels: ['MC','Annual','Exams']
+            ykeys: ['MC','Annual','Exams', 'Business'],
+            labels: ['MC','Annual','Exams', 'Business']
         });
     </script>
 </asp:Content>
