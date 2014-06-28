@@ -115,6 +115,11 @@ namespace ATS.MVC.UI.Controllers
         {
             try
             {
+                if (!personFacade.IsUniqueEmail(supervisor))
+                {
+                    ModelState.AddModelError("Email", "Email is taken!");
+                }
+
                 if (ModelState.IsValid)
                 {
                     personFacade.UpdateSupervisor(supervisor);

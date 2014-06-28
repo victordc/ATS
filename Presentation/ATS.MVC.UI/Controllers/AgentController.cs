@@ -112,6 +112,12 @@ namespace ATS.MVC.UI.Controllers
         {
             try
             {
+                if (!personFacade.IsUniqueEmail(agent))
+                {
+                    ModelState.AddModelError("Email", "Email is taken!");
+                }
+
+
                 if (ModelState.IsValid)
                 {
                     personFacade.UpdateAgent(agent);

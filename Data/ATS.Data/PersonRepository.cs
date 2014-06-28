@@ -51,9 +51,21 @@ namespace ATS.Data.DAL
 
         public bool IsUniqueEmail(Person person)
         {
-            IQueryable<Person> query = from s in context.Persons
-                                       where s.Email == person.Email
-                                       select s;
+            IQueryable<Person> query;
+            if (person.PersonId != 0)
+            {
+                //Update
+                query = from s in context.Persons
+                    where s.Email == person.Email && s.PersonId != person.PersonId
+                    select s;
+            }
+            else
+            {
+                //Create
+                query = from s in context.Persons
+                        where s.Email == person.Email
+                        select s;
+            }
             Person p = query.FirstOrDefault<Person>();
             if (p == null)
             {

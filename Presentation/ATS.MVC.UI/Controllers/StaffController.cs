@@ -142,11 +142,17 @@ namespace ATS.MVC.UI.Controllers
         {
             try
             {
+                if (!personFacade.IsUniqueEmail(staff))
+                {
+                    ModelState.AddModelError("Email", "Email is taken!");
+                }
+
                 if (ModelState.IsValid)
                 {
                     personFacade.UpdateStaff(staff);
                     return RedirectToAction("Index");
                 }
+                
             }
             catch (DataException /* dex */)
             {
