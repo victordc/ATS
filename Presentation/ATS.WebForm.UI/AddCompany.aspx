@@ -5,16 +5,20 @@
         <legend>Add Company</legend>
 
         <div class="control-group">
-            <asp:Label ID="lblName" runat="server" CssClass="control-label" ></asp:Label>
+            <asp:Label ID="lblName" runat="server" CssClass="control-label"  Text="Company Name" ></asp:Label>
             <div class="controls">
                 <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtName" CssClass="badge badge-important"
+                     ErrorMessage="The company name field is required." />
             </div>
         </div>
 
         <div class="control-group">
-            <asp:Label ID="lblAddress" runat="server" CssClass="control-label" ></asp:Label>
+            <asp:Label ID="lblAddress" runat="server" CssClass="control-label" Text="Address" ></asp:Label>
             <div class="controls">
                 <asp:TextBox ID="txtAddress" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtAddress" CssClass="badge badge-important"
+                     ErrorMessage="The address field is required." />
             </div>
         </div>
         <div class="control-group">
