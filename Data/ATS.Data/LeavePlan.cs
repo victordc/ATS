@@ -62,6 +62,12 @@ namespace ATS.Data.Model
             return context.LeavePlans.Include(l => l.LeaveCategory).Include(l => l.Person).Where(l => l.PersonId == userId);
         }
 
+        public static IEnumerable<LeavePlan> GetAllUnrejected(int userId)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            return context.LeavePlans.Include(l => l.LeaveCategory).Include(l => l.Person).Where(l => l.PersonId == userId  && !(l.Admitted == false));
+        }
+
         public static IEnumerable<LeavePlan> GetAll(int userId, int year)
         {
             ATSCEEntities context = new ATSCEEntities();
@@ -104,6 +110,25 @@ namespace ATS.Data.Model
             }
             leavesForTeam = from allLeavePlans in context.LeavePlans
                             where (allLeavePlans.Person as Staff).SupervisorId == queryId
+                            select allLeavePlans;
+            return leavesForTeam;
+        }
+
+        public static IEnumerable<LeavePlan> GetAllUnrejectedLeavePlansForTeam(int userId)
+        {
+            ATSCEEntities context = new ATSCEEntities();
+            IEnumerable<LeavePlan> leavesForTeam = null;
+            int queryId = userId;
+            //Check if this user has Supervisor
+            var query = ((from persons in context.Persons
+                          where persons.PersonId == userId
+                          select persons).FirstOrDefault() as Staff);
+            if (query != null)
+            {
+                queryId = query.SupervisorId.Value;
+            }
+            leavesForTeam = from allLeavePlans in context.LeavePlans
+                            where ((allLeavePlans.Person as Staff).SupervisorId == queryId && !(allLeavePlans.Admitted == false))
                             select allLeavePlans;
             return leavesForTeam;
         }

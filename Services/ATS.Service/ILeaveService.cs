@@ -23,6 +23,8 @@ namespace ATS.Service
     public class LeaveSummary
     {
         [DataMember]
+        public int StaffID { get; set; }
+        [DataMember]
         public string StaffName { get; set; }
         [DataMember]
         public double ApprovedDuration { get; set; }

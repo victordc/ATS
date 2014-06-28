@@ -15,14 +15,14 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Index()
         {
             int currentUserId = UserSetting.Current.PersonId;
-            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlans(currentUserId);
+            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetUnrejectedLeavePlans(currentUserId);
             return View(leaves);
         }
 
         public ActionResult Team()
         {
             int currentUserId = UserSetting.Current.PersonId;
-            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetLeavePlansForTeam(currentUserId); 
+            IEnumerable<LeavePlan> leaves = TimesheetRepository.GetUnrejectedLeavePlansForTeam(currentUserId); 
             return View(leaves);
         }
 
