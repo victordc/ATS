@@ -154,6 +154,15 @@ namespace ATS.Data.Model
                 return false;
             }
         }
+
+        public bool ValidateDate()
+        {
+            DateTime trialPeriodEnd = installationDate.AddMonths(3);
+            if (trialPeriodEnd > DateTime.Now)
+            {
+                // do something
+            }
+        }
     }
 
 
