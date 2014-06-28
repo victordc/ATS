@@ -79,7 +79,7 @@ namespace ATS.Data.Model
             return context.LeavePlans.Include(l => l.LeaveCategory).Include(l => l.Person)
                 .Where(l => l.PersonId == userId && l.StartDate <= monthEnd && l.EndDate >= monthStart);
         }
-        
+
         public static IEnumerable<LeavePlan> GetAllLeavePlansForTeam(int userId)
         {
             ATSCEEntities context = new ATSCEEntities();
@@ -194,6 +194,57 @@ namespace ATS.Data.Model
 
             return true;
         }
+
+        public static int getTotalRemainingLeaveDays(LeavePlan leaveplan)
+        {
+
+            ATSCEEntities context = new ATSCEEntities();
+
+            // 0 = same year
+            // 1 = different years
+            int status = leaveplan.EndDate.Year - leaveplan.StartDate.Year;
+
+            int totalRemaining = context.LeaveCategories.Where(ll => ll.LeaveCategoryId == leaveplan.LeaveCategoryId).FirstOrDefault().LeaveCategoryLimit;
+
+            if (status == 0)
+            {
+                var year1 = GetAll(leaveplan.PersonId, leaveplan.StartDate.Year);
+
+                foreach (LeavePlan lx in year1)
+                {
+                    if (lx.LeaveCategoryId == leaveplan.LeaveCategoryId && lx.LeavePlanId != leaveplan.LeavePlanId && lx.Admitted != false)
+                    {
+                        totalRemaining -= int.Parse(lx.Duration.ToString());
+                    }
+                }
+
+            }
+            else if (status == 1)
+            {
+                var year1 = GetAll(leaveplan.PersonId, leaveplan.StartDate.Year);
+                var year2 = GetAll(leaveplan.PersonId, leaveplan.EndDate.Year);
+
+                foreach (LeavePlan lx in year1)
+                {
+                    if (lx.LeaveCategoryId == leaveplan.LeaveCategoryId && lx.LeavePlanId != leaveplan.LeavePlanId && lx.Admitted != false)
+                    {
+                        totalRemaining -= int.Parse(lx.Duration.ToString());
+                    }
+                }
+
+                foreach (LeavePlan lx in year2)
+                {
+                    if (lx.LeaveCategoryId == leaveplan.LeaveCategoryId && lx.LeavePlanId != leaveplan.LeavePlanId && lx.Admitted != false)
+                    {
+                        totalRemaining -= int.Parse(lx.Duration.ToString());
+                    }
+                }
+            }
+
+            return totalRemaining;
+            
+        }
+
     }
 
     public class LeavePlanData

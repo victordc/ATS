@@ -97,7 +97,7 @@
             $('#StartDate').val(sss[1] + "/" + sss[0] + "/" + sss[2]);
             $('#EndDate').val(eee[1] + "/" + eee[0] + "/" + eee[2]);
 
-            $('#LeaveCategoryId').val('1');
+            //$('#LeaveCategoryId').val('1');
 
 
             $("#StartDate").change(function () {
@@ -106,6 +106,13 @@
                 var dateEnd = new Date($('#EndDate').val());
 
                 var duration = Date.bizdays(dateStart, dateEnd);
+
+                if (duration == 0) {
+                    $('#EndDate').val($('#StartDate').val());
+                    if (dateStart.getDay() % 6) {
+                        duration = 1;
+                    }
+                }
 
                 $('#Duration').val(duration);
 
@@ -117,6 +124,13 @@
                 var dateEnd = new Date($('#EndDate').val());
 
                 var duration = Date.bizdays(dateStart, dateEnd);
+
+                if (duration == 0) {
+                    $('#EndDate').val($('#StartDate').val());
+                    if (dateStart.getDay() % 6) {
+                        duration = 1;
+                    }
+                }
 
                 $('#Duration').val(duration);
 

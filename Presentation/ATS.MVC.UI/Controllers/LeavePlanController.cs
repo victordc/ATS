@@ -57,12 +57,23 @@ namespace ATS.MVC.UI.Controllers
         [HttpPost]
         public string Create(LeavePlan leaveplan)
         {
-            if (leaveplan.StartDate < DateTime.Now || leaveplan.EndDate < DateTime.Now)
-            {
-                return "Start and End Dates can not be in the past. Please correct.";
-            }
+
             int currentUserId = UserSetting.Current.PersonId;
             leaveplan.PersonId = currentUserId;
+
+            if (leaveplan.StartDate < DateTime.Now || leaveplan.EndDate < DateTime.Now)
+            {
+                if ((TimesheetRepository.getLeaveCategoryById(leaveplan.LeaveCategoryId).LeaveCategoryDesc != "MC"))
+                {
+                    return "Start and End Dates can not be in the past, unless you apply for MC. Please correct.";
+                }
+
+            }
+
+            if (TimesheetRepository.getTotalRemainingLeaveDays(leaveplan) - leaveplan.Duration < 0)
+            {
+                return "Your total remaining leaves for theis leave category is less than the applied duration.";
+            }
 
             if (ModelState.IsValid)
             {
@@ -89,7 +100,7 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Edit(int id = 0)
         {
             LeavePlan leaveplan = TimesheetRepository.GetLeavePlanById(id);
-            
+
             if (leaveplan == null)
             {
                 return HttpNotFound();
@@ -103,15 +114,24 @@ namespace ATS.MVC.UI.Controllers
         // POST: /LeavePlan/Edit/5
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public string Edit(LeavePlan leaveplan)
         {
-            if (leaveplan.StartDate < DateTime.Now || leaveplan.EndDate < DateTime.Now)
-            {
-                return "Start and End Dates can not be in the past. Please correct.";
-            }
+
             int currentUserId = UserSetting.Current.PersonId;
             leaveplan.PersonId = currentUserId;
+
+            if (leaveplan.StartDate < DateTime.Now || leaveplan.EndDate < DateTime.Now)
+            {
+                if ((TimesheetRepository.getLeaveCategoryById(leaveplan.LeaveCategoryId).LeaveCategoryDesc != "MC"))
+                {
+                    return "Start and End Dates can not be in the past, unless you apply for MC. Please correct.";
+                }
+            }
+
+            if (TimesheetRepository.getTotalRemainingLeaveDays(leaveplan) - leaveplan.Duration < 0)
+            {
+                return "Your total remaining leaves for theis leave category is less than the applied duration.";
+            }
 
             if (ModelState.IsValid)
             {
