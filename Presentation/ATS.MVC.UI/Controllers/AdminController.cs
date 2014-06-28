@@ -35,12 +35,12 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult Index()
         {
             // Get list of role
-            ViewBag.Roles = TimesheetRepository.Instance.GetAllRoles();
+            ViewBag.Roles = adminFacade.GetAllRoles();
             SelectList list = new SelectList(ViewBag.Roles, "RoleId", "RoleName");
             ViewBag.myList = list;
 
             // Get all users
-            var users = TimesheetRepository.Instance.GetAllUsers();
+            var users = adminFacade.GetAllUsers();
             foreach (var item in users)
             {
                 item.RoleName = Roles.GetRolesForUser(item.UserName).FirstOrDefault();
@@ -65,7 +65,7 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult UpdateUser(int userId = 0)
         {
             //1. Get all role to bind to ddl
-            ViewBag.Roles = TimesheetRepository.Instance.GetAllRoles();
+            ViewBag.Roles = adminFacade.GetAllRoles();
 
             //2. Add mode
             if (userId <= 0)
@@ -77,7 +77,7 @@ namespace ATS.MVC.UI.Controllers
             //3. Edit mode
             else
             {
-                var user = TimesheetRepository.Instance.GetUserById(userId);
+                var user = adminFacade.GetUserById(userId);
                 ATS.MVC.UI.Models.RegisterModel model = new ATS.MVC.UI.Models.RegisterModel();
                 model.UserName = user.UserName;
                 SelectList list = new SelectList(ViewBag.Roles, "RoleName", "RoleName", Roles.GetRolesForUser(user.UserName).FirstOrDefault());
@@ -161,7 +161,7 @@ namespace ATS.MVC.UI.Controllers
         public ActionResult UpdateObjectAccess(int objectAccessId = 0)
         {
             //1. Get all role to bind to ddl
-            ViewBag.Roles = TimesheetRepository.Instance.GetAllRoles();
+            ViewBag.Roles = adminFacade.GetAllRoles();
 
             //2. Add mode
             if (objectAccessId <= 0)
@@ -242,7 +242,7 @@ namespace ATS.MVC.UI.Controllers
         [HttpPost]
         public ActionResult SearchUsers(string userName)
         {
-            IEnumerable<UserProfile> users = TimesheetRepository.Instance.GetUsersByName(userName);
+            IEnumerable<UserProfile> users = adminFacade.GetUsersByName(userName);
             UserProfile user = users.FirstOrDefault();
 
             return Json(user);
@@ -258,7 +258,7 @@ namespace ATS.MVC.UI.Controllers
             {
                 if (Session["RoleList"] == null)
                 {
-                    Session["RoleList"] = TimesheetRepository.Instance.GetAllRoles();
+                    Session["RoleList"] = adminFacade.GetAllRoles();
                 }
                 return (IEnumerable<webpages_Roles>)Session["RoleList"];
             }

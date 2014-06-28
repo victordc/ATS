@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<repositories>
+  <repository path="..\Data\ATS.Data\packages.config" />
+  <repository path="..\Presentation\ATS.MVC.UI.Tests\packages.config" />
+  <repository path="..\Presentation\ATS.MVC.UI\packages.config" />
+</repositories>

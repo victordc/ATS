@@ -4,24 +4,98 @@
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - ATS</title>
     <asp:PlaceHolder runat="server">     
           <%: Scripts.Render("~/bundles/modernizr") %>
+        <%: Styles.Render("~/Content/bootstrapcss") %>
+        <%: Scripts.Render("~/bundles/jquery")%>
+        <%: Scripts.Render("~/bundles/bootstrapjs")%>
     </asp:PlaceHolder>  
     <webopt:BundleReference runat="server" Path="~/Content/css" /> 
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet"  />
     <meta name="viewport" content="width=device-width" />
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+    <style type="text/css">
+            body {
+            padding-top: 20px;
+            padding-bottom: 60px;
+            }
+
+            /* Custom container */
+            .container {
+            margin: 0 auto;
+            }
+            .container > hr {
+            margin: 60px 0;
+            }
+
+            /* Main marketing message and sign up button */
+            .jumbotron {
+            margin: 80px 0;
+            text-align: center;
+            }
+            .jumbotron h1 {
+            font-size: 100px;
+            line-height: 1;
+            }
+            .jumbotron .lead {
+            font-size: 24px;
+            line-height: 1.25;
+            }
+            .jumbotron .btn {
+            font-size: 21px;
+            padding: 14px 24px;
+            }
+
+            /* Supporting marketing content */
+            .marketing {
+            margin: 60px 0;
+            }
+            .marketing p + h4 {
+            margin-top: 28px;
+            }
+
+
+            /* Customize the navbar links to be fill the entire space of the .navbar */
+            .navbar .navbar-inner {
+            padding: 0;
+            }
+            .navbar .nav {
+            margin: 0;
+            display: table;
+            width: 100%;
+            }
+            .navbar .nav li {
+            display: table-cell;
+            width: 1%;
+            float: none;
+            }
+            .navbar .nav li a {
+            font-weight: bold;
+            text-align: center;
+            border-left: 1px solid rgba(255,255,255,.75);
+            border-right: 1px solid rgba(0,0,0,.1);
+            }
+            .navbar .nav li:first-child a {
+            border-left: 0;
+            border-radius: 3px 0 0 3px;
+            }
+            .navbar .nav li:last-child a {
+            border-right: 0;
+            border-radius: 0 3px 3px 0;
+            }
+    </style>
 </head>
 <body>
-    <form runat="server" >
+<form runat="server" class="form-horizontal">
     <asp:ScriptManager runat="server">
         <Scripts>
             <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=272931&clcid=0x409 --%>
             <%--Framework Scripts--%>
-            
             <asp:ScriptReference Name="MsAjaxBundle" />
             <asp:ScriptReference Name="jquery" />
+            <%--<asp:ScriptReference Name="bootstrapjs"  />--%>
             <asp:ScriptReference Name="jquery.ui.combined" />
             <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
             <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
@@ -36,54 +110,37 @@
 
         </Scripts>
     </asp:ScriptManager>
-    <header>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title">
-                    <a runat="server" href="~/">your logo here</a>
-                </p>
-            </div>
-            <div class="float-right">
-                <section id="login">
-                    <asp:LoginView runat="server" ViewStateMode="Disabled">
-                        <AnonymousTemplate>
-                            <ul>
-                                <li><a id="registerLink" runat="server" href="~/Account/Register">Register</a></li>
-                                <li><a id="loginLink" runat="server" href="~/Account/Login">Log in</a></li>
-                            </ul>
-                        </AnonymousTemplate>
-                        <LoggedInTemplate>
-                            <p>
-                                Hello, <a runat="server" class="username" href="~/Account/Manage" title="Manage your account">
-                                    <asp:LoginName runat="server" CssClass="username" /></a>!
-                                <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" />
-                            </p>
-                        </LoggedInTemplate>
-                    </asp:LoginView>
-                </section>
-                <nav>
-                    <ul id="menu">
-                        <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/About">About</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
+    <div class="container">
+        <div class="masthead">
+            <h3 class="muted">ATS - AGENCY TIMESHEET SYSTEM</h3>
+            <%--<div align="right">
+                Login Info
+           </div>
+            <div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li>Home</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </div><!-- /.navbar -->--%>
         </div>
-    </header>
-    <div id="body">
-        <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
-        <section class="content-wrapper main-content clear-fix">
-            <asp:ContentPlaceHolder runat="server" ID="MainContent" />
-        </section>
+        <div id="Div1">
+            <section class="content-wrapper main-content clear-fix">
+                <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+            </section>
+        </div>
+        <hr>
+        <footer>
+            <div class="footer">
+                <div class="float-left">
+                    <p>&copy; <%: DateTime.Now.Year %> - ATS</p>
+                </div>
+            </div>
+        </footer>
     </div>
-    <footer>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
-            </div>
-        </div>
-    </footer>
-    </form>
+</form>
 </body>
 </html>

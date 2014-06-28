@@ -40,3 +40,4 @@ C:\NUS\ENet1\ATS\Data\ATS.Data\bin\Debug\ATS.Framework.pdb
 C:\NUS\ENet1\ATS\Data\ATS.Data\obj\Debug\ATS.Data.csprojResolveAssemblyReference.cache
 C:\NUS\ENet1\ATS\Data\ATS.Data\obj\Debug\ATS.Data.dll
 C:\NUS\ENet1\ATS\Data\ATS.Data\obj\Debug\ATS.Data.pdb
+C:\NUS\Enterprise.Net1\ATS\Data\ATS.Data\bin\Debug\EntityFramework.xml

@@ -6,6 +6,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using ATS.WebForm.UI;
+using WebMatrix.WebData;
 
 namespace ATS.WebForm.UI
 {
@@ -17,6 +18,7 @@ namespace ATS.WebForm.UI
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterOpenAuth();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
         }
 
         void Application_End(object sender, EventArgs e)

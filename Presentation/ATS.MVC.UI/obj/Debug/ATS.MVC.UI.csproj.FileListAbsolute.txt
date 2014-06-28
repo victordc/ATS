@@ -223,3 +223,8 @@ C:\Users\vinay\Documents\GitHub\ATS\Presentation\ATS.MVC.UI\bin\DotNetOpenAuth.O
 C:\Users\vinay\Documents\GitHub\ATS\Presentation\ATS.MVC.UI\obj\Debug\ATS.MVC.UI.csprojResolveAssemblyReference.cache
 C:\Users\vinay\Documents\GitHub\ATS\Presentation\ATS.MVC.UI\obj\Debug\ATS.MVC.UI.dll
 C:\Users\vinay\Documents\GitHub\ATS\Presentation\ATS.MVC.UI\obj\Debug\ATS.MVC.UI.pdb
+C:\NUS\Enterprise.Net1\ATS\Presentation\ATS.MVC.UI\bin\AutoMapper.Net4.dll
+C:\NUS\Enterprise.Net1\ATS\Presentation\ATS.MVC.UI\bin\ATS.BusinessFacade.dll
+C:\NUS\Enterprise.Net1\ATS\Presentation\ATS.MVC.UI\bin\AutoMapper.dll
+C:\NUS\Enterprise.Net1\ATS\Presentation\ATS.MVC.UI\bin\ATS.BusinessFacade.pdb
+C:\NUS\Enterprise.Net1\ATS\Presentation\ATS.MVC.UI\bin\AutoMapper.xml

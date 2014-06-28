@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace ATS.Data.Model
 {
+    [MetadataType(typeof(TimeSheetDetailData))]
     public partial class TimeSheetDetail
     {
 
@@ -92,5 +93,15 @@ namespace ATS.Data.Model
             }
 
         }
+    }
+
+    public class TimeSheetDetailData
+    {
+
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        public string StartTime { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        public string EndTime { get; set; }
     }
 }

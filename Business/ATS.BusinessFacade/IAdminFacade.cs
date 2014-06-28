@@ -59,5 +59,48 @@ namespace ATS.BusinessFacade
         /// <param name="oa"></param>
         /// <returns></returns>
         string DeleteObjectAccess(ObjectAccess oa);
+
+                /// <summary>
+        /// Setup company
+        /// </summary>
+        /// <param name="setupCompany"></param>
+        /// <returns></returns>
+        int SetupCompany(SetupCompany setupCompany);
+
+        #region Membership
+
+        /// <summary>
+        /// Get all users.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<UserProfile> GetAllUsers();
+
+        /// <summary>
+        /// Get user by id.
+        /// </summary>
+        /// <returns></returns>
+        UserProfile GetUserById(int id);
+
+        /// <summary>
+        /// Gets users by name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        IEnumerable<UserProfile> GetUsersByName(string name);
+
+        /// <summary>
+        /// Get all roles.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<webpages_Roles> GetAllRoles();
+
+        /// <summary>
+        /// Get role by name 
+        /// </summary>
+        /// <returns></returns>
+        webpages_Roles GetRoleByName(string name);
+
+        #endregion
+
     }
 }

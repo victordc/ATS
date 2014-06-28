@@ -126,5 +126,122 @@ namespace ATS.BusinessFacade
         }
 
         #endregion
+
+        #region Setup Company
+
+        /// <summary>
+        /// Setup company
+        /// </summary>
+        /// <param name="setupCompany"></param>
+        /// <returns></returns>
+        public int SetupCompany(SetupCompany setupCompany)
+        {
+            int result = -1;
+            try
+            {
+                //using (TransactionScope scope = new TransactionScope())
+                {
+                    //1. Insert company
+                    setupCompany.Company.Save();
+
+                    //2. Insert supervisors
+                    foreach (RegisterModel item in setupCompany.Supervisors)
+                    {
+                        Supervisor supervisor = new Supervisor();
+                        supervisor.PersonName = (string.IsNullOrEmpty(item.FullName)? item.UserName: item.FullName);
+                        supervisor.UserName = item.UserName;
+                        supervisor.Email = item.Email;
+                        supervisor.Phone = "98765432"; //TODO: hardcoded 
+
+                        supervisor.Save();
+                    }
+
+                    //3. Insert Agents
+                    foreach (RegisterModel item in setupCompany.Agents)
+                    {
+                        Agent agent = new Agent();
+                        agent.PersonName = (string.IsNullOrEmpty(item.FullName) ? item.UserName : item.FullName);
+                        agent.UserName = item.UserName;
+                        agent.Email = item.Email;
+                        agent.Phone = "98765432"; //TODO: hardcoded 
+                        agent.Save();
+                    }
+
+                    //4. Insert Staffs
+                    foreach (RegisterModel item in setupCompany.Staffs)
+                    {
+                        Staff staff = new Staff();
+                        staff.PersonName = (string.IsNullOrEmpty(item.FullName) ? item.UserName : item.FullName);
+                        staff.UserName = item.UserName;
+                        staff.Email = item.Email;
+                        staff.Phone = "98765432"; //TODO: hardcoded 
+                        staff.SupervisorId = Person.GetByName(item.SupervisorName).PersonId;
+                        staff.AgentId = Person.GetByName(item.AgentName).PersonId;
+                        staff.Save();
+                    }
+
+                    //scope.Complete();
+                }
+            }
+            //catch (TransactionAbortedException ex)
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        #region Membership
+
+        /// <summary>
+        /// Get all users.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<UserProfile> GetAllUsers()
+        {
+            return UserProfile.GetAllUsers();
+        }
+
+        /// <summary>
+        /// Get user by id.
+        /// </summary>
+        /// <returns></returns>
+        public UserProfile GetUserById(int id)
+        {
+            return UserProfile.GetUserById(id);
+        }
+
+        /// <summary>
+        /// Gets users by name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public IEnumerable<UserProfile> GetUsersByName(string name)
+        {
+            return UserProfile.GetUsersByName(name);
+        }
+
+        /// <summary>
+        /// Get all roles.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<webpages_Roles> GetAllRoles()
+        {
+            return webpages_Roles.GetAllRoles();
+        }
+
+        /// <summary>
+        /// Get role by name 
+        /// </summary>
+        /// <returns></returns>
+        public webpages_Roles GetRoleByName(string name)
+        {
+            return webpages_Roles.GetRoleByName(name);
+        }
+
+        #endregion
     }
 }
